@@ -4,7 +4,6 @@ import {
   Menu,
   X,
   BookOpen,
-  Github,
   Globe,
   FileText,
   Download,
@@ -14,6 +13,7 @@ import { CopawMascot } from "@/components/CopawMascot";
 import { useTranslation } from "react-i18next";
 import { useSiteLanguage } from "@/i18n/SiteLanguageContext";
 import { useSiteConfig } from "@/config-context";
+import { GitHubIcon, SelectTextIcon } from "./Icon";
 
 const AGENTSCOPE_LOGO_SIZE = 22;
 
@@ -126,18 +126,9 @@ export function Nav() {
             )}
           </div>
           <Link to={docsBase} className={navLinkClass}>
-            <BookOpen size={18} strokeWidth={navIconStroke} aria-hidden />
+            <SelectTextIcon />
             <span>{t("nav.docs")}</span>
           </Link>
-          <button
-            type="button"
-            onClick={toggleLang}
-            className={`${navLinkClass} cursor-pointer border-0 bg-transparent`}
-            aria-label={t("nav.lang")}
-          >
-            <Globe size={18} strokeWidth={navIconStroke} aria-hidden />
-            <span>{t("nav.lang")}</span>
-          </button>
           <a
             href="https://github.com/agentscope-ai/CoPaw"
             target="_blank"
@@ -145,7 +136,7 @@ export function Nav() {
             className={navLinkClass}
             title="CoPaw on GitHub"
           >
-            <Github size={18} strokeWidth={navIconStroke} aria-hidden />
+            <GitHubIcon />
             <span>{t("nav.github")}</span>
           </a>
           <a
@@ -159,6 +150,15 @@ export function Nav() {
             <AgentScopeLogo />
             <span>{t("nav.agentscopeTeam")}</span>
           </a>
+          <button
+            type="button"
+            onClick={toggleLang}
+            className={`${navLinkClass} cursor-pointer border-0 bg-transparent`}
+            aria-label={t("nav.lang")}
+          >
+            <Globe size={18} strokeWidth={navIconStroke} aria-hidden />
+            <span>{t("nav.lang")}</span>
+          </button>
         </div>
 
         <button
@@ -199,16 +199,6 @@ export function Nav() {
         >
           <BookOpen size={18} strokeWidth={navIconStroke} /> {t("nav.docs")}
         </Link>
-        <button
-          type="button"
-          className={`${navLinkClass} w-full cursor-pointer border-0 bg-transparent text-left`}
-          onClick={() => {
-            toggleLang();
-            setOpen(false);
-          }}
-        >
-          <Globe size={18} strokeWidth={navIconStroke} /> {t("nav.lang")}
-        </button>
         <a
           href="https://github.com/agentscope-ai/CoPaw"
           target="_blank"
@@ -217,7 +207,7 @@ export function Nav() {
           onClick={() => setOpen(false)}
           title="CoPaw on GitHub"
         >
-          <Github size={18} strokeWidth={navIconStroke} /> {t("nav.github")}
+          <GitHubIcon /> {t("nav.github")}
         </a>
         <a
           href="https://agentscope.io/"
@@ -231,6 +221,16 @@ export function Nav() {
           <AgentScopeLogo />
           <span>{t("nav.agentscopeTeam")}</span>
         </a>
+        <button
+          type="button"
+          className={`${navLinkClass} w-full cursor-pointer border-0 bg-transparent text-left`}
+          onClick={() => {
+            toggleLang();
+            setOpen(false);
+          }}
+        >
+          <Globe size={18} strokeWidth={navIconStroke} /> {t("nav.lang")}
+        </button>
       </div>
     </header>
   );

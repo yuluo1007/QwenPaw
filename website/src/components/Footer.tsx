@@ -22,7 +22,7 @@ const PRIVACY_URL =
 export function Footer() {
   const { t } = useTranslation();
   const linkClass =
-    "block text-sm text-[var(--text-muted)] transition-colors hover:!text-[var(--text)]";
+    "block text-sm text-[var(--text-muted)] transition-colors hover:!text-(--color-primary)";
   const sectionTitleClass = "text-sm font-semibold text-[var(--text)]";
 
   return (
@@ -164,7 +164,7 @@ export function Footer() {
               href={ANTHROPIC_SKILLS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2"
+              className="hover:!text-(--color-primary) transition-colors"
             >
               {t("footer.thanksSkills.name")}
             </a>

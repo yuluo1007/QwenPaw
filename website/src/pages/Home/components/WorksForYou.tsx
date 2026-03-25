@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 const container = {
   hidden: { opacity: 0, y: 16 },
@@ -27,27 +28,26 @@ const cards = [
   {
     key: "skills",
     icon: "/support-skills.svg",
-    title: "Support Skills",
     href: "/docs/skills",
   },
   {
     key: "control",
     icon: "/under-control.svg",
-    title: "Under your control",
     href: "/docs/privacy",
   },
   {
     key: "apps",
     icon: "/explore-apps.svg",
-    title: "Explore Apps",
     href: "/docs/apps",
   },
 ] as const;
 
 export function CopawWorksForYou() {
+  const { t } = useTranslation();
+
   return (
     <motion.section
-      className="px-4 pb-12 md:pb-16"
+      className="px-4 py-12 md:py-16"
       variants={container}
       initial="hidden"
       whileInView="show"
@@ -58,12 +58,12 @@ export function CopawWorksForYou() {
         <motion.div variants={item}>
           <h2
             id="copaw-works-heading"
-            className="font-newsreader text-[1.8rem] leading-[1.2] text-(--color-text) sm:text-[2rem] md:text-[2.75rem]"
+            className="font-newsreader font-semibold text-[1.8rem] leading-[1.2] text-(--color-text) sm:text-[2rem] md:text-4xl"
           >
-            Works for you, grows with you
+            {t("worksForYou.title")}
           </h2>
           <p className="font-inter mt-2 max-w-[34ch] text-[13px] leading-relaxed text-(--color-text-tertiary) sm:max-w-none md:text-[1rem]">
-            Memory and personalization under your control.
+            {t("worksForYou.sub")}
           </p>
         </motion.div>
 
@@ -90,19 +90,17 @@ export function CopawWorksForYou() {
                   aria-hidden
                   className="h-20 w-20 object-contain opacity-80 md:h-23 md:w-23"
                 />
-                <h3 className="font-newsreader mt-3 text-[1.65rem] leading-[1.1] text-(--color-text) sm:text-[1.8rem] md:mt-4 md:text-[2.05rem]">
-                  {card.title}
+                <h3 className="font-newsreader mt-3 text-[1.65rem] leading-[1.1] text-(--color-text) sm:text-[1.8rem] md:mt-4 md:text-[1.8rem]">
+                  {t(`worksForYou.cards.${card.key}.title`)}
                 </h3>
-                <p className="font-inter mt-2 text-[13px] leading-[1.65] text-(--color-text-secondary) md:text-[0.95rem]">
-                  Memory and personalization under your control. Deploy locally or
-                  in the cloud; scheduled reminders and collaboration to any
-                  channel reminders.
+                <p className="font-inter mt-2 text-[13px] leading-[1.65] text-(--color-text-secondary) md:text-base">
+                  {t(`worksForYou.cards.${card.key}.desc`)}
                 </p>
                 <a
                   href={card.href}
-                  className="font-inter mt-4 inline-flex w-fit items-center gap-2 text-[0.95rem] font-medium text-(--color-text) transition hover:text-orange-400! md:mt-5 md:text-[0.98rem]"
+                  className="font-inter mt-4 inline-flex w-fit items-center gap-2 text-[0.95rem] text-(--color-text) transition hover:text-orange-400! md:mt-5 md:text-base"
                 >
-                  Learn more
+                  {t("worksForYou.learnMore")}
                   <span aria-hidden>→</span>
                 </a>
               </article>

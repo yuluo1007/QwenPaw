@@ -4,7 +4,7 @@ import type { IconProps } from "./types";
 export const SelectTextIcon: React.FC<IconProps> = ({
   size = 18,
   className = "",
-  color = "#141413",
+  color = "currentColor",
 }) => {
   return (
     <svg

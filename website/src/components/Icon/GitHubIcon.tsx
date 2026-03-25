@@ -4,7 +4,7 @@ import type { IconProps } from "./types";
 export const GitHubIcon: React.FC<IconProps> = ({
   size = 18,
   className = "",
-  color = "#141413",
+  color = "currentColor",
 }) => {
   return (
     <svg
@@ -13,7 +13,7 @@ export const GitHubIcon: React.FC<IconProps> = ({
       width={size}
       height={size}
       viewBox="0 0 16 16"
-      className={`inline-block transition-transform duration-300 ${className}`}
+      className={`inline-block shrink-0 text-current transition-[color,transform] duration-300 ${className}`}
     >
       <defs>
         <clipPath id="master_svg0_25_17676/25_16943">

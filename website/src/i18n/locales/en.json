@@ -14,7 +14,7 @@
     "titleleft": "Your Personal",
     "titleright": "AI assistant,",
     "slogan": "Works for you, grows with you",
-    "sub": "Easy to install, deploy on your own machine & on the cloud; supports multiple chat apps",
+    "sub": "Easy to install, deploy on your own machine & on the cloud; supports multiple IM Apps; with easily extensible capabilities.",
     "cta": "Read the docs",
     "quickStart": "Quick Start",
     "pipInstall": "Pip Install"
@@ -24,6 +24,70 @@
     "sub": "Follow us for the latest CoPaw updates",
     "xiaohongshu": "Rednote:",
     "x": "X:"
+  },
+  "channels": {
+    "titleWe": "We",
+    "titleOperateWith": "operate with",
+    "titleEverything": "Everything.",
+    "sub": "10+ built-in channels, with more coming soon"
+  },
+  "whyCopaw": {
+    "headingPrefix": "Why",
+    "headingEmphasis": "CoPaw?",
+    "sub": "Easy to install, deploy on your own machine & on the cloud;\nsupports multiple IM Apps; with easily extensible capabilities.",
+    "heroLine": "CoPaw represents both a Co Personal Agent Workstation and a \"co-paw\" -- a partner always by your side.",
+    "secondPrefix": "More than just a cold tool, ",
+    "secondEmphasis": "(CoPaw always ready to lend a paw)",
+    "secondSuffix": " It is the ultimate teammate for your digital life."
+  },
+  "worksForYou": {
+    "title": "Works for you, grows with you",
+    "sub": "Memory and personalization under your control.",
+    "learnMore": "Learn more",
+    "cards": {
+      "skills": {
+        "title": "Support Skills",
+        "desc": "Tool guard before execution, file guard on paths, skill scan before install, access control at the edge—four layers, one coherent stack."
+      },
+      "control": {
+        "title": "Under your control",
+        "desc": "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel reminders."
+      },
+      "apps": {
+        "title": "Explore Apps",
+        "desc": "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel reminders."
+      }
+    }
+  },
+  "clientVoices": {
+    "title": "Listen to what the community says about CoPaw",
+    "sub": "See real feedback from CoPaw users",
+    "items": {
+      "t1": {
+        "text": "CoPaw is a truly out-of-the-box, general-purpose AI agent framework. As CoPaw's underlying capabilities continue to iterate, our self-developed business agents can also achieve a leap in intelligence, significantly reducing long-term maintenance costs and technical liabilities.",
+        "role": "Alibaba Cloud Development Engineer"
+      },
+      "t2": {
+        "text": "I feel it's much easier to use than OpenClaw, and it's so much easier to get started! My suggestion is to release a version that natively supports multiple roles working together; I'll be using yours!",
+        "role": "Developer"
+      },
+      "t3": {
+        "text": "It's great, very easy to use, and responds quickly when used with Qwen's models. I suggest you consider using it on embedded devices to reduce resource consumption.",
+        "role": "Independent Developer"
+      },
+      "t4": {
+        "text": "The code looks so clean and easy to understand. Being a developer myself, would love to play with it more.",
+        "role": "Developer"
+      },
+      "t5": {
+        "text": "MCP hot-swapping without restarting is the standout feature for agent workflows. That means you can extend CoPaw's toolset mid-session, no context break, no restart penalty. Skill hub + clawHub integration means the ecosystem compounds fast.",
+        "role": "Developer"
+      },
+      "t6": {
+        "text": "CoPaw is a better option; OpenClaw is too complicated and requires some understanding. However, CoPaw currently lacks multi-agent functionality, though it's similar in other aspects. For features it lacks, AI can write them.",
+        "role": "Developer"
+      }
+    }
   },
   "brandstory": {
     "title": "Why CoPaw?",
@@ -54,7 +118,7 @@
   },
   "usecases": {
     "title": "What you can do with CoPaw",
-    "sub": "",
+    "sub": "Memory and personalization under your control.",
     "category": {
       "social": "Social media",
       "creative": "Creative & building",
@@ -90,6 +154,8 @@
   },
   "quickstart": {
     "title": "Quick start",
+    "heroTitle": "Do it yourself, done easily.",
+    "heroSub": "Your personal AI assistant in minutes. One command, or double-click the app",
     "serviceNotice": "Your personal AI assistant in minutes. One command, or double-click the app—do it yourself, done easily.",
     "hintBefore": "Install → init → start. Configure channels to use CoPaw on DingTalk, Feishu, QQ, etc. See ",
     "hintLink": "docs",
@@ -102,10 +168,10 @@
       "desktop": "Desktop"
     },
     "desc": {
-      "pip": "If you prefer managing Python yourself",
-      "script": "No Python setup required, one command installs everything. The script will automatically download uv (Python package manager), create a virtual environment, and install CoPaw with all dependencies (including Node.js and frontend assets). Note: May not work in restricted network environments or corporate firewalls.",
+      "pip": "If you prefer managing Python yourself, we would like to recommand:",
+      "script": "No Python pre-setup required, one command installs everything.",
       "docker": "Quick deployment with official Docker images, isolated environment and easy management",
-      "cloud": "One-click cloud deployment or online execution, no local setup required",
+      "cloud": "One-click cloud deployment or online execution, no local setup required.",
       "desktop": "Standalone desktop app with bundled Python environment, all dependencies, and frontend assets. Double-click to run, no command line, no prerequisites required."
     },
     "platform": {
@@ -133,6 +199,17 @@
       "recommended": "recommended"
     },
     "badgeBeta": "Beta"
+  },
+  "contributors": {
+    "titlePrefix": "Thank you to every",
+    "titleHighlight": "contributor",
+    "sub": "Every line of code and every pull request in CoPaw embodies the hard work and passion of the community members.",
+    "prev": "Previous contributors page",
+    "next": "Next contributors page",
+    "noteLine1Prefix": "The list of contributors is arranged alphabetically by their GitHub IDs. Please feel free to",
+    "contactUs": "contact us",
+    "noteLine1Suffix": "if you have any questions about the list.",
+    "noteLine2Prefix": "The data comes from all pull requests from"
   },
   "footer": {
     "text": "CoPaw — Works for you, grows with you",

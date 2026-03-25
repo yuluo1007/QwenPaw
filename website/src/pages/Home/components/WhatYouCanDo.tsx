@@ -64,17 +64,16 @@ export function CopawWhatYouCanDo() {
         <motion.div className="text-center" variants={item}>
           <h2
             id="copaw-usecase-heading"
-            className="font-newsreader text-[1.95rem] font-semibold leading-[1.2] text-(--color-text) md:text-[3rem]"
+            className="font-newsreader text-4xl font-semibold leading-[1.2] text-(--color-text) md:text-4xl]"
           >
             {t("usecases.title")}
           </h2>
           <p className="font-inter mx-auto mt-3 max-w-2xl px-1 text-[13px] leading-relaxed text-(--color-text-tertiary) sm:text-sm md:px-0 md:text-[1rem]">
-            Memory and personalization under your control. Memory and
-            personalization under your control.
+            {t("usecases.sub")}
           </p>
         </motion.div>
 
-        <div className="mt-7 grid gap-5 md:mt-10 md:grid-cols-[minmax(260px,1fr)_minmax(0,1.6fr)] md:items-start md:gap-6">
+        <div className="mt-7 grid gap-5 md:mt-15 md:grid-cols-[minmax(260px,1fr)_minmax(0,1.6fr)] md:items-start md:gap-6">
           <div className="p-1.5 md:p-3">
             {CATEGORIES.map(({ key }) => {
               const active = key === activeKey;
@@ -86,7 +85,7 @@ export function CopawWhatYouCanDo() {
                   className="relative w-full py-4 text-left transition md:py-5"
                 >
                   <span
-                    className="absolute bottom-0 left-10 right-0 h-px bg-[#eee4db] md:left-11"
+                    className="absolute bottom-0 left-10 right-0 h-px bg-[#FDE8D7] md:left-11"
                     aria-hidden
                   />
 
@@ -108,13 +107,17 @@ export function CopawWhatYouCanDo() {
                       <span className="mt-1 h-6 w-6 shrink-0 md:mt-0.5 md:h-7 md:w-7" aria-hidden />
                     )}
                     <div className="min-w-0 flex-1">
-                      <div className="font-newsreader text-[1.85rem] leading-[1.05] text-[#433128] sm:text-[1.95rem] md:text-[2.15rem]">
+                      <div
+                        className={`font-newsreader text-[1.85rem] leading-[1.05] sm:text-[1.95rem] md:text-[28px] ${
+                          active ? "text-(--color-text)" : "text-(--color-text-tertiary)"
+                        }`}
+                      >
                         {t(`usecases.category.${key}`)}
                       </div>
                       {active ? (
                         <p
                           key={`${key}-desc`}
-                          className="font-inter mt-2 pr-1 text-[13px] leading-[1.55] text-(--color-text-secondary) sm:text-sm md:text-[0.95rem]"
+                          className="font-inter mt-2 pr-1 leading-[1.55] text-(--color-text-tertiary) text-sm"
                         >
                           {activeDescription}
                         </p>

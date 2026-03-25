@@ -1,24 +1,33 @@
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
+
+const CHANNEL_ICON_BASE = "/channelsIcon";
 
 const TOP_CHANNELS = [
-  { icon: "🟢", name: "WhatsApp" },
-  { icon: "🟣", name: "Discord" },
-  { icon: "🌀", name: "Feishu" },
-  { icon: "🐧", name: "QQ" },
-  { icon: "🟩", name: "WeChat" },
-  { icon: "🔷", name: "DingTalk" },
-  { icon: "✖", name: "X" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Clause.png`, name: "Clause" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/WhatsApp.png`, name: "WhatsApp" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/X.png`, name: "X" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/WeChar.png`, name: "WeChat" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Xiaoyi.png`, name: "Xiaoyi" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Wattermost.png`, name: "Mattermost" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Discord.png`, name: "Discord" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Feishu.png`, name: "Feishu" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/QQ.png`, name: "QQ" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/WeCom.png`, name: "WeCom" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/DingTalk.png`, name: "DingTalk" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Matrix.png`, name: "Matrix" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Telegram.png`, name: "Telegram" },
 ];
 
 const BOTTOM_CHANNELS = [
-  { icon: "🧠", name: "Doubao" },
-  { icon: "🌀", name: "Deepseek" },
-  { icon: "🌀", name: "ChatGPT" },
-  { icon: "✉️", name: "Gmail" },
-  { icon: "🎵", name: "NetEaseMusic" },
-  { icon: "🟢", name: "Spotify" },
-  { icon: "🐙", name: "Github" },
-  { icon: "💬", name: "iMessage" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Doubao.png`, name: "Doubao" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Deepseek.png`, name: "Deepseek" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/ChatFPT.png`, name: "ChatGPT" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Gmail.png`, name: "Gmail" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/NetEaseMusic.png`, name: "NetEaseMusic" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Spotify.png`, name: "Spotify" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/Github.png`, name: "Github" },
+  { iconSrc: `${CHANNEL_ICON_BASE}/iMessage.png`, name: "iMessage" },
 ];
 
 const sectionVariants = {
@@ -44,21 +53,30 @@ const itemVariants = {
   },
 };
 
-function ChannelPill({ icon, name }: { icon: string; name: string }) {
+function ChannelPill({ iconSrc, name }: { iconSrc: string; name: string }) {
   return (
     <div className="inline-flex h-13 w-43 shrink-0 items-center justify-center gap-2 rounded-xl border border-[#ece7e2] bg-white px-6 py-2 text-sm font-medium text-(--color-text-secondary) shadow-[0_1px_0_rgba(0,0,0,0.02)] md:text-[1.02rem]">
-      <span className="text-sm" aria-hidden>
-        {icon}
-      </span>
+      <img
+        src={iconSrc}
+        alt=""
+        className="h-6 w-6 shrink-0 object-contain md:h-7 md:w-7"
+        width={28}
+        height={28}
+        loading="lazy"
+        decoding="async"
+        aria-hidden
+      />
       <span>{name}</span>
     </div>
   );
 }
 
 export function CopawChannels() {
+  const { t } = useTranslation();
+
   return (
     <motion.section
-      className="relative px-4 py-10 md:py-12"
+      className="relative px-4 py-10 md:py-24"
       variants={sectionVariants}
       initial="hidden"
       whileInView="show"
@@ -69,28 +87,38 @@ export function CopawChannels() {
         variants={itemVariants}
       >
         <motion.h2
-          className="font-newsreader text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-[1.2] text-(--color-text)"
+          className="font-newsreader inline-flex items-center whitespace-nowrap md:text-4xl font-semibold leading-[1.2] text-(--color-text)"
           variants={itemVariants}
         >
-          We Cooperate with <em className="font-normal italic">Everything.</em>
+          <span className="mr-2">{t("channels.titleWe")}</span>
+          <img
+            src="/copaw-logo3.svg"
+            alt=""
+            className="block h-7 w-auto shrink-0 mb-3"
+            aria-hidden
+          />
+          <span>
+            {t("channels.titleOperateWith")}{" "}
+            <em className="font-normal italic text-[#301601]">
+              {t("channels.titleEverything")}
+            </em>
+          </span>
         </motion.h2>
         <motion.p
           className="font-inter mx-auto mt-3 max-w-3xl text-sm leading-relaxed text-(--color-text-tertiary) md:text-[1.03rem]"
           variants={itemVariants}
         >
-          Memory and personalization under your control. Memory and
-          personalization under your control.Memory and personalization under
-          your control.
+          {t("channels.sub")}
         </motion.p>
       </motion.div>
 
-      <motion.div className="relative mt-8 w-full" variants={itemVariants}>
+      <motion.div className="relative mt-20 w-full" variants={itemVariants}>
         <div className="group/row-top overflow-hidden">
-          <div className="inline-flex w-max items-center gap-3 whitespace-nowrap py-2 will-change-transform animate-[copaw-channels-marquee-right_42s_linear_infinite] group-hover/row-top:[animation-play-state:paused]">
-            {[...TOP_CHANNELS, ...TOP_CHANNELS, ...TOP_CHANNELS,].map((item, idx) => (
+          <div className="inline-flex w-max items-center gap-3 whitespace-nowrap py-2 will-change-transform animate-[copaw-channels-marquee-right_62s_linear_infinite] group-hover/row-top:[animation-play-state:paused]">
+            {[...TOP_CHANNELS, ...TOP_CHANNELS].map((item, idx) => (
               <ChannelPill
                 key={`${item.name}-${idx}`}
-                icon={item.icon}
+                iconSrc={item.iconSrc}
                 name={item.name}
               />
             ))}
@@ -99,9 +127,13 @@ export function CopawChannels() {
 
         <div className="group/row-bottom mt-3 overflow-hidden">
           <div className="inline-flex w-max items-center gap-3 whitespace-nowrap py-2 will-change-transform animate-[copaw-channels-marquee-left_48s_linear_infinite] group-hover/row-bottom:[animation-play-state:paused]">
-              {[...BOTTOM_CHANNELS, ...BOTTOM_CHANNELS, ...BOTTOM_CHANNELS,].map((item, idx) => (
-                <ChannelPill key={`${item.name}-bottom-${idx}`} icon={item.icon} name={item.name} />
-              ))}
+            {[...BOTTOM_CHANNELS, ...BOTTOM_CHANNELS].map((item, idx) => (
+              <ChannelPill
+                key={`${item.name}-bottom-${idx}`}
+                iconSrc={item.iconSrc}
+                name={item.name}
+              />
+            ))}
           </div>
         </div>
 

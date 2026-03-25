@@ -25,6 +25,70 @@
     "xiaohongshu": "小红书：",
     "x": "X："
   },
+  "channels": {
+    "titleWe": "我们",
+    "titleOperateWith": "operate",
+    "titleEverything": "于一切。",
+    "sub": "内置 10+ 个频道，更多即将上线"
+  },
+  "whyCopaw": {
+    "headingPrefix": "Why",
+    "headingEmphasis": "CoPaw？",
+    "sub": "安装简单，可部署在本机或云端；\n支持多种 IM 应用；能力可轻松扩展。",
+    "heroLine": "CoPaw 既是 Co Personal Agent Workstation（协同个人智能体工作台），也寓意「co-paw」——始终陪伴在你身边的伙伴。",
+    "secondPrefix": "它不只是冰冷的工具，",
+    "secondEmphasis": "（CoPaw 随时准备搭把手 / 伸出一爪）",
+    "secondSuffix": "它会成为你数字生活中最默契的队友。"
+  },
+  "worksForYou": {
+    "title": "懂你所需，伴你左右",
+    "sub": "记忆与个性化由你掌控。",
+    "learnMore": "了解更多",
+    "cards": {
+      "skills": {
+        "title": "Skills 保障",
+        "desc": "执行前工具校验、路径文件保护、安装前技能扫描、边界权限控制——四层防护，统一协同。"
+      },
+      "control": {
+        "title": "由你掌控",
+        "desc": "记忆与个性化由你掌控，本地或云端均可；定时提醒与协作可发送到任意频道。"
+      },
+      "apps": {
+        "title": "探索应用",
+        "desc": "将 Skills 与定时任务组合，快速搭建你的 agentic app，探索更多可能。"
+      }
+    }
+  },
+  "clientVoices": {
+    "title": "听听社区怎么说",
+    "sub": "来自真实 CoPaw 用户的反馈",
+    "items": {
+      "t1": {
+        "text": "CoPaw 是一个真正开箱即用的通用型 AI Agent 框架。随着底层能力持续迭代，我们自研的业务智能体也能实现智能跃迁，显著降低长期维护成本与技术负担。",
+        "role": "阿里云开发工程师"
+      },
+      "t2": {
+        "text": "我觉得它比 OpenClaw 更好用，上手也容易很多！建议发布一个原生支持多角色协作的版本，我会一直用你们的！",
+        "role": "开发者"
+      },
+      "t3": {
+        "text": "很棒，使用非常顺手，搭配千问模型响应也很快。建议考虑在嵌入式设备上使用，以降低资源消耗。",
+        "role": "独立开发者"
+      },
+      "t4": {
+        "text": "代码看起来很干净、也很好理解。作为开发者我很想进一步玩一玩。",
+        "role": "开发者"
+      },
+      "t5": {
+        "text": "无需重启即可热切换 MCP 是 agent 工作流里最亮眼的能力。你可以在同一会话中扩展 CoPaw 的工具集，不打断上下文、也没有重启成本；Skill hub + clawHub 的整合会让生态增长更快。",
+        "role": "开发者"
+      },
+      "t6": {
+        "text": "CoPaw 更合适；OpenClaw 太复杂，需要一定学习成本。不过 CoPaw 目前还缺少多智能体功能，但其他方面相近。缺什么功能，AI 也能写出来。",
+        "role": "开发者"
+      }
+    }
+  },
   "brandstory": {
     "title": "Why CoPaw？",
     "para1": "CoPaw 既是「你的搭档小爪子」（co-paw），也寓意 Co Personal Agent Workstation（协同个人智能体工作台）。",
@@ -54,7 +118,7 @@
   },
   "usecases": {
     "title": "你可以用 CoPaw 做什么",
-    "sub": "",
+    "sub": "记忆与个性化由你掌控。",
     "category": {
       "social": "社交媒体",
       "creative": "创意与构建",
@@ -90,6 +154,8 @@
   },
   "quickstart": {
     "title": "快速开始",
+    "heroTitle": "自己动手，轻松搞定。",
+    "heroSub": "几分钟，获得专属 AI 助理。一行命令，或双击桌面应用",
     "serviceNotice": "几分钟，获得专属AI助理。一行命令，或双击桌面应用，自己动手，轻松搞定。",
     "hintBefore": "安装 → 初始化 → 启动；频道配置见 ",
     "hintLink": "文档",
@@ -102,11 +168,11 @@
       "desktop": "桌面应用"
     },
     "desc": {
-      "pip": "适合自行管理 Python 环境的用户",
-      "script": "无需手动配置 Python，一行命令自动完成安装。脚本会自动下载 uv（Python 包管理器）、创建虚拟环境、安装 CoPaw 及其依赖（含 Node.js 和前端资源）。注意：部分网络环境或企业权限管控下可能无法使用。",
-      "docker": "使用官方 Docker 镜像快速部署，隔离环境、便于管理",
-      "cloud": "云端一键部署或在线运行，无需本地环境配置",
-      "desktop": "独立打包的桌面应用，内置完整 Python 环境、所有依赖和前端资源。双击即用，无需命令行，无需预装任何工具。"
+      "pip": "如果你更喜欢自行管理 Python 环境，我们推荐使用 pip 安装：",
+      "script": "无需预先配置 Python，一条命令即可完成全部安装。",
+      "docker": "使用官方 Docker 镜像快速部署：环境隔离、易于管理。",
+      "cloud": "一键云端部署或在线运行，无需本地环境准备。",
+      "desktop": "独立打包的桌面应用，内置 Python 环境、全部依赖与前端资源；双击运行，无需命令行，也无需预装任何工具。"
     },
     "platform": {
       "mac": "macOS / Linux",
@@ -133,6 +199,17 @@
       "recommended": "推荐"
     },
     "badgeBeta": "Beta"
+  },
+  "contributors": {
+    "titlePrefix": "感谢每一位",
+    "titleHighlight": "贡献者",
+    "sub": "CoPaw 的每一行代码、每一个 PR，都凝聚着社区成员的热爱与投入。",
+    "prev": "上一页贡献者",
+    "next": "下一页贡献者",
+    "noteLine1Prefix": "贡献者列表按 GitHub ID 字母顺序排列，如对名单有任何疑问，欢迎",
+    "contactUs": "联系我们",
+    "noteLine1Suffix": "。",
+    "noteLine2Prefix": "数据来源于"
   },
   "footer": {
     "text": "CoPaw — 懂你所需，伴你左右",

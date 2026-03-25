@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 const container = {
   hidden: { opacity: 0, y: 16 },
@@ -24,18 +25,19 @@ const item = {
   },
 };
 
-const HERO_LINE =
-  'CoPaw represents both a Co Personal Agent Workstation and a "co-paw" -- a partner always by your side.';
-const SECOND_PREFIX = "More than just a cold tool, ";
-const SECOND_EMPHASIS = "(CoPaw always ready to lend a paw)";
-const SECOND_SUFFIX = " It is the ultimate teammate for your digital life.";
-const SECOND_LINE = `${SECOND_PREFIX}${SECOND_EMPHASIS}${SECOND_SUFFIX}`;
-const HERO_LINE_LENGTH = HERO_LINE.length;
-const SECOND_LINE_LENGTH = SECOND_LINE.length;
 const PAW_ANIMATION_DURATION = 160;
 
 export function CopawWhy() {
+  const { t } = useTranslation();
   const [progress, setProgress] = useState(0);
+
+  const heroLine = t("whyCopaw.heroLine");
+  const secondPrefix = t("whyCopaw.secondPrefix");
+  const secondEmphasis = t("whyCopaw.secondEmphasis");
+  const secondSuffix = t("whyCopaw.secondSuffix");
+  const secondLine = `${secondPrefix}${secondEmphasis}${secondSuffix}`;
+  const heroLineLength = heroLine.length;
+  const secondLineLength = secondLine.length;
 
   useEffect(() => {
     let rafId = 0;
@@ -57,26 +59,26 @@ export function CopawWhy() {
   const bottomPhaseProgress = Math.max(0, (progress - 0.5) / 0.5);
 
   const pawIndexTop = Math.min(
-    HERO_LINE_LENGTH - 1,
-    Math.floor(topPhaseProgress * HERO_LINE_LENGTH),
+    heroLineLength - 1,
+    Math.floor(topPhaseProgress * heroLineLength),
   );
   const pawIndexSecond = Math.min(
-    SECOND_LINE_LENGTH - 1,
-    Math.floor(bottomPhaseProgress * SECOND_LINE_LENGTH),
+    secondLineLength - 1,
+    Math.floor(bottomPhaseProgress * secondLineLength),
   );
 
   const topSplit = isTopPhase
-    ? Math.min(HERO_LINE_LENGTH, pawIndexTop + 1)
-    : HERO_LINE_LENGTH;
+    ? Math.min(heroLineLength, pawIndexTop + 1)
+    : heroLineLength;
   const secondSplit = isTopPhase
     ? 0
-    : Math.min(SECOND_LINE_LENGTH, pawIndexSecond + 1);
-  const leftText = HERO_LINE.slice(0, topSplit);
-  const rightText = HERO_LINE.slice(topSplit);
+    : Math.min(secondLineLength, pawIndexSecond + 1);
+  const leftText = heroLine.slice(0, topSplit);
+  const rightText = heroLine.slice(topSplit);
   const secondRanges = [
-    { text: SECOND_PREFIX, emphasis: false },
-    { text: SECOND_EMPHASIS, emphasis: true },
-    { text: SECOND_SUFFIX, emphasis: false },
+    { text: secondPrefix, emphasis: false },
+    { text: secondEmphasis, emphasis: true },
+    { text: secondSuffix, emphasis: false },
   ];
 
   const renderSecondText = (from: number, to: number, highlighted: boolean) => {
@@ -130,14 +132,14 @@ export function CopawWhy() {
               aria-hidden
               className="pointer-events-none absolute top-0 left-0 z-20 h-11 w-11 object-contain md:-top-6 md:h-20 md:w-20"
             />
-            <h2 className="font-newsreader relative z-10 text-[38px] leading-[0.98] text-[#fff1e6] sm:text-[42px] md:text-[52px]">
-              <span>Why </span>
+            <h2 className="font-newsreader font-semibold relative z-10 text-[38px] leading-[0.98] text-[#ffffff] sm:text-[42px] md:text-[52px]">
+              <span>{t("whyCopaw.headingPrefix")} </span>
               <span className="relative inline-block italic">
-                CoPaw?
+                {t("whyCopaw.headingEmphasis")}
                 <svg
                   aria-hidden
                   viewBox="0 0 360 120"
-                  className="pointer-events-none absolute left-1/2 top-[30%] h-[3em] w-[4.25em] -translate-x-1/2 -translate-y-1/2 rotate-[-7deg]"
+                  className="pointer-events-none absolute left-4/7 top-[30%] h-[3em] w-[4.65em] -translate-x-1/2 -translate-y-1/2 rotate-[-7deg]"
                 >
                   <ellipse
                     cx="180"
@@ -152,18 +154,24 @@ export function CopawWhy() {
               </span>
             </h2>
           </div>
-          <p className="font-inter max-w-md text-left text-[13px] leading-5 text-[rgba(255,240,228,0.78)] sm:text-sm sm:leading-6 md:text-right md:text-base">
-            Memory and personalization under your control. Memory and
-            personalization under your control.
+          <p className="font-inter text-left text-[13px] leading-5 text-[rgba(255,255,255,0.7)] sm:text-sm sm:leading-6 md:text-right md:text-base md:pt-8">
+            {t("whyCopaw.sub")
+              .split("\n")
+              .map((line, idx) => (
+                <span key={idx}>
+                  {line}
+                  {idx === 0 ? <br /> : null}
+                </span>
+              ))}
           </p>
         </motion.div>
 
         <motion.div
-          className="font-newsreader mt-6 max-w-4xl text-[25px] leading-[1.38] tracking-[-0.01em] text-[#ffe8d7] sm:mt-7 sm:text-[28px] md:mt-10 md:text-[46px]"
+          className="font-newsreader mt-6 max-w-4xl text-[25px] leading-[1.38] tracking-[-0.01em] text-[#ffffff] sm:mt-7 sm:text-[28px] md:mt-10 md:text-4xl"
           variants={item}
         >
           <p className="whitespace-normal text-[rgba(220,210,201,0.9)]">
-            <span className="text-[#ffe8d7]">{leftText}</span>
+            <span className="text-[#ffffff]">{leftText}</span>
             {isTopPhase ? (
               <span className="mx-0.5 inline-flex h-[1.5em] w-[1.5em] -translate-y-[0.04em] items-center justify-center align-middle">
                 <motion.img
@@ -200,7 +208,7 @@ export function CopawWhy() {
                 />
               </span>
             ) : null}
-            {renderSecondText(secondSplit, SECOND_LINE_LENGTH, false)}
+            {renderSecondText(secondSplit, secondLineLength, false)}
           </p>
         </motion.div>
       </div>

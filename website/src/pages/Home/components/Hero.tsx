@@ -1,12 +1,9 @@
-import { Link } from "react-router-dom";
-import {  SquareTerminal } from "lucide-react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
-import DottedlinedownArrowIcon from "@/components/Icon/IncentivesIcon";
-
-type CopawHeroProps = {
-  pipInstallTo: string;
-};
+import { Check } from "lucide-react";
+import { DottedlinedownArrowIcon, CopyIcon } from "@/components/Icon";
+import { PIP_INSTALL_COMMANDS } from "./QuickStart";
 
 const container = {
   hidden: { opacity: 0, y: 14 },
@@ -31,17 +28,26 @@ const item = {
   },
 };
 
-function isExternalHref(to: string) {
-  return /^https?:\/\//i.test(to);
-}
-
-export function CopawHero({ pipInstallTo }: CopawHeroProps) {
+export function CopawHero() {
   const { t } = useTranslation();
+  const [pipCopied, setPipCopied] = useState(false);
+
   const scrollToQuickStart = () => {
     const section = document.getElementById("copaw-quickstart");
     if (!section) return;
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const copyPipCommands = async () => {
+    try {
+      await navigator.clipboard.writeText(PIP_INSTALL_COMMANDS.join("\n"));
+      setPipCopied(true);
+      setTimeout(() => setPipCopied(false), 1600);
+    } catch {
+      setPipCopied(false);
+    }
+  };
+
   return (
     <motion.section
       className="relative text-center"
@@ -91,38 +97,24 @@ export function CopawHero({ pipInstallTo }: CopawHeroProps) {
           <button
             type="button"
             onClick={scrollToQuickStart}
-            className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg bg-(--color-primary) px-4 text-[15px] font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary) sm:h-10 sm:w-auto sm:max-w-none"
+            className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg bg-(--color-primary) px-4 text-[15px] font-semibold text-(--color-text) shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary) sm:h-10 sm:w-auto sm:max-w-none"
           >
             <DottedlinedownArrowIcon />
             <span>{t("hero.quickStart")}</span>
           </button>
-          {isExternalHref(pipInstallTo) ? (
-            <a
-              href={pipInstallTo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg border border-[#d9d9d9] bg-white px-4 text-[15px] font-semibold text-[#555] transition hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 sm:h-10 sm:w-auto sm:max-w-none"
-            >
-              <SquareTerminal
-                className="h-4 w-4 shrink-0"
-                strokeWidth={2}
-                aria-hidden
-              />
-              <span>{t("hero.pipInstall")}</span>
-            </a>
-          ) : (
-            <Link
-              to={pipInstallTo}
-              className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg border border-[#d9d9d9] bg-white px-4 text-[15px] font-semibold text-[#555] transition hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 sm:h-10 sm:w-auto sm:max-w-none"
-            >
-              <SquareTerminal
-                className="h-4 w-4 shrink-0"
-                strokeWidth={2}
-                aria-hidden
-              />
-              <span>{t("hero.pipInstall")}</span>
-            </Link>
-          )}
+          <button
+            type="button"
+            onClick={copyPipCommands}
+            className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg border border-[#F3F1F0] bg-white px-4 text-[15px] font-semibold text-[#555] transition hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 sm:h-10 sm:w-auto sm:max-w-none"
+            aria-label={pipCopied ? t("docs.copied") : t("docs.copy")}
+          >
+            {pipCopied ? (
+              <Check className="h-4 w-4 shrink-0" strokeWidth={2.25} aria-hidden />
+            ) : (
+              <CopyIcon className="h-4 w-4 shrink-0" aria-hidden />
+            )}
+            <span>{pipCopied ? t("docs.copied") : t("hero.pipInstall")}</span>
+          </button>
         </motion.div>
 
         <motion.div

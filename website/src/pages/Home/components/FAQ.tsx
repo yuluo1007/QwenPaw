@@ -130,11 +130,11 @@ export function CopawFAQ() {
       aria-labelledby="copaw-faq-heading"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-8 md:grid-cols-2 md:gap-12">
+        <div className="grid gap-8 md:grid-cols-[40%_60%] md:gap-12">
           <motion.div variants={itemVariants}>
             <h2
               id="copaw-faq-heading"
-              className="font-newsreader text-[1.7rem] leading-[1.2] text-(--color-text) sm:text-[1.9rem] md:text-[2.75rem]"
+              className="font-newsreader mt-4 text-4xl font-semibold leading-[1.2] text-(--color-text) md:text-4xl"
             >
               Frequently asked questions
             </h2>
@@ -153,7 +153,7 @@ export function CopawFAQ() {
                       setActiveCategory(category.key);
                       setOpenId(faqData[category.key][0]?.id ?? "");
                     }}
-                    className={`relative inline-flex w-fit items-center rounded-full px-3 py-1.5 text-left text-[1rem] leading-[1.2] transition md:block md:w-full md:rounded-none md:py-5 md:pl-3 md:pr-0 md:text-[1.95rem] md:leading-[1.05] ${
+                    className={`relative inline-flex w-fit items-center rounded-full px-3 py-1.5 text-left text-[20px] leading-[1.2] transition md:block md:w-full md:rounded-none md:py-5 md:pl-3 md:pr-0 md:text-[20px] md:leading-[1.05] ${
                       active
                         ? "font-newsreader bg-[rgba(236,146,69,0.12)] text-(--color-primary) md:bg-transparent"
                         : "font-newsreader text-(--color-text)"
@@ -170,7 +170,7 @@ export function CopawFAQ() {
           </motion.div>
 
           <motion.div className="md:pt-1" variants={itemVariants}>
-            <p className="font-inter mb-4 max-w-xl text-[13px] leading-relaxed text-(--color-text-secondary) md:mb-5 md:text-[1rem]">
+            <p className="font-inter mb-5 max-w-[52ch] text-[13px] leading-[1.72] text-(--color-text-tertiary) text-pretty md:mb-16 md:ml-auto md:text-[1rem]">
               Here's everything you need to know to get started, manage your
               account, and troubleshoot the most frequent issues.
             </p>

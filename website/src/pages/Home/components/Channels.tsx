@@ -49,13 +49,13 @@ const itemVariants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
 function ChannelPill({ iconSrc, name }: { iconSrc: string; name: string }) {
   return (
-    <div className="inline-flex h-13 w-43 shrink-0 items-center justify-center gap-2 rounded-xl border border-[#ece7e2] bg-white px-6 py-2 text-sm font-medium text-(--color-text-secondary) shadow-[0_1px_0_rgba(0,0,0,0.02)] md:text-[1.02rem]">
+    <div className="inline-flex h-11 w-43 shrink-0 items-center justify-center gap-2 rounded-xl border border-[#F5F3EF] bg-white px-4 py-2 text-sm font-normal text-(--color-text-secondary)  md:text-[1.02rem]">
       <img
         src={iconSrc}
         alt=""
@@ -94,7 +94,7 @@ export function CopawChannels() {
           <img
             src="/copaw-logo3.svg"
             alt=""
-            className="block h-7 w-auto shrink-0 mb-3"
+            className="block h-7 w-auto shrink-0 mb-3 pr-0.5 translate-y-[1px]"
             aria-hidden
           />
           <span>
@@ -112,9 +112,9 @@ export function CopawChannels() {
         </motion.p>
       </motion.div>
 
-      <motion.div className="relative mt-20 w-full" variants={itemVariants}>
+      <motion.div className="relative mt-12 w-full" variants={itemVariants}>
         <div className="group/row-top overflow-hidden">
-          <div className="inline-flex w-max items-center gap-3 whitespace-nowrap py-2 will-change-transform animate-[copaw-channels-marquee-right_62s_linear_infinite] group-hover/row-top:[animation-play-state:paused]">
+          <div className="inline-flex w-max items-center gap-3 whitespace-nowrap py-1 will-change-transform animate-[copaw-channels-marquee-right_62s_linear_infinite] group-hover/row-top:[animation-play-state:paused]">
             {[...TOP_CHANNELS, ...TOP_CHANNELS].map((item, idx) => (
               <ChannelPill
                 key={`${item.name}-${idx}`}
@@ -137,8 +137,8 @@ export function CopawChannels() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-linear-to-r from-(--bg) to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-linear-to-l from-(--bg) to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-(--bg) to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-linear-to-l from-(--bg) to-transparent" />
       </motion.div>
     </motion.section>
   );

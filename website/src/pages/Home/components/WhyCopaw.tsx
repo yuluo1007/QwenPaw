@@ -21,15 +21,16 @@ const item = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
-const PAW_ANIMATION_DURATION = 160;
+const PAW_ANIMATION_DURATION = 10;
 
 export function CopawWhy() {
   const { t } = useTranslation();
   const [progress, setProgress] = useState(0);
+  const [animationsStarted, setAnimationsStarted] = useState(false);
 
   const heroLine = t("whyCopaw.heroLine");
   const secondPrefix = t("whyCopaw.secondPrefix");
@@ -39,7 +40,13 @@ export function CopawWhy() {
   const heroLineLength = heroLine.length;
   const secondLineLength = secondLine.length;
 
+  // Start paw and circle animations after container animation completes
+  const handleContainerAnimationComplete = () => {
+    setAnimationsStarted(true);
+  };
+
   useEffect(() => {
+    if (!animationsStarted) return;
     let rafId = 0;
     const durationMs = PAW_ANIMATION_DURATION * 1000;
     const start = performance.now();
@@ -52,7 +59,7 @@ export function CopawWhy() {
 
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, []);
+  }, [animationsStarted]);
 
   const isTopPhase = progress < 0.5;
   const topPhaseProgress = Math.min(1, progress / 0.5);
@@ -75,52 +82,51 @@ export function CopawWhy() {
     : Math.min(secondLineLength, pawIndexSecond + 1);
   const leftText = heroLine.slice(0, topSplit);
   const rightText = heroLine.slice(topSplit);
-  const secondRanges = [
-    { text: secondPrefix, emphasis: false },
-    { text: secondEmphasis, emphasis: true },
-    { text: secondSuffix, emphasis: false },
-  ];
 
   const renderSecondText = (from: number, to: number, highlighted: boolean) => {
-    let offset = 0;
-    return secondRanges.map((range, idx) => {
-      const start = offset;
-      const end = offset + range.text.length;
-      offset = end;
-      const sliceStart = Math.max(from, start);
-      const sliceEnd = Math.min(to, end);
-      if (sliceEnd <= sliceStart) return null;
-      const text = range.text.slice(sliceStart - start, sliceEnd - start);
-      const baseClass = highlighted
-        ? "text-[#ffe8d7]"
-        : "text-[rgba(238,226,214,0.62)]";
-      const emphasisClass = range.emphasis
-        ? highlighted
-          ? "inline-block align-baseline text-[0.92em] italic leading-[1.1] text-[#ffe8d7]"
-          : "inline-block align-baseline text-[0.92em] italic leading-[1.1] text-[rgba(246,236,226,0.78)]"
-        : "";
-      return (
-        <span key={`${highlighted ? "h" : "m"}-${idx}-${sliceStart}`} className={`${baseClass} ${emphasisClass}`.trim()}>
-          {text}
-        </span>
-      );
-    });
+    const text = secondLine.slice(from, to);
+    const baseClass = highlighted
+      ? "text-[#ffffff]"
+      : "text-[rgba(255,255,255,0.45)]";
+    
+    // Calculate which line the 'from' position is in (0, 1, or 2)
+    const textBeforeFrom = secondLine.slice(0, from);
+    const startLineIndex = textBeforeFrom.split('\n').length - 1;
+    
+    const lines = text.split('\n');
+    return (
+      <>
+        {lines.map((line, idx) => {
+          // Original line index in the full text
+          const originalLineIndex = startLineIndex + idx;
+          return (
+            <span key={idx}>
+              <span className={`${baseClass} ${originalLineIndex === 1 ? 'italic' : ''}`}>
+                {line}
+              </span>
+              {idx < lines.length - 1 && <br />}
+            </span>
+          );
+        })}
+      </>
+    );
   };
 
   return (
     <motion.section
-      className="relative overflow-hidden bg-[#E77C29] px-4 py-9 text-[#ffe8d7] md:py-14"
+      className="relative overflow-hidden bg-[#E77C29] px-4 h-[500px] text-[#ffe8d7] md:h-[700px]"
       variants={container}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
+      onAnimationComplete={handleContainerAnimationComplete}
       style={{
         backgroundImage:
           "radial-gradient(rgba(255,244,232,0.22) 1px, transparent 1px)",
         backgroundSize: "24px 24px",
       }}
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl h-full flex flex-col justify-center">
         <motion.div
           className="flex flex-col gap-4 border-b border-[rgba(255,235,220,0.35)] pb-5 md:pb-6 md:flex-row md:items-center md:justify-between"
           variants={item}
@@ -141,7 +147,7 @@ export function CopawWhy() {
                   viewBox="0 0 360 120"
                   className="pointer-events-none absolute left-4/7 top-[30%] h-[3em] w-[4.65em] -translate-x-1/2 -translate-y-1/2 rotate-[-7deg]"
                 >
-                  <ellipse
+                  <motion.ellipse
                     cx="180"
                     cy="60"
                     rx="168"
@@ -149,6 +155,10 @@ export function CopawWhy() {
                     fill="none"
                     stroke="rgba(255, 241, 230, 0.95)"
                     strokeWidth="2.4"
+                    strokeDasharray="1070"
+                    initial={{ strokeDashoffset: 1070 }}
+                    animate={{ strokeDashoffset: animationsStarted ? 0 : 1070 }}
+                    transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
                   />
                 </svg>
               </span>
@@ -170,7 +180,7 @@ export function CopawWhy() {
           className="font-newsreader mt-6 max-w-4xl text-[25px] leading-[1.38] tracking-[-0.01em] text-[#ffffff] sm:mt-7 sm:text-[28px] md:mt-10 md:text-4xl"
           variants={item}
         >
-          <p className="whitespace-normal text-[rgba(220,210,201,0.9)]">
+          <p className="whitespace-pre-line text-[rgba(220,210,201,0.9)]" style={{ lineHeight: '1.6em' }}>
             <span className="text-[#ffffff]">{leftText}</span>
             {isTopPhase ? (
               <span className="mx-0.5 inline-flex h-[1.5em] w-[1.5em] -translate-y-[0.04em] items-center justify-center align-middle">
@@ -188,9 +198,9 @@ export function CopawWhy() {
                 />
               </span>
             ) : null}
-            <span className="text-[rgba(238,226,214,0.62)]">{rightText}</span>
+            <span className="text-[rgba(255,255,255,0.45)]">{rightText}</span>
           </p>
-          <p className="mt-4 whitespace-normal text-[rgba(220,210,201,0.9)] sm:mt-5 md:mt-8">
+          <p className="mt-4 whitespace-pre-line text-[rgba(220,210,201,0.9)] sm:mt-5 md:mt-8" style={{ lineHeight: '1.6em' }}>
             {renderSecondText(0, secondSplit, true)}
             {!isTopPhase ? (
               <span className="mx-0.5 inline-flex h-[1.5em] w-[1.5em] -translate-y-[0.04em] items-center justify-center align-middle">

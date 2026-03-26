@@ -3,6 +3,13 @@ import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 
+const dashAnimations = `
+@keyframes copaw-dash-move-right {
+  0% { background-position: 0 0; }
+  100% { background-position: 16px 0; }
+}
+`;
+
 type Contributor = {
   login: string;
   avatar_url: string;
@@ -30,7 +37,7 @@ const itemVariants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
@@ -74,8 +81,10 @@ export function CopawContributors() {
   }, [contributors, currentPage]);
 
   return (
-    <motion.section
-      className="px-4 py-10 md:py-14"
+    <>
+      <style>{dashAnimations}</style>
+      <motion.section
+      className="px-4 py-16 md:py-20"
       variants={sectionVariants}
       initial="hidden"
       whileInView="show"
@@ -100,21 +109,21 @@ export function CopawContributors() {
               src="/communityIcon/path.svg"
               alt=""
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-full w-[120%] max-w-none -translate-x-1/2 -translate-y-1.5 select-none md:w-[128%] md:-translate-y-4"
+              className="pointer-events-none absolute left-1/2 top-full w-[120%] max-w-none -translate-x-1/2 -translate-y-1.5 select-none md:w-[128%] md:-translate-y-5"
               loading="lazy"
             />
             <img
               src="/communityIcon/contributor1.svg"
               alt=""
               aria-hidden
-              className="pointer-events-none absolute -right-8 -top-4 h-9 w-9 select-none md:-right-5 md:-top-8 md:h-12 md:w-12"
+              className="pointer-events-none absolute -right-8 -top-4 h-9 w-9 select-none md:-right-5 md:-top-10 md:h-16 md:w-16"
               loading="lazy"
             />
             <img
               src="/communityIcon/contributor2.svg"
               alt=""
               aria-hidden
-              className="pointer-events-none absolute -right-12 -top-2 h-9 w-9 rotate-12 select-none md:-right-11 md:-top-5 md:h-12 md:w-12"
+              className="pointer-events-none absolute -right-12 -top-2 h-9 w-9 -rotate-12 select-none md:-right-13 md:-top-5 md:h-16 md:w-16"
               loading="lazy"
             />
           </span>
@@ -128,7 +137,7 @@ export function CopawContributors() {
         </motion.p>
 
         <motion.div
-          className="mt-8 grid grid-cols-6 gap-x-2 gap-y-6 sm:grid-cols-8 md:grid-cols-12 lg:grid-cols-18"
+          className="mt-12 grid grid-cols-6 gap-x-2 gap-y-6 sm:grid-cols-8 md:grid-cols-12 lg:grid-cols-18"
           variants={itemVariants}
         >
           {pageItems.map((contributor) => (
@@ -185,6 +194,8 @@ export function CopawContributors() {
           style={{
             background:
               "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+            backgroundSize: "16px 100%",
+            animation: "copaw-dash-move-right 1s linear infinite",
           }}
         />
 
@@ -196,7 +207,7 @@ export function CopawContributors() {
             {t("contributors.noteLine1Prefix")}
             <a
               href="/docs/community/"
-              className="text-(--color-primary) mx-1"
+              className="text-(--color-primary) ml-1"
             >
               {t("contributors.contactUs")}
             </a>
@@ -217,5 +228,6 @@ export function CopawContributors() {
         </motion.div>
       </div>
     </motion.section>
+    </>
   );
 }

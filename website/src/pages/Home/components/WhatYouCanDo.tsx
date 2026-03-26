@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "react-i18next";
+import { sectionStyles } from "@/lib/utils";
 
 type UseCaseKey =
   | "social"
@@ -38,7 +39,7 @@ const item = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
@@ -53,7 +54,7 @@ export function CopawWhatYouCanDo() {
 
   return (
     <motion.section
-      className="px-4 py-10 md:py-16"
+      className="px-4 py-16 md:py-24"
       variants={container}
       initial="hidden"
       whileInView="show"
@@ -64,11 +65,11 @@ export function CopawWhatYouCanDo() {
         <motion.div className="text-center" variants={item}>
           <h2
             id="copaw-usecase-heading"
-            className="font-newsreader text-4xl font-semibold leading-[1.2] text-(--color-text) md:text-4xl]"
+            className={sectionStyles.title}
           >
             {t("usecases.title")}
           </h2>
-          <p className="font-inter mx-auto mt-3 max-w-2xl px-1 text-[13px] leading-relaxed text-(--color-text-tertiary) sm:text-sm md:px-0 md:text-[1rem]">
+          <p className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}>
             {t("usecases.sub")}
           </p>
         </motion.div>
@@ -82,46 +83,71 @@ export function CopawWhatYouCanDo() {
                   key={key}
                   type="button"
                   onClick={() => setActiveKey(key)}
-                  className="relative w-full py-4 text-left transition md:py-5"
+                  className="group relative w-full py-4 text-left md:py-5"
                 >
+                  {/* Hover 背景 */}
+                  {!active && (
+                    <span
+                      className="pointer-events-none absolute left-10 right-0 top-0 z-0 h-full bg-transparent transition-colors duration-200 group-hover:bg-[#FFF7F0] md:left-11"
+                      aria-hidden
+                    />
+                  )}
                   <span
                     className="absolute bottom-0 left-10 right-0 h-px bg-[#FDE8D7] md:left-11"
                     aria-hidden
                   />
 
                   <div className="relative z-10 flex items-start gap-2.5 px-1.5 md:gap-3 md:px-2">
-                    {active ? (
-                      <motion.img
-                        layoutId="copaw-usecase-active-logo"
-                        src="/copaw-logo.svg"
-                        alt=""
-                        aria-hidden
-                        className="mt-1 h-6 w-6 shrink-0 object-contain md:mt-0.5 md:h-7 md:w-7"
-                        transition={{
-                          type: "spring",
-                          stiffness: 360,
-                          damping: 34,
-                        }}
-                      />
-                    ) : (
-                      <span className="mt-1 h-6 w-6 shrink-0 md:mt-0.5 md:h-7 md:w-7" aria-hidden />
-                    )}
+                    <div className="mt-1 h-6 w-6 shrink-0 md:mt-0.5 md:h-7 md:w-7">
+                      {active && (
+                        <motion.img
+                          layoutId="copaw-usecase-active-logo"
+                          src="/copaw-logo.svg"
+                          alt=""
+                          aria-hidden
+                          className="h-6 w-6 object-contain md:h-7 md:w-7"
+                          transition={{
+                            type: "tween",
+                            duration: 0.5,
+                            ease: [0.25, 0.46, 0.45, 0.94],
+                          }}
+                        />
+                      )}
+                    </div>
                     <div className="min-w-0 flex-1">
                       <div
                         className={`font-newsreader text-[1.85rem] leading-[1.05] sm:text-[1.95rem] md:text-[28px] ${
-                          active ? "text-(--color-text)" : "text-(--color-text-tertiary)"
+                          active
+                            ? "text-(--color-text)"
+                            : "text-(--color-text-tertiary) transition-colors duration-200 group-hover:text-(--color-text)"
                         }`}
                       >
                         {t(`usecases.category.${key}`)}
                       </div>
-                      {active ? (
-                        <p
-                          key={`${key}-desc`}
-                          className="font-inter mt-2 pr-1 leading-[1.55] text-(--color-text-tertiary) text-sm"
-                        >
-                          {activeDescription}
-                        </p>
-                      ) : null}
+                      <div className="overflow-hidden">
+                        <AnimatePresence initial={false} mode="sync">
+                          {active && (
+                            <motion.p
+                              key={`${key}-desc`}
+                              initial={{ opacity: 1, height: 0, marginTop: 0 }}
+                              exit={{
+                                opacity: 0,
+                                scale: 0.8,
+                                height: 0,
+                                marginTop: 0,
+                              }}
+                              animate={{ opacity: 1, height: "auto", marginTop: 8 }}
+                              transition={{
+                                duration: 0.5,
+                                ease: "easeOut",
+                              }}
+                              className="font-inter pr-1 leading-[1.55] text-(--color-text-tertiary) text-sm origin-top-left"
+                            >
+                              {activeDescription}
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
+                      </div>
                     </div>
                   </div>
                 </button>
@@ -129,7 +155,7 @@ export function CopawWhatYouCanDo() {
             })}
           </div>
 
-          <div className="overflow-hidden rounded-t-xl bg-[#f7a157] px-4 pt-4 shadow-[0_10px_24px_rgba(109,63,27,0.14)] sm:px-6 sm:pt-6 md:rounded-none md:px-10 md:pt-10">
+          <div className="overflow-hidden  bg-[#f7a157] px-4 pt-4  sm:px-6 sm:pt-6 md:rounded-none md:px-10 md:pt-10">
             <img
               src="/copaw-console.png"
               alt="CoPaw console preview"

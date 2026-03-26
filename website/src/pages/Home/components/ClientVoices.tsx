@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
+import { sectionStyles } from "@/lib/utils";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 16 },
@@ -20,7 +21,7 @@ const itemVariants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
@@ -105,7 +106,7 @@ export function CopawClientVoices() {
     >
       <div className="mx-auto max-w-7xl">
         <motion.div variants={itemVariants}>
-          <div className="inline-flex items-center relative">
+          <div className="inline-flex items-center relative py-6">
             <div className="inline-flex items-center rounded-full border border-[#EBEBEB] bg-[#FEFBF9] px-2 py-1 shadow-[0px_0px_2px_0px_rgba(170,170,170,0.25)]  transform-[rotate(-8deg)]">
               <div className="flex -space-x-2.5">
                 {AVATARS.slice(0, 3).map((avatar) => (
@@ -136,11 +137,11 @@ export function CopawClientVoices() {
 
           <h2
             id="copaw-client-voices-heading"
-            className="font-newsreader mt-4 text-4xl font-semibold leading-[1.2] text-(--color-text) md:text-4xl"
+            className={`${sectionStyles.title} text-left`}
           >
             {t("clientVoices.title")}
           </h2>
-          <p className="font-inter mt-2 text-[13px] leading-relaxed text-(--color-text-tertiary) md:text-[1rem]">
+          <p className={`${sectionStyles.subtitle} mt-2 text-left`}>
             {t("clientVoices.sub")}
           </p>
         </motion.div>
@@ -152,7 +153,7 @@ export function CopawClientVoices() {
           {TESTIMONIALS.map((item) => (
             <article
               key={item.key}
-              className="flex min-h-55 flex-col rounded-2xl border border-[#ece2d9] bg-white p-4 shadow-[0_2px_8px_rgba(43,33,24,0.04)] md:min-h-60 md:p-5"
+              className="flex min-h-55 flex-col rounded-2xl border border-[#F3F1F0] bg-white p-4  md:min-h-60 md:p-5"
             >
               <p className="font-newsreader text-[0.98rem] leading-[1.75] text-(--color-text-secondary)">
                 {t(`clientVoices.items.${item.key}.text`)}

@@ -4,7 +4,7 @@
     "more": "More",
     "releaseNotes": "Release Notes",
     "copaw": "Copaw",
-    "download": "Install",
+    "download": "Download",
     "github": "GitHub",
     "githubComingSoon": "Coming Soon",
     "lang": "中文",
@@ -35,10 +35,10 @@
     "headingPrefix": "Why",
     "headingEmphasis": "CoPaw?",
     "sub": "Easy to install, deploy on your own machine & on the cloud;\nsupports multiple IM Apps; with easily extensible capabilities.",
-    "heroLine": "CoPaw represents both a Co Personal Agent Workstation and a \"co-paw\" -- a partner always by your side.",
-    "secondPrefix": "More than just a cold tool, ",
-    "secondEmphasis": "(CoPaw always ready to lend a paw)",
-    "secondSuffix": " It is the ultimate teammate for your digital life."
+    "heroLine": "CoPaw represents both a Co Personal Agent Workstation\nand a \"co-paw\" —— a partner always by your side.",
+    "secondPrefix": "More than just a cold tool,\n(CoPaw always ready to lend a paw)\nIt is the ultimate teammate for your digital life.",
+    "secondEmphasis": "",
+    "secondSuffix": ""
   },
   "worksForYou": {
     "title": "Works for you, grows with you",
@@ -229,8 +229,7 @@
       "x": "X",
       "github": "GitHub",
       "discord": "Discord",
-      "dingtalk": "DingTalk",
-      "xiaohongshu": "Xiaohongshu"
+      "youtube": "YouTube"
     },
     "copyright": "© 2026 COPAW PRIVATE LIMITED, All rights reserved.",
     "poweredBy": {

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
+import { sectionStyles } from "@/lib/utils";
 
 type FaqCategory = "quickStart" | "account" | "features";
 
@@ -28,7 +29,7 @@ const itemVariants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
@@ -122,7 +123,7 @@ export function CopawFAQ() {
 
   return (
     <motion.section
-      className="px-4 py-9 md:py-14"
+      className="px-4 py-12 md:py-16"
       variants={sectionVariants}
       initial="hidden"
       whileInView="show"
@@ -134,11 +135,11 @@ export function CopawFAQ() {
           <motion.div variants={itemVariants}>
             <h2
               id="copaw-faq-heading"
-              className="font-newsreader mt-4 text-4xl font-semibold leading-[1.2] text-(--color-text) md:text-4xl"
+              className={sectionStyles.title}
             >
               Frequently asked questions
             </h2>
-            <p className="font-inter mt-2 text-[13px] leading-relaxed text-(--color-text-tertiary) md:text-[1rem]">
+            <p className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}>
               Memory and personalization under your control.
             </p>
 

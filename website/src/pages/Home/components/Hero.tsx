@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
 import { DottedlinedownArrowIcon, CopyIcon } from "@/components/Icon";
 import { PIP_INSTALL_COMMANDS } from "./QuickStart";
+
+const dashAnimations = `
+@keyframes copaw-hero-trim-path {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+`;
 
 const container = {
   hidden: { opacity: 0, y: 14 },
@@ -11,10 +18,10 @@ const container = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.45,
+      duration: 0.8,
       ease: "easeOut",
       when: "beforeChildren",
-      staggerChildren: 0.1,
+      staggerChildren: 0.2,
     },
   },
 };
@@ -24,13 +31,44 @@ const item = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
 export function CopawHero() {
   const { t } = useTranslation();
   const [pipCopied, setPipCopied] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [showIdle, setShowIdle] = useState(false);
+  const [idlePlayedOnce, setIdlePlayedOnce] = useState(false);
+  const [startGifLoaded, setStartGifLoaded] = useState(false);
+
+  // After start gif plays once, switch to idle
+  useEffect(() => {
+    if (!startGifLoaded) return;
+    const timer = setTimeout(() => {
+      setShowIdle(true);
+    }, 1600);
+    return () => clearTimeout(timer);
+  }, [startGifLoaded]);
+
+  // Preload images to prevent flash on switch
+  useEffect(() => {
+    const preloadImages = ["/copaw-slogan-idle.gif", "/copaw-slogan-idle-001.png"];
+    preloadImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  // After idle plays once, switch to static image
+  useEffect(() => {
+    if (!showIdle || idlePlayedOnce) return;
+    const timer = setTimeout(() => {
+      setIdlePlayedOnce(true);
+    }, 1000); // idle gif duration
+    return () => clearTimeout(timer);
+  }, [showIdle, idlePlayedOnce]);
 
   const scrollToQuickStart = () => {
     const section = document.getElementById("copaw-quickstart");
@@ -49,7 +87,9 @@ export function CopawHero() {
   };
 
   return (
-    <motion.section
+    <>
+      <style>{dashAnimations}</style>
+      <motion.section
       className="relative text-center"
       aria-labelledby="copaw-hero-heading"
       variants={container}
@@ -59,32 +99,60 @@ export function CopawHero() {
       <div className="mx-auto max-w-7xl px-4 pt-19">
         <motion.h1
           id="copaw-hero-heading"
-          className="font-newsreader font-semibold leading-[1.1] tracking-[-0.02em] text-(--color-text) sm:leading-[1.08] text-[32px] md:text-[52px] md:leading-[1.06]"
+          className="font-newsreader font-semibold leading-[1.1] tracking-[-0.02em] text-(--color-text) sm:leading-[1.08] text-[32px] md:text-[48px] md:leading-[1.06]"
           variants={item}
         >
           <span className="font-newsreader font-medium whitespace-pre-wrap">
             {t("hero.titleleft")}
           </span>
-          <span className="mx-0.5 inline-flex -translate-y-[0.08em] items-center align-middle select-none sm:-translate-y-[0.1em]">
-            <img
-              src="/copaw-slogan.png"
-              alt=""
-              className="h-11 w-11 object-contain sm:h-12 sm:w-12 md:h-20 md:w-20"
-              aria-hidden
-            />
+          <span
+            className="ml-4 mr-0 inline-flex -translate-y-[0.08em] items-center align-middle select-none sm:-translate-y-[0.1em] cursor-pointer"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* Start animation - plays once on load */}
+            {!showIdle && (
+              <img
+                src="/copaw-slogan-start.gif"
+                alt=""
+                className="h-11 w-11 object-contain sm:h-12 sm:w-12 md:h-18 md:w-18"
+                onLoad={() => setStartGifLoaded(true)}
+                aria-hidden
+              />
+            )}
+            {/* Idle animation - plays once then static, GIF on hover */}
+            {showIdle && (
+              <img
+                key={isHovered || !idlePlayedOnce ? "gif" : "static"}
+                src={isHovered || !idlePlayedOnce ? "/copaw-slogan-idle.gif" : "/copaw-slogan-idle-001.png"}
+                alt=""
+                className="h-11 w-11 object-contain sm:h-12 sm:w-12 md:h-18 md:w-18"
+                aria-hidden
+              />
+            )}
           </span>
           <span
-            className="font-newsreader relative top-[0.02em] inline-block font-normal italic border-b-2 border-dashed border-[#f4a460] leading-[0.9]"
-            style={{ borderColor: "var(--color-primary)" }}
+            className="font-newsreader relative top-[0.02em] inline-block font-normal italic leading-[0.9]"
           >
-            {t("hero.titleright")}
+            <span className="relative">
+              {t("hero.titleright")}
+              <span
+                className="absolute bottom-0 left-0 h-[2px]"
+                style={{
+                  background: "repeating-linear-gradient(to right, var(--color-primary) 0 8px, transparent 8px 16px)",
+                  width: "0%",
+                  animation: "copaw-hero-trim-path 0.8s ease-out forwards",
+                  animationDelay: "1s",
+                }}
+              />
+            </span>
           </span>
           <span className="mt-1 block font-newsreader text-[0.92em] font-medium text-(--color-text-secondary) sm:mt-1.5 sm:text-[1em]">
             {t("hero.slogan")}
           </span>
         </motion.h1>
         <motion.p
-          className="font-inter mx-auto mt-5 max-w-2xl px-2 text-[14px] font-medium leading-[1.55] text-(--color-text-tertiary) sm:mt-6 sm:px-0 sm:text-[15px] md:mt-7 md:text-[16px]"
+          className="font-inter mx-auto mt-3 max-w-2xl px-2 text-[14px] font-medium leading-[1.55] text-(--color-text-tertiary) sm:mt-4 sm:px-0 sm:text-[15px] md:mt-5 md:text-[16px]"
           variants={item}
         >
           {t("hero.sub")}
@@ -97,7 +165,7 @@ export function CopawHero() {
           <button
             type="button"
             onClick={scrollToQuickStart}
-            className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg bg-(--color-primary) px-4 text-[15px] font-semibold text-(--color-text) shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary) sm:h-10 sm:w-auto sm:max-w-none"
+            className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg bg-(--color-primary) px-4 text-[15px] font-normal text-(--color-text) ] transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-primary) sm:h-10 sm:w-auto sm:max-w-none"
           >
             <DottedlinedownArrowIcon />
             <span>{t("hero.quickStart")}</span>
@@ -105,7 +173,7 @@ export function CopawHero() {
           <button
             type="button"
             onClick={copyPipCommands}
-            className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg border border-[#F3F1F0] bg-white px-4 text-[15px] font-semibold text-[#555] transition hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 sm:h-10 sm:w-auto sm:max-w-none"
+            className="inline-flex h-11 w-full max-w-60 items-center justify-center gap-1.5 rounded-lg border border-[#F3F1F0] bg-white px-4 text-[15px] font-normal text-[#555] transition hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 sm:h-10 sm:w-auto sm:max-w-none"
             aria-label={pipCopied ? t("docs.copied") : t("docs.copy")}
           >
             {pipCopied ? (
@@ -161,5 +229,6 @@ export function CopawHero() {
         </motion.div>
       </div>
     </motion.section>
+    </>
   );
 }

@@ -20,6 +20,7 @@ import {
   ModelIcon,
   AliyunIcon,
 } from "@/components/Icon";
+import { sectionStyles } from "@/lib/utils";
 
 type InstallMethod = "pip" | "script" | "docker" | "cloud" | "desktop";
 type ScriptPlatform = "mac" | "windows";
@@ -98,13 +99,13 @@ const sectionVariants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: "easeOut", staggerChildren: 0.08 },
+    transition: { duration: 0.5, ease: "easeOut", staggerChildren: 0.08 },
   },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
 function CodeBlock({
@@ -148,6 +149,25 @@ function CodeBlock({
   );
 }
 
+const dashAnimations = `
+@keyframes copaw-dash-move-right {
+  0% { background-position: 0 0; }
+  100% { background-position: 16px 0; }
+}
+@keyframes copaw-dash-move-left {
+  0% { background-position: 0 0; }
+  100% { background-position: -16px 0; }
+}
+@keyframes copaw-dash-move-down {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 16px; }
+}
+@keyframes copaw-dash-move-up {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 -16px; }
+}
+`;
+
 export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
   const { t } = useTranslation();
   const [selectedMethod, setSelectedMethod] = useState<InstallMethod>("pip");
@@ -176,19 +196,23 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
   };
 
   return (
-    <motion.section
-      className="relative"
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-60px" }}
-      id="copaw-quickstart"
-    >
+    <>
+      <style>{dashAnimations}</style>
+      <motion.section
+        className="relative"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-60px" }}
+        id="copaw-quickstart"
+      >
       <div
         className="pointer-events-none absolute left-1/2 top-0 h-px w-screen -translate-x-1/2"
         style={{
           background:
             "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+          backgroundSize: "16px 100%",
+          animation: "copaw-dash-move-right 1s linear infinite",
         }}
       />
       <div
@@ -196,6 +220,8 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
         style={{
           background:
             "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+          backgroundSize: "16px 100%",
+          animation: "copaw-dash-move-left 1s linear infinite",
         }}
       />
       <div className="relative mx-auto max-w-4xl">
@@ -204,6 +230,8 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
           style={{
             background:
               "repeating-linear-gradient(to bottom, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+            backgroundSize: "100% 16px",
+            animation: "copaw-dash-move-down 1s linear infinite",
           }}
         />
         <div
@@ -211,19 +239,21 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
           style={{
             background:
               "repeating-linear-gradient(to bottom, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+            backgroundSize: "100% 16px",
+            animation: "copaw-dash-move-up 1s linear infinite",
           }}
         />
         <div className="px-4 py-10 md:px-0 md:py-19">
           <motion.div className="text-center" variants={itemVariants}>
             <motion.h2
               variants={itemVariants}
-              className="font-newsreader text-4xl font-semibold leading-[1.2] text-(--color-text) md:text-4xl"
+              className={sectionStyles.title}
             >
               {t("quickstart.heroTitle")}
             </motion.h2>
             <motion.p
               variants={itemVariants}
-              className="font-inter mx-auto mt-3 max-w-2xl px-2 text-[13px] font-medium leading-[1.55] text-(--color-text-tertiary) sm:px-0 sm:text-[14px] md:mb-16 md:mt-4 md:text-base"
+              className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}
             >
               {t("quickstart.heroSub")}
             </motion.p>
@@ -234,6 +264,8 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
               style={{
                 background:
                   "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+                backgroundSize: "16px 100%",
+                animation: "copaw-dash-move-left 1s linear infinite",
               }}
             />
             <div
@@ -243,10 +275,10 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
               }}
             >
               <motion.div
-                className="overflow-hidden rounded-[calc(1rem-2px)] bg-white"
+                className="overflow-hidden rounded-[16px] bg-white"
                 variants={itemVariants}
               >
-              <div className="grid grid-cols-2 gap-px bg-(--bg) sm:grid-cols-5">
+              <div className="grid grid-cols-2 gap-px bg-(--bg) pb-px sm:grid-cols-5">
                 {METHOD_ORDER.map((method) => {
                   const active = method === selectedMethod;
                   return (
@@ -397,7 +429,7 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
                             href={ALIYUN_ECS_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-[#dfc2a2] bg-(--color-secondary) px-4 py-2 text-sm font-semibold text-(--color-text) shadow-[0_1px_1px_rgba(0,0,0,0.08)] hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
+                            className="inline-flex w-fit items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm  text-(--color-text)  hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
                           >
                             <AliyunIcon size={20} />
                             {t("quickstart.cloud.aliyunDeploy")}
@@ -406,7 +438,7 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
                             href={ALIYUN_DOC_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-[#d9d9d9] bg-white px-4 py-2 text-sm font-semibold text-[#6a6a6a] hover:bg-[#fafafa] md:px-5 md:py-2.5 md:text-[1.08rem]"
+                            className="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-[#d9d9d9] bg-white px-4 py-2 text-sm  text-[#6a6a6a] hover:bg-[#fafafa] md:px-5 md:py-2.5 md:text-[1.08rem]"
                           >
                             <FileText size={16} aria-hidden />
                             {t("quickstart.cloud.aliyunDoc")}
@@ -416,7 +448,7 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
                               href={MODELSCOPE_URL}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-[#dfc2a2] bg-(--color-secondary) px-4 py-2 text-sm font-semibold text-(--color-text) shadow-[0_1px_1px_rgba(0,0,0,0.08)] hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
+                              className="inline-flex w-fit items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm  text-(--color-text)  hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
                             >
                               <ModelIcon size={20} />
                               {t("quickstart.cloud.modelscopeGo")}
@@ -453,14 +485,14 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
                             href={DESKTOP_RELEASES_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#dfc2a2] bg-(--color-secondary) px-4 py-2 text-sm font-semibold text-(--color-text) shadow-[0_1px_1px_rgba(0,0,0,0.08)] hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
+                            className="inline-flex items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm text-(--color-text) hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
                           >
                             <GitHubIcon size={20} />
                             {t("quickstart.desktop.downloadGithub")}
                           </a>
                           <Link
                             to={`${docsBase}/desktop`}
-                            className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9d9d9] bg-white px-4 py-2 text-sm font-semibold text-[#6a6a6a] hover:bg-[#fafafa] md:px-5 md:py-2.5 md:text-[1.08rem]"
+                            className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9d9d9] bg-white px-4 py-2 text-sm text-[#6a6a6a] hover:bg-[#fafafa] md:px-5 md:py-2.5 md:text-[1.08rem]"
                           >
                             <FileText size={16} aria-hidden />
                             {t("quickstart.desktop.viewGuide")}
@@ -478,11 +510,14 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
               style={{
                 background:
                   "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+                backgroundSize: "16px 100%",
+                animation: "copaw-dash-move-right 1s linear infinite",
               }}
             />
           </div>
         </div>
       </div>
-    </motion.section>
+      </motion.section>
+    </>
   );
 }

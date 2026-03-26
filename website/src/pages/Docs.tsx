@@ -763,7 +763,7 @@ export function Docs() {
                   )}
 
                   {!isSearchPage && (prevDoc || nextDoc) ? (
-                    <div className="mt-10 rounded-xl border border-(--border) bg-(--surface) px-4 py-4 md:px-6">
+                    <div className="mt-10 px-4 py-8 md:px-6">
                       <div className="flex items-center justify-between gap-4">
                         {prevDoc ? (
                           <Link

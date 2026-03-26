@@ -242,6 +242,11 @@ export function Docs() {
   const [activeTocId, setActiveTocId] = useState<string | null>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const articleRef = useRef<HTMLDivElement | null>(null);
+  const ignoredHashRef = useRef<string | null>(null);
+  const isTocClickScrollingRef = useRef(false);
+  const tocClickScrollUnlockTimerRef = useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const [openFaqSet, setOpenFaqSet] = useState<Set<number>>(() => new Set([0]));
   const faqData = useMemo(() => parseFaqContent(content), [content]);
   const headingIdCounter = new Map<string, number>();
@@ -264,6 +269,27 @@ export function Docs() {
     return { current: t("docs.intro") };
   }, [activeSlug, t]);
 
+  const getTocTargets = () => {
+    const container = articleRef.current;
+    if (!container) return [];
+    // Keep the same order as parseToc: h2/h3 in document flow,
+    // plus FAQ sections that carry ids.
+    return Array.from(
+      container.querySelectorAll<HTMLElement>(
+        ".docs-content h2[id], .docs-content h3[id], .docs-content section[id]",
+      ),
+    );
+  };
+
+  const getTopInContainer = (container: HTMLElement, target: HTMLElement) => {
+    return Math.max(
+      0,
+      container.scrollTop +
+        (target.getBoundingClientRect().top - container.getBoundingClientRect().top) -
+        16,
+    );
+  };
+
   useEffect(() => {
     const el = articleRef.current;
     if (!el) return;
@@ -271,14 +297,32 @@ export function Docs() {
   }, [activeSlug, location.pathname]);
 
   useEffect(() => {
+    if (isTocClickScrollingRef.current) return;
     const rawHash = location.hash?.slice(1) ?? "";
     const hash = rawHash ? decodeURIComponent(rawHash.replace(/\+/g, " ")) : "";
     if (!hash) return;
+    if (ignoredHashRef.current && ignoredHashRef.current !== hash) {
+      ignoredHashRef.current = null;
+    }
+    if (ignoredHashRef.current === hash) return;
 
     const scrollToHash = (): boolean => {
-      const el = document.getElementById(hash);
-      if (!el) return false;
-      el.scrollIntoView({ behavior: "auto", block: "start" });
+      const container = articleRef.current;
+      if (!container) return false;
+      const byId = container.querySelector<HTMLElement>(`#${hash}`);
+      const byHref = document.querySelector<HTMLAnchorElement>(
+        `.docs-toc-nav a[href="#${hash}"]`,
+      );
+      const idx = byHref
+        ? Array.from(document.querySelectorAll(".docs-toc-nav a")).indexOf(byHref)
+        : -1;
+      const targets = getTocTargets();
+      const target = byId ?? (idx >= 0 ? targets[idx] : null);
+      if (!target) return false;
+      container.scrollTo({
+        top: getTopInContainer(container, target),
+        behavior: "auto",
+      });
       return true;
     };
 
@@ -342,11 +386,14 @@ export function Docs() {
     const container = articleRef.current;
     if (!container) return;
     const updateActive = () => {
+      if (isTocClickScrollingRef.current) return;
       const containerTop = container.getBoundingClientRect().top;
       const trigger = containerTop + 120;
       let current: string | null = null;
-      for (const { id } of toc) {
-        const el = document.getElementById(id);
+      const targets = getTocTargets();
+      for (let i = 0; i < toc.length; i += 1) {
+        const el = targets[i];
+        const { id } = toc[i];
         if (el && el.getBoundingClientRect().top <= trigger) current = id;
       }
       setActiveTocId(current ?? toc[0]?.id ?? null);
@@ -358,6 +405,7 @@ export function Docs() {
 
   useEffect(() => {
     if (!activeTocId) return;
+    if (isTocClickScrollingRef.current) return;
     const tocEl = document.querySelector(".docs-toc");
     const link = document.querySelector<HTMLAnchorElement>(
       `.docs-toc-nav a[href="#${activeTocId}"]`,
@@ -367,11 +415,16 @@ export function Docs() {
     const linkH = link.offsetHeight;
     const tocH = tocEl.clientHeight;
     const maxScroll = tocEl.scrollHeight - tocH;
+    const currentTop = tocEl.scrollTop;
+    const currentBottom = currentTop + tocH;
+    const linkBottom = linkTop + linkH;
+    const isVisible = linkTop >= currentTop && linkBottom <= currentBottom;
+    if (isVisible) return;
     const target = Math.max(
       0,
       Math.min(maxScroll, linkTop - tocH / 2 + linkH / 2),
     );
-    tocEl.scrollTo({ top: target, behavior: "smooth" });
+    tocEl.scrollTo({ top: target, behavior: "auto" });
   }, [activeTocId]);
 
   useEffect(() => {
@@ -382,6 +435,14 @@ export function Docs() {
     onScroll();
     return () => container.removeEventListener("scroll", onScroll);
   }, [content]);
+
+  useEffect(() => {
+    return () => {
+      if (tocClickScrollUnlockTimerRef.current) {
+        clearTimeout(tocClickScrollUnlockTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     setSidebarOpen(false);
@@ -400,7 +461,7 @@ export function Docs() {
         )}
         <aside
           className={[
-            "docs-sidebar z-40 w-64 shrink-0 border-r border-(--border) bg-(--surface) px-2 py-4",
+            "docs-sidebar z-40 w-64 shrink-0 border-r border-border bg-(--surface) px-2 py-4",
             "fixed left-0 top-14 bottom-0 overflow-y-auto transition-transform duration-200 md:static md:top-auto md:bottom-auto md:translate-x-0",
             sidebarOpen
               ? "translate-x-0"
@@ -487,7 +548,7 @@ export function Docs() {
         </aside>
         <main className="docs-main relative min-w-0">
           <div className="docs-content-scroll" ref={articleRef}>
-            <div className="border-y border-(--border)/60 bg-(--surface) py-3 md:hidden">
+            <div className="border-y border-border/60 bg-(--surface) py-3 md:hidden">
               <div
                 className="flex items-center gap-2"
                 onClick={() => setSidebarOpen((o) => !o)}
@@ -532,6 +593,16 @@ export function Docs() {
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                          components={{
+                            h2: ({ children }) => {
+                              const id = getHeadingId(children);
+                              return <h2 id={id}>{children}</h2>;
+                            },
+                            h3: ({ children }) => {
+                              const id = getHeadingId(children);
+                              return <h3 id={id}>{children}</h3>;
+                            },
+                          }}
                         >
                           {faqData.intro}
                         </ReactMarkdown>
@@ -539,10 +610,12 @@ export function Docs() {
                       <div className="mt-4">
                         {faqData.items.map((item, idx) => {
                           const opened = openFaqSet.has(idx);
+                          const questionId = getHeadingId(item.question);
                           return (
                             <section
                               key={`${item.question}-${idx}`}
-                              className="mb-3 rounded-lg border border-(--border) bg-(--surface)"
+                              id={questionId}
+                              className="mb-3 rounded-lg border border-border bg-(--surface)"
                             >
                               <button
                                 type="button"
@@ -566,8 +639,8 @@ export function Docs() {
                                   ].join(" ")}
                                 />
                               </button>
-                              {opened ? (
-                                <div className="docs-faq-answer border-t border-(--border) px-4 pb-2 pt-3 *:first:mt-0 *:last:mb-0">
+                                {opened ? (
+                                <div className="docs-faq-answer border-t border-border px-4 pb-2 pt-3 *:first:mt-0 *:last:mb-0">
                                   <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
                                     rehypePlugins={[rehypeRaw, rehypeHighlight]}
@@ -676,7 +749,7 @@ export function Docs() {
           {!isSearchPage && toc.length > 0 && (
             <aside className="docs-toc" aria-label={t("docs.onThisPage")}>
               <nav className="docs-toc-nav">
-                {toc.map(({ level, text, id }) => (
+                {toc.map(({ level, text, id }, idx) => (
                   <a
                     key={id}
                     href={`#${id}`}
@@ -688,15 +761,37 @@ export function Docs() {
                     data-active={activeTocId === id ? "true" : undefined}
                     onClick={(e) => {
                       e.preventDefault();
-                      const el = document.getElementById(id);
-                      if (el && articleRef.current) {
-                        const top = Math.max(0, el.offsetTop - 16);
-                        articleRef.current.scrollTo({
-                          top,
-                          behavior: "smooth",
-                        });
-                        window.history.replaceState(null, "", `#${id}`);
+                      const container = articleRef.current;
+                      if (!container) return;
+                      isTocClickScrollingRef.current = true;
+                      setActiveTocId(id);
+                      if (tocClickScrollUnlockTimerRef.current) {
+                        clearTimeout(tocClickScrollUnlockTimerRef.current);
                       }
+                      const targets = getTocTargets();
+                      const top = targets[idx];
+                      if (top) {
+                        container.scrollTo({
+                          top: getTopInContainer(container, top),
+                          behavior: "auto",
+                        });
+                      } else {
+                        const el = container.querySelector<HTMLElement>(`#${id}`);
+                        if (!el) return;
+                        container.scrollTo({
+                          top: getTopInContainer(container, el),
+                          behavior: "auto",
+                        });
+                      }
+                      tocClickScrollUnlockTimerRef.current = setTimeout(() => {
+                        isTocClickScrollingRef.current = false;
+                      }, 120);
+                      ignoredHashRef.current = id;
+                      window.history.replaceState(
+                        null,
+                        "",
+                        `#${encodeURIComponent(id)}`,
+                      );
                     }}
                   >
                     {text}

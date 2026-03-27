@@ -140,28 +140,28 @@ export function CopawWhy() {
             />
             <h2 className="font-newsreader font-semibold relative z-10 text-[38px] leading-[0.98] text-[#ffffff] sm:text-[42px] md:text-[52px]">
               <span>{t("whyCopaw.headingPrefix")} </span>
-              <span className="relative inline-block italic">
+              <span className="inline-block italic whitespace-nowrap">
                 {t("whyCopaw.headingEmphasis")}
-                <svg
-                  aria-hidden
-                  viewBox="0 0 360 120"
-                  className="pointer-events-none absolute left-4/7 top-[30%] h-[3em] w-[4.65em] -translate-x-1/2 -translate-y-1/2 rotate-[-7deg]"
-                >
-                  <motion.ellipse
-                    cx="180"
-                    cy="60"
-                    rx="168"
-                    ry="50"
-                    fill="none"
-                    stroke="rgba(255, 241, 230, 0.95)"
-                    strokeWidth="2.4"
-                    strokeDasharray="1070"
-                    initial={{ strokeDashoffset: 1070 }}
-                    animate={{ strokeDashoffset: animationsStarted ? 0 : 1070 }}
-                    transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
-                  />
-                </svg>
               </span>
+              <svg
+                aria-hidden
+                viewBox="0 0 360 120"
+                className="pointer-events-none absolute left-[4.5em] top-[0.3em] h-[3em] w-[4.65em] -translate-x-1/2 -translate-y-1/2 rotate-[-7deg]"
+              >
+                <motion.ellipse
+                  cx="180"
+                  cy="60"
+                  rx="168"
+                  ry="50"
+                  fill="none"
+                  stroke="rgba(255, 241, 230, 0.95)"
+                  strokeWidth="2.4"
+                  strokeDasharray="1070"
+                  initial={{ strokeDashoffset: 1070 }}
+                  animate={{ strokeDashoffset: animationsStarted ? 0 : 1070 }}
+                  transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
+                />
+              </svg>
             </h2>
           </div>
           <p className="font-inter text-left text-[13px] leading-5 text-[rgba(255,255,255,0.7)] sm:text-sm sm:leading-6 md:text-right md:text-base md:pt-8">

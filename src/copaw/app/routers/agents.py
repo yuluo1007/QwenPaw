@@ -3,15 +3,15 @@
 
 Provides RESTful API for managing multiple agent instances.
 """
-import asyncio
 import json
 import logging
 import shutil
 from pathlib import Path
 from fastapi import APIRouter, Body, HTTPException, Request
 from fastapi import Path as PathParam
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
+from ..utils import schedule_agent_reload
 from ...config.config import (
     AgentProfileConfig,
     AgentProfileRef,
@@ -57,6 +57,17 @@ class CreateAgentRequest(BaseModel):
     description: str = ""
     workspace_dir: str | None = None
     language: str = "en"
+
+    @field_validator("workspace_dir", mode="before")
+    @classmethod
+    def strip_workspace_dir(cls, value: str | None) -> str | None:
+        """Strip accidental whitespace"""
+        if value is None:
+            return None
+        if isinstance(value, str):
+            stripped = value.strip()
+            return stripped if stripped else None
+        return value
 
 
 class MdFileInfo(BaseModel):
@@ -304,17 +315,7 @@ async def update_agent(
     save_agent_config(agentId, existing_config)
 
     # Trigger hot reload if agent is running (async, non-blocking)
-    # IMPORTANT: Get manager before creating background task to avoid
-    # accessing request object after its lifecycle ends
-    manager = _get_multi_agent_manager(request)
-
-    async def reload_in_background():
-        try:
-            await manager.reload_agent(agentId)
-        except Exception as e:
-            logger.warning(f"Background reload failed for {agentId}: {e}")
-
-    asyncio.create_task(reload_in_background())
+    schedule_agent_reload(request, agentId)
 
     return agent_config
 

@@ -74,7 +74,7 @@ export function Nav() {
   }, [moreOpen]);
 
   return (
-    <header className="sticky top-0 z-99 border-b border-neutral-100 bg-white">
+    <header className="sticky top-0 z-99 border-b border-border bg-white">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 md:px-0">
         <Link
           to="/"

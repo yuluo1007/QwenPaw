@@ -45,7 +45,10 @@ export function CopawFAQ() {
     () => [
       { key: "quickStart", label: t("homeFaq.categories.quickStart") },
       { key: "features", label: t("homeFaq.categories.features") },
-      { key: "troubleshooting", label: t("homeFaq.categories.troubleshooting") },
+      {
+        key: "troubleshooting",
+        label: t("homeFaq.categories.troubleshooting"),
+      },
     ],
     [t],
   );
@@ -71,7 +74,7 @@ export function CopawFAQ() {
                 {t("homeFaq.quickStart.install.ctaPrefix")}{" "}
                 <Link
                   to="/docs/quickstart"
-                className="text-(--color-primary) no-underline transition hover:brightness-110"
+                  className="text-(--color-primary) no-underline transition hover:brightness-110"
                 >
                   {t("homeFaq.quickStart.install.ctaLink")}
                 </Link>{" "}
@@ -186,8 +189,7 @@ export function CopawFAQ() {
               <p className="mt-2">{t("homeFaq.features.models.p3")}</p>
               <p className="mt-2">
                 {t("homeFaq.features.models.p4Prefix")}{" "}
-                <code>copaw models</code>{" "}
-                {t("homeFaq.features.models.p4Mid")}{" "}
+                <code>copaw models</code> {t("homeFaq.features.models.p4Mid")}{" "}
                 <Link
                   to="/docs/cli#copaw-models"
                   className="text-(--color-primary) no-underline transition hover:brightness-110"
@@ -272,7 +274,9 @@ export function CopawFAQ() {
           answer: (
             <>
               <p>{t("homeFaq.troubleshooting.localModels.p1")}</p>
-              <p className="mt-2">{t("homeFaq.troubleshooting.localModels.p2")}</p>
+              <p className="mt-2">
+                {t("homeFaq.troubleshooting.localModels.p2")}
+              </p>
               <ul className="mt-2 list-disc space-y-1 pl-5">
                 <li>{t("homeFaq.troubleshooting.localModels.li1")}</li>
                 <li>{t("homeFaq.troubleshooting.localModels.li2")}</li>
@@ -372,13 +376,12 @@ export function CopawFAQ() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 md:grid-cols-[40%_60%] md:gap-12">
           <motion.div variants={itemVariants}>
-            <h2
-              id="copaw-faq-heading"
-              className={sectionStyles.title}
-            >
+            <h2 id="copaw-faq-heading" className={sectionStyles.title}>
               {t("homeFaq.title")}
             </h2>
-            <p className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}>
+            <p
+              className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}
+            >
               {t("homeFaq.sub")}
             </p>
 

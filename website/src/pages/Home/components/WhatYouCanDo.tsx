@@ -10,18 +10,13 @@ type UseCaseKey =
   | "research"
   | "assistant";
 
-const CATEGORIES: Array<{
+const CATEGORY_CONFIG: Array<{
   key: UseCaseKey;
-  title: string;
-  description: string;
   background: string;
   preview: string;
 }> = [
   {
     key: "social",
-    title: "Social Media",
-    description:
-      "CoPaw helps you stay on top of social content by summarizing trending posts, new videos, and account patterns based on your interests.",
     background:
       "https://img.alicdn.com/imgextra/i3/O1CN01LXpygR1HHlRkroefl_!!6000000000733-2-tps-1708-954.png",
     preview:
@@ -29,9 +24,6 @@ const CATEGORIES: Array<{
   },
   {
     key: "creative",
-    title: "Creative",
-    description:
-      "CoPaw can run overnight on your goals and support the entire content creation process from idea to draft.",
     background:
       "https://img.alicdn.com/imgextra/i3/O1CN010T7jhC1LptQKwxNGm_!!6000000001349-2-tps-2114-1180.png",
     preview:
@@ -39,9 +31,6 @@ const CATEGORIES: Array<{
   },
   {
     key: "productivity",
-    title: "Creative & building",
-    description:
-      "CoPaw boosts productivity by summarizing updates, organizing contacts, and analyzing personal logs for useful patterns.",
     background:
       "https://img.alicdn.com/imgextra/i3/O1CN01SVXYZd1a2Af7uEY94_!!6000000003271-2-tps-1874-1046.png",
     preview:
@@ -49,9 +38,6 @@ const CATEGORIES: Array<{
   },
   {
     key: "research",
-    title: "Research & learning",
-    description:
-      "CoPaw tracks important company updates and builds your personal knowledge base for easy retrieval and reuse.",
     background:
       "https://img.alicdn.com/imgextra/i3/O1CN01oybwPf1vKaWII7bmm_!!6000000006154-2-tps-1962-1096.png",
     preview:
@@ -59,9 +45,6 @@ const CATEGORIES: Array<{
   },
   {
     key: "assistant",
-    title: "Desktop & files",
-    description:
-      "CoPaw helps you organize, search, and summarize local files, and send requested documents directly into your chat.",
     background:
       "https://img.alicdn.com/imgextra/i2/O1CN01fMrv5W1zWH5afE9Mo_!!6000000006721-2-tps-1870-1044.png",
     preview:
@@ -97,7 +80,8 @@ export function CopawWhatYouCanDo() {
   const [activeKey, setActiveKey] = useState<UseCaseKey>("social");
 
   const renderPreview = (key: string) => {
-    const active = CATEGORIES.find((cat) => cat.key === key) ?? CATEGORIES[0];
+    const active =
+      CATEGORY_CONFIG.find((cat) => cat.key === key) ?? CATEGORY_CONFIG[0];
     return (
       <motion.div
         className="relative flex flex-col overflow-hidden"
@@ -178,8 +162,10 @@ export function CopawWhatYouCanDo() {
 
         <div className="mt-7 grid gap-5 md:mt-15 md:grid-cols-[minmax(260px,1fr)_minmax(0,1.6fr)] md:items-start md:gap-6">
           <div className="p-1.5 md:p-3">
-            {CATEGORIES.map(({ key, title, description }) => {
+            {CATEGORY_CONFIG.map(({ key }) => {
               const active = key === activeKey;
+              const title = t(`usecases.categories.${key}.title`);
+              const description = t(`usecases.categories.${key}.description`);
               return (
                 <div key={key}>
                   <button

@@ -127,37 +127,27 @@
   "usecases": {
     "title": "What you can do with CoPaw",
     "sub": "Memory and personalization under your control.",
-    "category": {
-      "social": "Social media",
-      "creative": "Creative & building",
-      "productivity": "Productivity",
-      "research": "Research & learning",
-      "assistant": "Desktop & files",
-      "explore": "Explore more"
-    },
-    "social": {
-      "1": "Daily digest of hot posts from Xiaohongshu, Zhihu, and Reddit based on your interests, with recommendations that improve over time.",
-      "2": "Daily summaries of new videos from Bilibili or YouTube by channel or keyword, saving you time browsing.",
-      "3": "Analyze your Xiaohongshu or Zhihu account to uncover content patterns and inform what to post next."
-    },
-    "creative": {
-      "1": "Describe your goal to CoPaw and set it to run overnight; get a working draft by the next day.",
-      "2": "From topic selection and material gathering to direction setting, CoPaw supports the full video content workflow."
-    },
-    "productivity": {
-      "1": "Daily digests of newsletters and important emails, delivered to your DingTalk, Feishu or QQ chat.",
-      "2": "Contacts surfaced from email and calendar, with natural-language search for people and past interactions.",
-      "3": "Log diet and symptoms; CoPaw analyzes and surfaces patterns over time."
-    },
-    "research": {
-      "1": "Track tech and AI company earnings and news; get key points and summaries automatically.",
-      "2": "Save links, articles, and posts to a personal knowledge base and reuse them across workflows."
-    },
-    "assistant": {
-      "1": "Organize and search local files, read and summarize documents; request files in DingTalk, Feishu or QQ and receive them in the current chat."
-    },
-    "explore": {
-      "1": "Explore more possibilities—combine Skills and cron into your own agentic app."
+    "categories": {
+      "social": {
+        "title": "Social Media",
+        "description": "CoPaw helps you stay on top of social content by summarizing trending posts, new videos, and account patterns based on your interests."
+      },
+      "creative": {
+        "title": "Creative",
+        "description": "CoPaw can run overnight on your goals and support the entire content creation process from idea to draft."
+      },
+      "productivity": {
+        "title": "Creative & building",
+        "description": "CoPaw boosts productivity by summarizing updates, organizing contacts, and analyzing personal logs for useful patterns."
+      },
+      "research": {
+        "title": "Research & learning",
+        "description": "CoPaw tracks important company updates and builds your personal knowledge base for easy retrieval and reuse."
+      },
+      "assistant": {
+        "title": "Desktop & files",
+        "description": "CoPaw helps you organize, search, and summarize local files, and send requested documents directly into your chat."
+      }
     }
   },
   "quickstart": {

@@ -51,16 +51,16 @@ const cards = [
     icon: "/explore-apps.svg",
     href: "https://developer.aliyun.com/article/1713682",
   },
-  {
-    key: "memory",
-    icon: "/works-memory.svg",
-    href: "/docs/memory",
-  },
-  {
-    key: "toolkit",
-    icon: "/works-toolkit.svg",
-    href: "/docs/skills",
-  },
+  // {
+  //   key: "memory",
+  //   icon: "/works-memory.svg",
+  //   href: "/docs/memory",
+  // },
+  // {
+  //   key: "toolkit",
+  //   icon: "/works-toolkit.svg",
+  //   href: "/docs/skills",
+  // },
 ] as const;
 
 export function CopawWorksForYou() {

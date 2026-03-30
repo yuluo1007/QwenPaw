@@ -71,7 +71,7 @@ export function CopawFAQ() {
                 {t("homeFaq.quickStart.install.ctaPrefix")}{" "}
                 <Link
                   to="/docs/quickstart"
-                  className="underline underline-offset-2 hover:text-(--color-text)"
+                className="text-(--color-primary) no-underline transition hover:brightness-110"
                 >
                   {t("homeFaq.quickStart.install.ctaLink")}
                 </Link>{" "}
@@ -104,7 +104,7 @@ export function CopawFAQ() {
                         href="https://github.com/agentscope-ai/CoPaw/releases"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="underline underline-offset-2 hover:text-(--color-text)"
+                        className="text-(--color-primary) no-underline transition hover:brightness-110"
                       >
                         {t("homeFaq.quickStart.update.li5bLink")}
                       </a>
@@ -147,7 +147,7 @@ export function CopawFAQ() {
                 href="https://github.com/agentscope-ai/CoPaw/releases"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-(--color-text)"
+                className="text-(--color-primary) no-underline transition hover:brightness-110"
               >
                 {t("homeFaq.quickStart.upgrade.link")}
               </a>{" "}
@@ -157,11 +157,6 @@ export function CopawFAQ() {
         },
       ],
       features: [
-        {
-          id: "jobs",
-          question: t("homeFaq.features.jobs.q"),
-          answer: t("homeFaq.features.jobs.a"),
-        },
         {
           id: "models",
           question: t("homeFaq.features.models.q"),
@@ -173,7 +168,7 @@ export function CopawFAQ() {
                 {t("homeFaq.features.models.p1Mid")}{" "}
                 <Link
                   to="/docs/models"
-                  className="underline underline-offset-2 hover:text-(--color-text)"
+                  className="text-(--color-primary) no-underline transition hover:brightness-110"
                 >
                   {t("homeFaq.features.models.modelsLink")}
                 </Link>{" "}
@@ -195,7 +190,7 @@ export function CopawFAQ() {
                 {t("homeFaq.features.models.p4Mid")}{" "}
                 <Link
                   to="/docs/cli#copaw-models"
-                  className="underline underline-offset-2 hover:text-(--color-text)"
+                  className="text-(--color-primary) no-underline transition hover:brightness-110"
                 >
                   {t("homeFaq.features.models.cliLink")}
                 </Link>
@@ -203,6 +198,11 @@ export function CopawFAQ() {
               </p>
             </>
           ),
+        },
+        {
+          id: "jobs",
+          question: t("homeFaq.features.jobs.q"),
+          answer: t("homeFaq.features.jobs.a"),
         },
         {
           id: "skills",
@@ -214,7 +214,7 @@ export function CopawFAQ() {
               {t("homeFaq.features.skills.p1Mid")}{" "}
               <Link
                 to="/docs/skills"
-                className="underline underline-offset-2 hover:text-(--color-text)"
+                className="text-(--color-primary) no-underline transition hover:brightness-110"
               >
                 {t("homeFaq.features.skills.link")}
               </Link>
@@ -232,7 +232,7 @@ export function CopawFAQ() {
               {t("homeFaq.features.mcp.p1Mid")}{" "}
               <Link
                 to="/docs/mcp"
-                className="underline underline-offset-2 hover:text-(--color-text)"
+                className="text-(--color-primary) no-underline transition hover:brightness-110"
               >
                 {t("homeFaq.features.mcp.link")}
               </Link>
@@ -320,7 +320,7 @@ export function CopawFAQ() {
                     href="https://qr.dingtalk.com/action/joingroup?code=v1,k1,OmDlBXpjW+I2vWjKDsjvI9dhcXjGZi3bQiojOq3dlDw=&_dt_no_comment=1&origin=11"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline underline-offset-2 hover:text-(--color-text)"
+                    className="text-(--color-primary) no-underline transition hover:brightness-110"
                   >
                     {t("homeFaq.troubleshooting.help.dingtalk")}
                   </a>{" "}
@@ -329,7 +329,7 @@ export function CopawFAQ() {
                     href="https://discord.com/invite/eYMpfnkG8h"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline underline-offset-2 hover:text-(--color-text)"
+                    className="text-(--color-primary) no-underline transition hover:brightness-110"
                   >
                     {t("homeFaq.troubleshooting.help.discord")}
                   </a>{" "}
@@ -341,7 +341,7 @@ export function CopawFAQ() {
                     href="https://github.com/agentscope-ai/CoPaw/issues"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline underline-offset-2 hover:text-(--color-text)"
+                    className="text-(--color-primary) no-underline transition hover:brightness-110"
                   >
                     {t("homeFaq.troubleshooting.help.githubIssues")}
                   </a>{" "}

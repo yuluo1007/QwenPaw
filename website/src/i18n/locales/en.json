@@ -302,6 +302,146 @@
     "searchHint": "Enter a keyword and press Enter to search.",
     "agentPersona": "Agent Persona"
   },
+  "homeFaq": {
+    "title": "Frequently asked questions",
+    "sub": "Memory and personalization under your control.",
+    "intro": "Here's everything you need to know to get started, manage your account, and troubleshoot the most frequent issues.",
+    "categories": {
+      "quickStart": "Quick Start",
+      "features": "Features",
+      "troubleshooting": "Troubleshooting"
+    },
+    "quickStart": {
+      "install": {
+        "q": "How to install CoPaw",
+        "p1": "CoPaw supports multiple installation methods, including:",
+        "li1": "Desktop Application (Beta): download and run the desktop app with no command line required, suitable for users unfamiliar with terminals.",
+        "li2": "Script install: run on your machine with no Python setup required.",
+        "li3": "pip install: if you prefer managing Python yourself.",
+        "li4": "Docker: use official images from Docker Hub (ACR is also available for users in China).",
+        "li5": "ModelScope Studio: one-click cloud deployment, no local install needed.",
+        "li6": "Alibaba Cloud ECS: one-click deployment on Alibaba Cloud, no local install.",
+        "ctaPrefix": "See",
+        "ctaLink": "Quick Start",
+        "ctaSuffix": "for details."
+      },
+      "update": {
+        "q": "How to update CoPaw",
+        "p1": "To update CoPaw, use the method matching your installation type:",
+        "li1": "If installed via one-line script, re-run the installer to upgrade.",
+        "li2Prefix": "If installed via pip, run:",
+        "li3": "If installed from source, pull the latest code and reinstall.",
+        "li4": "If using Docker, pull the latest image and restart the container.",
+        "li5Prefix": "If using the Windows Desktop App (exe), currently you need to uninstall and reinstall:",
+        "li5a": "Uninstall CoPaw from your PC.",
+        "li5bPrefix": "Download the latest version from:",
+        "li5bLink": "GitHub Releases",
+        "li5bSuffix": ".",
+        "li5c": "Reinstall."
+      },
+      "initialize": {
+        "q": "How to initialize and start CoPaw service",
+        "p1": "Recommended quick initialization:",
+        "p2": "Start service:",
+        "p3Prefix": "The default Console URL is",
+        "p3Suffix": ". After quick init, you can open Console and customize settings."
+      },
+      "upgrade": {
+        "q": "Where to check latest version upgrade details",
+        "p1": "You can check version changes in the Change Log section of Console, or on the CoPaw",
+        "link": "GitHub Releases",
+        "p2": "page."
+      }
+    },
+    "features": {
+      "jobs": {
+        "q": "How to manage cron jobs",
+        "a": "The easiest way to create a cron job is to ask CoPaw directly in your target channel. For example: Create a scheduled task that reminds me to drink water every five minutes.\" You can also create and manage cron jobs manually in Console → Control → Cron Jobs."
+      },
+      "models": {
+        "q": "How to configure models",
+        "p1Prefix": "In Console, go to",
+        "p1Strong": "Settings → Models",
+        "p1Mid": "to configure. See the",
+        "modelsLink": "Models",
+        "p1Suffix": "doc for details:",
+        "li1": "Cloud models: enter the provider API key (e.g. ModelScope, DashScope, or a custom provider).",
+        "li2Prefix": "Local models: supports",
+        "li2Suffix": "and Ollama.",
+        "p2": "After configuration, choose the target provider and model under Default LLM at the top of the Models page and Save — that becomes the global default.",
+        "p3": "To use a different model per agent, switch the agent with the selector at the top of Console, then pick a model in the top-left of the Chat page for that agent.",
+        "p4Prefix": "You can also use",
+        "p4Mid": "for setup, downloads, and switching. See",
+        "cliLink": "CLI → Models and environment variables → copaw models",
+        "p4Suffix": "."
+      },
+      "skills": {
+        "q": "How to manage Skills",
+        "p1Prefix": "Go to",
+        "p1Strong": "Agent → Skills",
+        "p1Mid": "in Console. You can enable/disable Skills, create custom Skills, and import Skills from Skills Hub. See",
+        "link": "Skills",
+        "p1Suffix": "."
+      },
+      "mcp": {
+        "q": "How to configure MCP",
+        "p1Prefix": "Go to",
+        "p1Strong": "Agent → MCP",
+        "p1Mid": "in Console. You can enable/disable/delete/create MCP clients there. See",
+        "link": "MCP",
+        "p1Suffix": "."
+      }
+    },
+    "troubleshooting": {
+      "error401": {
+        "q": "Getting Error Code 401",
+        "p1": "If you encounter the following error:",
+        "err": "Error code: 401 - {'error': {'message': \"You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY).\"}}",
+        "p2": "This is typically caused by one of the following:",
+        "li1": "No API key is configured. Get an API key and configure it in Console → Settings → Models.",
+        "li2Prefix": "An API key is configured but authentication still fails. In most cases, one of the configuration fields is incorrect. Check the following:",
+        "li2a": "Base URL — Make sure it is correct.",
+        "li2b": "API key — Make sure it is copied in full, with no extra spaces.",
+        "li2c": "Model name — Make sure it exactly matches the provider's value (case-sensitive)."
+      },
+      "localModels": {
+        "q": "Troubleshooting local models",
+        "p1": "In most cases, this is not a CoPaw bug. The root cause is usually that the model's context length is configured too small.",
+        "p2": "When you deploy a local model with Ollama or LM Studio, if the model's context length is too low, CoPaw may show problems such as:",
+        "li1": "failing to sustain multi-turn conversations reliably",
+        "li2": "losing context during complex tool calls",
+        "li3": "forgetting instructions given in earlier turns",
+        "li4": "drifting away from the task during long-running interactions",
+        "fixTitle": "How to fix it:",
+        "fix1": "Before running CoPaw, set the model's context length to at least 32K.",
+        "fix2": "For more complex tasks, frequent tool calls, or longer conversations, you may need a value higher than 32K."
+      },
+      "cron": {
+        "q": "Troubleshooting cron jobs",
+        "p1": "If a scheduled task doesn't run as expected, try the following steps:",
+        "s1": "Confirm that the CoPaw service is running.",
+        "s2": "In Console, go to Control → Cron Jobs and ensure the task Status is set to Enabled.",
+        "s3": "On the same page, confirm that Dispatch Channel is set to your intended channel (e.g., Console, DingTalk, Feishu, Discord, iMessage).",
+        "s4": "Also confirm that Dispatch Target User ID and Dispatch Target Session ID are correctly configured.",
+        "s5": "In Console, go to Control → Sessions and locate the session used when creating the task. The User ID and Session ID there must match the task's Dispatch Target User ID and Dispatch Target Session ID for replies to appear in that session.",
+        "s6": "If the task runs at the wrong time, go back to Control → Cron Jobs and verify the Schedule (Cron) expression.",
+        "s7": "To manually test the task, click Execute Now on the Cron Jobs page. If successful, the reply will appear in the target channel. Alternatively, you can ask CoPaw directly: \"Trigger the 'drink water reminder' task I just created.\""
+      },
+      "help": {
+        "q": "Here's the polished version",
+        "p1": "If you need help, you can:",
+        "s1Prefix": "Join our",
+        "s1Mid": "or",
+        "s1Suffix": "group to ask questions.",
+        "dingtalk": "DingTalk",
+        "discord": "Discord",
+        "s2Prefix": "Open an issue on",
+        "githubIssues": "CoPaw GitHub",
+        "s2Mid": "with the full error message, the error detail file (e.g.",
+        "s2Suffix": "), your model provider, model name, and CoPaw version."
+      }
+    }
+  },
   "releaseNotes": {
     "title": "Release Notes",
     "noReleases": "No release notes available"

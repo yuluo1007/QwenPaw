@@ -149,25 +149,6 @@ function CodeBlock({
   );
 }
 
-const dashAnimations = `
-@keyframes copaw-dash-move-right {
-  0% { background-position: 0 0; }
-  100% { background-position: 16px 0; }
-}
-@keyframes copaw-dash-move-left {
-  0% { background-position: 0 0; }
-  100% { background-position: -16px 0; }
-}
-@keyframes copaw-dash-move-down {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 16px; }
-}
-@keyframes copaw-dash-move-up {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 -16px; }
-}
-`;
-
 export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
   const { t } = useTranslation();
   const [selectedMethod, setSelectedMethod] = useState<InstallMethod>("pip");
@@ -197,7 +178,6 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
 
   return (
     <>
-      <style>{dashAnimations}</style>
       <motion.section
         className="relative"
         variants={sectionVariants}
@@ -207,40 +187,36 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
         id="copaw-quickstart"
       >
       <div
-        className="pointer-events-none absolute left-1/2 top-0 h-px w-screen -translate-x-1/2"
+        className="pointer-events-none absolute left-1/2 top-0 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-right_1s_linear_infinite]"
         style={{
           background:
             "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
           backgroundSize: "16px 100%",
-          animation: "copaw-dash-move-right 1s linear infinite",
         }}
       />
       <div
-        className="pointer-events-none absolute left-1/2 top-full h-px w-screen -translate-x-1/2 -translate-y-px"
+        className="pointer-events-none absolute left-1/2 top-full h-px w-screen -translate-x-1/2 -translate-y-px animate-[copaw-dash-move-left_1s_linear_infinite]"
         style={{
           background:
             "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
           backgroundSize: "16px 100%",
-          animation: "copaw-dash-move-left 1s linear infinite",
         }}
       />
       <div className="relative mx-auto max-w-4xl">
         <div
-          className="pointer-events-none absolute bottom-0 left-4 top-0 w-px md:left-0"
+          className="pointer-events-none absolute bottom-0 left-4 top-0 w-px md:left-0 animate-[copaw-dash-move-down_1s_linear_infinite]"
           style={{
             background:
               "repeating-linear-gradient(to bottom, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
             backgroundSize: "100% 16px",
-            animation: "copaw-dash-move-down 1s linear infinite",
           }}
         />
         <div
-          className="pointer-events-none absolute bottom-0 right-4 top-0 w-px md:right-0"
+          className="pointer-events-none absolute bottom-0 right-4 top-0 w-px md:right-0 animate-[copaw-dash-move-up_1s_linear_infinite]"
           style={{
             background:
               "repeating-linear-gradient(to bottom, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
             backgroundSize: "100% 16px",
-            animation: "copaw-dash-move-up 1s linear infinite",
           }}
         />
         <div className="px-4 py-10 md:px-0 md:py-19">
@@ -260,12 +236,11 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
           </motion.div>
           <div className="relative isolate mx-auto max-w-4xl">
             <div
-              className="pointer-events-none absolute left-1/2 top-0 z-20 h-px w-screen -translate-x-1/2"
+              className="pointer-events-none absolute left-1/2 top-0 z-20 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-left_1s_linear_infinite]"
               style={{
                 background:
                   "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
                 backgroundSize: "16px 100%",
-                animation: "copaw-dash-move-left 1s linear infinite",
               }}
             />
             <div
@@ -506,12 +481,11 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
               </motion.div>
             </div>
             <div
-              className="pointer-events-none absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2"
+              className="pointer-events-none absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-right_1s_linear_infinite]"
               style={{
                 background:
                   "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
                 backgroundSize: "16px 100%",
-                animation: "copaw-dash-move-right 1s linear infinite",
               }}
             />
           </div>

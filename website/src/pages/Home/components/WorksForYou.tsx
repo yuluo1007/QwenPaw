@@ -1,17 +1,6 @@
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 
-const dashAnimations = `
-@keyframes copaw-dash-move-right {
-  0% { background-position: 0 0; }
-  100% { background-position: 16px 0; }
-}
-@keyframes copaw-dash-move-left {
-  0% { background-position: 0 0; }
-  100% { background-position: -16px 0; }
-}
-`;
-
 const container = {
   hidden: { opacity: 0, y: 16 },
   show: {
@@ -68,7 +57,6 @@ export function CopawWorksForYou() {
 
   return (
     <>
-      <style>{dashAnimations}</style>
       <motion.section
       className="px-4 py-12 md:py-16"
       variants={container}
@@ -92,12 +80,11 @@ export function CopawWorksForYou() {
 
         <div className="relative mt-8 py-8 md:mt-12 md:py-12">
           <div
-            className="pointer-events-none absolute left-1/2 top-0 h-px w-screen -translate-x-1/2"
+            className="pointer-events-none absolute left-1/2 top-0 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-right_1s_linear_infinite]"
             style={{
               background:
                 "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
               backgroundSize: "16px 100%",
-              animation: "copaw-dash-move-right 1s linear infinite",
             }}
           />
           <motion.div
@@ -139,12 +126,11 @@ export function CopawWorksForYou() {
             ))}
           </motion.div>
           <div
-            className="pointer-events-none absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2"
+            className="pointer-events-none absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-left_1s_linear_infinite]"
             style={{
               background:
                 "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
               backgroundSize: "16px 100%",
-              animation: "copaw-dash-move-left 1s linear infinite",
             }}
           />
         </div>

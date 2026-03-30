@@ -5,13 +5,6 @@ import { Check } from "lucide-react";
 import { DottedlinedownArrowIcon, CopyIcon } from "@/components/Icon";
 import { PIP_INSTALL_COMMANDS } from "./QuickStart";
 
-const dashAnimations = `
-@keyframes copaw-hero-trim-path {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
-`;
-
 const container = {
   hidden: { opacity: 0, y: 14 },
   visible: {
@@ -94,7 +87,6 @@ export function CopawHero() {
 
   return (
     <>
-      <style>{dashAnimations}</style>
       <motion.section
       className="relative text-center"
       aria-labelledby="copaw-hero-heading"
@@ -132,12 +124,9 @@ export function CopawHero() {
             <span className="relative">
               {t("hero.titleright")}
               <span
-                className="absolute bottom-0 left-0 h-[2px]"
+                className="absolute bottom-0 left-0 h-[2px] w-0 animate-[copaw-hero-trim-path_0.8s_ease-out_forwards] [animation-delay:1s]"
                 style={{
                   background: "repeating-linear-gradient(to right, var(--color-primary) 0 8px, transparent 8px 16px)",
-                  width: "0%",
-                  animation: "copaw-hero-trim-path 0.8s ease-out forwards",
-                  animationDelay: "1s",
                 }}
               />
             </span>

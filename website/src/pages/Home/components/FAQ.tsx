@@ -1,13 +1,15 @@
-import { useMemo, useState } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { sectionStyles } from "@/lib/utils";
 
-type FaqCategory = "quickStart" | "account" | "features";
+type FaqCategory = "quickStart" | "features" | "troubleshooting";
 
 type FaqItem = {
   id: string;
   question: string;
-  answer: string;
+  answer: ReactNode | string;
 };
 
 const sectionVariants = {
@@ -33,91 +35,328 @@ const itemVariants = {
   },
 };
 
-const categories: Array<{ key: FaqCategory; label: string }> = [
-  { key: "quickStart", label: "Quick Start" },
-  { key: "account", label: "Account & security" },
-  { key: "features", label: "Features & tools" },
-];
-
-const faqData: Record<FaqCategory, FaqItem[]> = {
-  quickStart: [
-    {
-      id: "install",
-      question: "How to install CoPaw?",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",
-    },
-    { id: "update", question: "How to update CoPaw?", 
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.", },
-    {
-      id: "initialize",
-      question: "How to initialize and start CoPaw service?",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",
-    },
-    {
-      id: "upgrade",
-      question: "Where to check latest version upgrade details?",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",
-    },
-    { id: "models", question: "How to configure models?",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",},
-    {
-      id: "cron",
-      question: "Troubleshooting scheduled (cron) tasks",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",
-    },
-  ],
-  account: [
-    {
-      id: "account-security",
-      question: "How to keep my account secure?",
-      answer:
-        "Use strong credentials, rotate API keys regularly, and limit permissions for integrations.",
-    },
-    {
-      id: "backup",
-      question: "How to back up my local data?",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",
-    },
-    {
-      id: "privacy",
-      question: "Can I control where my data is stored?",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",
-    },
-  ],
-  features: [
-    {
-      id: "channels",
-      question: "Which channels does CoPaw support?",
-      answer:
-        "CoPaw supports multiple channels and can connect through extensible integrations.",
-    },
-    {
-      id: "skills",
-      question: "How to add custom skills?",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",
-    },
-    {
-      id: "automation",
-      question: "Can I automate repeated workflows?",
-      answer:
-        "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel.",
-    },
-  ],
-};
-
 export function CopawFAQ() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] =
     useState<FaqCategory>("quickStart");
   const [openId, setOpenId] = useState("install");
+
+  const categories: Array<{ key: FaqCategory; label: string }> = useMemo(
+    () => [
+      { key: "quickStart", label: t("homeFaq.categories.quickStart") },
+      { key: "features", label: t("homeFaq.categories.features") },
+      { key: "troubleshooting", label: t("homeFaq.categories.troubleshooting") },
+    ],
+    [t],
+  );
+
+  const faqData: Record<FaqCategory, FaqItem[]> = useMemo(
+    () => ({
+      quickStart: [
+        {
+          id: "install",
+          question: t("homeFaq.quickStart.install.q"),
+          answer: (
+            <>
+              <p>{t("homeFaq.quickStart.install.p1")}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>{t("homeFaq.quickStart.install.li1")}</li>
+                <li>{t("homeFaq.quickStart.install.li2")}</li>
+                <li>{t("homeFaq.quickStart.install.li3")}</li>
+                <li>{t("homeFaq.quickStart.install.li4")}</li>
+                <li>{t("homeFaq.quickStart.install.li5")}</li>
+                <li>{t("homeFaq.quickStart.install.li6")}</li>
+              </ul>
+              <p className="mt-2">
+                {t("homeFaq.quickStart.install.ctaPrefix")}{" "}
+                <Link
+                  to="/docs/quickstart"
+                  className="underline underline-offset-2 hover:text-(--color-text)"
+                >
+                  {t("homeFaq.quickStart.install.ctaLink")}
+                </Link>{" "}
+                {t("homeFaq.quickStart.install.ctaSuffix")}
+              </p>
+            </>
+          ),
+        },
+        {
+          id: "update",
+          question: t("homeFaq.quickStart.update.q"),
+          answer: (
+            <>
+              <p>{t("homeFaq.quickStart.update.p1")}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>{t("homeFaq.quickStart.update.li1")}</li>
+                <li>
+                  {t("homeFaq.quickStart.update.li2Prefix")}{" "}
+                  <code>pip install --upgrade copaw</code>
+                </li>
+                <li>{t("homeFaq.quickStart.update.li3")}</li>
+                <li>{t("homeFaq.quickStart.update.li4")}</li>
+                <li>
+                  {t("homeFaq.quickStart.update.li5Prefix")}
+                  <ul className="mt-1 list-disc space-y-1 pl-5">
+                    <li>{t("homeFaq.quickStart.update.li5a")}</li>
+                    <li>
+                      {t("homeFaq.quickStart.update.li5bPrefix")}{" "}
+                      <a
+                        href="https://github.com/agentscope-ai/CoPaw/releases"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline underline-offset-2 hover:text-(--color-text)"
+                      >
+                        {t("homeFaq.quickStart.update.li5bLink")}
+                      </a>
+                      {t("homeFaq.quickStart.update.li5bSuffix")}
+                    </li>
+                    <li>{t("homeFaq.quickStart.update.li5c")}</li>
+                  </ul>
+                </li>
+              </ul>
+            </>
+          ),
+        },
+        {
+          id: "initialize",
+          question: t("homeFaq.quickStart.initialize.q"),
+          answer: (
+            <>
+              <p>
+                {t("homeFaq.quickStart.initialize.p1")}{" "}
+                <code>copaw init --defaults</code>
+              </p>
+              <p>
+                {t("homeFaq.quickStart.initialize.p2")} <code>copaw app</code>
+              </p>
+              <p className="mt-2">
+                {t("homeFaq.quickStart.initialize.p3Prefix")}{" "}
+                <code>http://127.0.0.1:8088/</code>
+                {t("homeFaq.quickStart.initialize.p3Suffix")}
+              </p>
+            </>
+          ),
+        },
+        {
+          id: "upgrade",
+          question: t("homeFaq.quickStart.upgrade.q"),
+          answer: (
+            <>
+              {t("homeFaq.quickStart.upgrade.p1")}{" "}
+              <a
+                href="https://github.com/agentscope-ai/CoPaw/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-(--color-text)"
+              >
+                {t("homeFaq.quickStart.upgrade.link")}
+              </a>{" "}
+              {t("homeFaq.quickStart.upgrade.p2")}
+            </>
+          ),
+        },
+      ],
+      features: [
+        {
+          id: "jobs",
+          question: t("homeFaq.features.jobs.q"),
+          answer: t("homeFaq.features.jobs.a"),
+        },
+        {
+          id: "models",
+          question: t("homeFaq.features.models.q"),
+          answer: (
+            <>
+              <p>
+                {t("homeFaq.features.models.p1Prefix")}{" "}
+                <strong>{t("homeFaq.features.models.p1Strong")}</strong>{" "}
+                {t("homeFaq.features.models.p1Mid")}{" "}
+                <Link
+                  to="/docs/models"
+                  className="underline underline-offset-2 hover:text-(--color-text)"
+                >
+                  {t("homeFaq.features.models.modelsLink")}
+                </Link>{" "}
+                {t("homeFaq.features.models.p1Suffix")}
+              </p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>{t("homeFaq.features.models.li1")}</li>
+                <li>
+                  {t("homeFaq.features.models.li2Prefix")}{" "}
+                  <code>llama.cpp</code>, <code>MLX</code>,{" "}
+                  {t("homeFaq.features.models.li2Suffix")}
+                </li>
+              </ul>
+              <p className="mt-2">{t("homeFaq.features.models.p2")}</p>
+              <p className="mt-2">{t("homeFaq.features.models.p3")}</p>
+              <p className="mt-2">
+                {t("homeFaq.features.models.p4Prefix")}{" "}
+                <code>copaw models</code>{" "}
+                {t("homeFaq.features.models.p4Mid")}{" "}
+                <Link
+                  to="/docs/cli#copaw-models"
+                  className="underline underline-offset-2 hover:text-(--color-text)"
+                >
+                  {t("homeFaq.features.models.cliLink")}
+                </Link>
+                {t("homeFaq.features.models.p4Suffix")}
+              </p>
+            </>
+          ),
+        },
+        {
+          id: "skills",
+          question: t("homeFaq.features.skills.q"),
+          answer: (
+            <p>
+              {t("homeFaq.features.skills.p1Prefix")}{" "}
+              <strong>{t("homeFaq.features.skills.p1Strong")}</strong>{" "}
+              {t("homeFaq.features.skills.p1Mid")}{" "}
+              <Link
+                to="/docs/skills"
+                className="underline underline-offset-2 hover:text-(--color-text)"
+              >
+                {t("homeFaq.features.skills.link")}
+              </Link>
+              {t("homeFaq.features.skills.p1Suffix")}
+            </p>
+          ),
+        },
+        {
+          id: "MCP",
+          question: t("homeFaq.features.mcp.q"),
+          answer: (
+            <p>
+              {t("homeFaq.features.mcp.p1Prefix")}{" "}
+              <strong>{t("homeFaq.features.mcp.p1Strong")}</strong>{" "}
+              {t("homeFaq.features.mcp.p1Mid")}{" "}
+              <Link
+                to="/docs/mcp"
+                className="underline underline-offset-2 hover:text-(--color-text)"
+              >
+                {t("homeFaq.features.mcp.link")}
+              </Link>
+              {t("homeFaq.features.mcp.p1Suffix")}
+            </p>
+          ),
+        },
+      ],
+      troubleshooting: [
+        {
+          id: "error-401",
+          question: t("homeFaq.troubleshooting.error401.q"),
+          answer: (
+            <>
+              <p>{t("homeFaq.troubleshooting.error401.p1")}</p>
+              <pre className="mt-2 whitespace-pre-wrap rounded-lg bg-white/60 p-3 text-[12px] leading-relaxed text-(--color-text-secondary)">
+                {t("homeFaq.troubleshooting.error401.err")}
+              </pre>
+              <p className="mt-2">{t("homeFaq.troubleshooting.error401.p2")}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>{t("homeFaq.troubleshooting.error401.li1")}</li>
+                <li>
+                  {t("homeFaq.troubleshooting.error401.li2Prefix")}
+                  <ul className="mt-1 list-disc space-y-1 pl-5">
+                    <li>{t("homeFaq.troubleshooting.error401.li2a")}</li>
+                    <li>{t("homeFaq.troubleshooting.error401.li2b")}</li>
+                    <li>{t("homeFaq.troubleshooting.error401.li2c")}</li>
+                  </ul>
+                </li>
+              </ul>
+            </>
+          ),
+        },
+        {
+          id: "local-models",
+          question: t("homeFaq.troubleshooting.localModels.q"),
+          answer: (
+            <>
+              <p>{t("homeFaq.troubleshooting.localModels.p1")}</p>
+              <p className="mt-2">{t("homeFaq.troubleshooting.localModels.p2")}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>{t("homeFaq.troubleshooting.localModels.li1")}</li>
+                <li>{t("homeFaq.troubleshooting.localModels.li2")}</li>
+                <li>{t("homeFaq.troubleshooting.localModels.li3")}</li>
+                <li>{t("homeFaq.troubleshooting.localModels.li4")}</li>
+              </ul>
+              <p className="mt-3 font-semibold">
+                {t("homeFaq.troubleshooting.localModels.fixTitle")}
+              </p>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>{t("homeFaq.troubleshooting.localModels.fix1")}</li>
+                <li>{t("homeFaq.troubleshooting.localModels.fix2")}</li>
+              </ul>
+            </>
+          ),
+        },
+        {
+          id: "cron-jobs",
+          question: t("homeFaq.troubleshooting.cron.q"),
+          answer: (
+            <>
+              <p>{t("homeFaq.troubleshooting.cron.p1")}</p>
+              <ol className="mt-2 list-decimal space-y-1 pl-5">
+                <li>{t("homeFaq.troubleshooting.cron.s1")}</li>
+                <li>{t("homeFaq.troubleshooting.cron.s2")}</li>
+                <li>{t("homeFaq.troubleshooting.cron.s3")}</li>
+                <li>{t("homeFaq.troubleshooting.cron.s4")}</li>
+                <li>{t("homeFaq.troubleshooting.cron.s5")}</li>
+                <li>{t("homeFaq.troubleshooting.cron.s6")}</li>
+                <li>{t("homeFaq.troubleshooting.cron.s7")}</li>
+              </ol>
+            </>
+          ),
+        },
+        {
+          id: "help",
+          question: t("homeFaq.troubleshooting.help.q"),
+          answer: (
+            <>
+              <p>{t("homeFaq.troubleshooting.help.p1")}</p>
+              <ol className="mt-2 list-decimal space-y-1 pl-5">
+                <li>
+                  {t("homeFaq.troubleshooting.help.s1Prefix")}{" "}
+                  <a
+                    href="https://qr.dingtalk.com/action/joingroup?code=v1,k1,OmDlBXpjW+I2vWjKDsjvI9dhcXjGZi3bQiojOq3dlDw=&_dt_no_comment=1&origin=11"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-(--color-text)"
+                  >
+                    {t("homeFaq.troubleshooting.help.dingtalk")}
+                  </a>{" "}
+                  {t("homeFaq.troubleshooting.help.s1Mid")}{" "}
+                  <a
+                    href="https://discord.com/invite/eYMpfnkG8h"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-(--color-text)"
+                  >
+                    {t("homeFaq.troubleshooting.help.discord")}
+                  </a>{" "}
+                  {t("homeFaq.troubleshooting.help.s1Suffix")}
+                </li>
+                <li>
+                  {t("homeFaq.troubleshooting.help.s2Prefix")}{" "}
+                  <a
+                    href="https://github.com/agentscope-ai/CoPaw/issues"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-(--color-text)"
+                  >
+                    {t("homeFaq.troubleshooting.help.githubIssues")}
+                  </a>{" "}
+                  {t("homeFaq.troubleshooting.help.s2Mid")}{" "}
+                  <code>copaw_query_error_qzbx1mv1.json</code>
+                  {t("homeFaq.troubleshooting.help.s2Suffix")}
+                </li>
+              </ol>
+            </>
+          ),
+        },
+      ],
+    }),
+    [t],
+  );
 
   const currentFaqs = useMemo(() => faqData[activeCategory], [activeCategory]);
 
@@ -137,10 +376,10 @@ export function CopawFAQ() {
               id="copaw-faq-heading"
               className={sectionStyles.title}
             >
-              Frequently asked questions
+              {t("homeFaq.title")}
             </h2>
             <p className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}>
-              Memory and personalization under your control.
+              {t("homeFaq.sub")}
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2 md:mt-6 md:block md:border-l-2 md:border-[#e9dfd6] md:pl-0.5">
@@ -172,8 +411,7 @@ export function CopawFAQ() {
 
           <motion.div className="md:pt-1" variants={itemVariants}>
             <p className="font-inter mb-5 max-w-[52ch] text-[13px] leading-[1.72] text-(--color-text-tertiary) text-pretty md:mb-16 md:ml-auto md:text-[1rem]">
-              Here's everything you need to know to get started, manage your
-              account, and troubleshoot the most frequent issues.
+              {t("homeFaq.intro")}
             </p>
 
             <div className="space-y-1.5 md:space-y-2">
@@ -209,9 +447,9 @@ export function CopawFAQ() {
                     </button>
                     {isOpen && faq.answer ? (
                       <div className="px-3.5 pb-3.5 md:px-5 md:pb-5">
-                        <p className="font-inter text-[13px] leading-[1.65] text-(--color-text-secondary) md:text-base">
+                        <div className="font-inter text-[13px] leading-[1.65] text-(--color-text-secondary) md:text-base">
                           {faq.answer}
-                        </p>
+                        </div>
                       </div>
                     ) : null}
                   </div>

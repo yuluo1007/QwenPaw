@@ -172,6 +172,15 @@ button {
   }
 }
 
+@keyframes copaw-hero-trim-path {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 /* Docs: markdown content */
 .docs-content {
   font-size: 1rem;

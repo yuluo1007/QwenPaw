@@ -39,17 +39,27 @@ const cards = [
   {
     key: "skills",
     icon: "/support-skills.svg",
-    href: "/docs/skills",
+    href: "/docs/security",
   },
   {
     key: "control",
     icon: "/under-control.svg",
-    href: "/docs/privacy",
+    href: "/docs/multi-agent",
   },
   {
     key: "apps",
     icon: "/explore-apps.svg",
-    href: "/docs/apps",
+    href: "https://developer.aliyun.com/article/1713682",
+  },
+  {
+    key: "memory",
+    icon: "/works-memory.svg",
+    href: "/docs/memory",
+  },
+  {
+    key: "toolkit",
+    icon: "/works-toolkit.svg",
+    href: "/docs/skills",
   },
 ] as const;
 
@@ -91,13 +101,13 @@ export function CopawWorksForYou() {
             }}
           />
           <motion.div
-            className="grid gap-0 divide-y divide-[#f1e5dc] md:grid-cols-3 md:gap-10 md:divide-y-0"
+            className="grid gap-0 divide-y divide-[#f1e5dc] md:grid-cols-3 md:gap-x-10 md:gap-y-12 md:divide-y-0"
             variants={item}
           >
             {cards.map((card) => (
               <article
                 key={card.key}
-                className="flex flex-col py-6 first:pt-0 last:pb-0 md:py-0"
+                className="flex h-full flex-col py-6 first:pt-0 last:pb-0 md:py-0"
               >
                 <img
                   src={card.icon}
@@ -113,7 +123,14 @@ export function CopawWorksForYou() {
                 </p>
                 <a
                   href={card.href}
-                  className="font-inter mt-4 inline-flex w-fit items-center gap-2 text-[0.95rem] text-(--color-text) transition hover:text-orange-400! md:mt-5 md:text-base"
+                  className="font-inter mt-auto inline-flex w-fit items-center gap-2 pt-4 text-[0.95rem] text-(--color-text) transition hover:text-orange-400! md:pt-5 md:text-base"
+                  {...(card.href.startsWith("http://") ||
+                  card.href.startsWith("https://")
+                    ? {
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                      }
+                    : {})}
                 >
                   {t("worksForYou.learnMore")}
                   <span aria-hidden>→</span>

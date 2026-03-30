@@ -46,16 +46,24 @@
     "learnMore": "Learn more",
     "cards": {
       "skills": {
-        "title": "Support Skills",
+        "title": "Security",
         "desc": "Tool guard before execution, file guard on paths, skill scan before install, access control at the edge—four layers, one coherent stack."
       },
       "control": {
-        "title": "Under your control",
-        "desc": "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel reminders."
+        "title": "Multi-agent Workspaces",
+        "desc": "Multiple isolated workspaces in one process—split config and data, route each request to the right agent; scale out roles and let agents message each other when tasks need teamwork."
       },
       "apps": {
-        "title": "Explore Apps",
-        "desc": "Memory and personalization under your control. Deploy locally or in the cloud; scheduled reminders and collaboration to any channel reminders."
+        "title": "Edge & Cloud LLMs",
+        "desc": "Wire up local or cloud providers your way; keep inferring when you're offline. A CoPaw-tuned on-device small model is coming soon for edge–cloud teamwork and predictable cost."
+      },
+      "memory": {
+        "title": "Memory",
+        "desc": "Compress context and tool output; turn experience into reusable memory—personalization stays under your control."
+      },
+      "toolkit": {
+        "title": "Tools, Skills & MCP",
+        "desc": "20+ built-in tools and skills with hot reload; plug in MCP and add skills anytime—your toolkit grows with CoPaw."
       }
     }
   },

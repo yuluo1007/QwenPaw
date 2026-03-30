@@ -36,7 +36,7 @@ const itemVariants = {
 };
 
 export function CopawFAQ() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeCategory, setActiveCategory] =
     useState<FaqCategory>("quickStart");
   const [openId, setOpenId] = useState("install");
@@ -50,7 +50,7 @@ export function CopawFAQ() {
         label: t("homeFaq.categories.troubleshooting"),
       },
     ],
-    [t],
+    [t, i18n.resolvedLanguage],
   );
 
   const faqData: Record<FaqCategory, FaqItem[]> = useMemo(
@@ -359,10 +359,13 @@ export function CopawFAQ() {
         },
       ],
     }),
-    [t],
+    [t, i18n.resolvedLanguage],
   );
 
-  const currentFaqs = useMemo(() => faqData[activeCategory], [activeCategory]);
+  const currentFaqs = useMemo(
+    () => faqData[activeCategory],
+    [activeCategory, faqData],
+  );
 
   return (
     <motion.section

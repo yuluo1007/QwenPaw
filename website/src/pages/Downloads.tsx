@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Download, Monitor, Laptop } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { useSiteConfig } from "@/config-context";
 import "../styles/downloads.css";
 
@@ -252,9 +253,9 @@ export function Downloads() {
             <div className="empty-icon">📦</div>
             <h3>{t("downloads.emptyTitle")}</h3>
             <p>{t("downloads.emptyDesc")}</p>
-            <a href={`${docsBase}/quickstart`} className="empty-cta">
+            <Link to={`${docsBase}/quickstart`} className="empty-cta">
               {t("downloads.emptyCta")}
-            </a>
+            </Link>
           </div>
         )}
 
@@ -307,8 +308,8 @@ export function Downloads() {
                 </p>
               </div>
               <div className="other-methods">
-                <a
-                  href={`${docsBase}/quickstart#${
+                <Link
+                  to={`${docsBase}/quickstart#${
                     isZh ? "方式二pip-安装" : "Option-2-pip-install"
                   }`}
                   className="method-card"
@@ -316,9 +317,9 @@ export function Downloads() {
                   <div className="method-icon">📦</div>
                   <h4>{t("downloads.pip")}</h4>
                   <p>{t("downloads.pipDesc")}</p>
-                </a>
-                <a
-                  href={`${docsBase}/quickstart#${
+                </Link>
+                <Link
+                  to={`${docsBase}/quickstart#${
                     isZh ? "方式一脚本安装" : "Option-1-Script-install"
                   }`}
                   className="method-card"
@@ -326,9 +327,9 @@ export function Downloads() {
                   <div className="method-icon">📜</div>
                   <h4>{t("downloads.script")}</h4>
                   <p>{t("downloads.scriptDesc")}</p>
-                </a>
-                <a
-                  href={`${docsBase}/quickstart#${
+                </Link>
+                <Link
+                  to={`${docsBase}/quickstart#${
                     isZh ? "方式五Docker" : "Option-5-Docker"
                   }`}
                   className="method-card"
@@ -336,9 +337,9 @@ export function Downloads() {
                   <div className="method-icon">🐳</div>
                   <h4>{t("downloads.docker")}</h4>
                   <p>{t("downloads.dockerDesc")}</p>
-                </a>
-                <a
-                  href={`${docsBase}/quickstart#${
+                </Link>
+                <Link
+                  to={`${docsBase}/quickstart#${
                     isZh
                       ? "方式六部署到阿里云-ECS"
                       : "Option-6-Deploy-to-Alibaba-Cloud-ECS"
@@ -348,7 +349,7 @@ export function Downloads() {
                   <div className="method-icon">☁️</div>
                   <h4>{t("downloads.cloud")}</h4>
                   <p>{t("downloads.cloudDesc")}</p>
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -361,9 +362,9 @@ export function Downloads() {
                 <h4>{t("downloads.helpTitle")}</h4>
                 <p>
                   {t("downloads.helpPrefix")}{" "}
-                  <a href={`${docsBase}/quickstart`}>
+                  <Link to={`${docsBase}/quickstart`}>
                     {t("downloads.helpLink")}
-                  </a>{" "}
+                  </Link>{" "}
                   {t("downloads.helpSuffix")}
                 </p>
               </div>

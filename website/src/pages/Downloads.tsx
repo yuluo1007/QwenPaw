@@ -117,8 +117,7 @@ function PlatformCard({
           >
             {allVersions.map((version, index) => (
               <option key={version} value={version}>
-                v{version}{" "}
-                {index === 0 ? `(${t("downloads.latest")})` : ""}
+                v{version} {index === 0 ? `(${t("downloads.latest")})` : ""}
               </option>
             ))}
           </select>
@@ -267,7 +266,9 @@ export function Downloads() {
                   <h3 className="product-title">
                     {t("downloads.desktopTitle")}
                   </h3>
-                  <p className="product-description">{t("downloads.desktopDesc")}</p>
+                  <p className="product-description">
+                    {t("downloads.desktopDesc")}
+                  </p>
                 </div>
                 <div className="platform-grid">
                   {Object.entries(desktopIndex.platforms).map(
@@ -301,11 +302,15 @@ export function Downloads() {
                 <h3 className="product-title">
                   {t("downloads.otherMethodsTitle")}
                 </h3>
-                <p className="product-description">{t("downloads.otherMethodsDesc")}</p>
+                <p className="product-description">
+                  {t("downloads.otherMethodsDesc")}
+                </p>
               </div>
               <div className="other-methods">
                 <a
-                  href={`${docsBase}/quickstart#${isZh ? "方式二pip-安装" : "Option-2-pip-install"}`}
+                  href={`${docsBase}/quickstart#${
+                    isZh ? "方式二pip-安装" : "Option-2-pip-install"
+                  }`}
                   className="method-card"
                 >
                   <div className="method-icon">📦</div>
@@ -313,7 +318,9 @@ export function Downloads() {
                   <p>{t("downloads.pipDesc")}</p>
                 </a>
                 <a
-                  href={`${docsBase}/quickstart#${isZh ? "方式一脚本安装" : "Option-1-Script-install"}`}
+                  href={`${docsBase}/quickstart#${
+                    isZh ? "方式一脚本安装" : "Option-1-Script-install"
+                  }`}
                   className="method-card"
                 >
                   <div className="method-icon">📜</div>
@@ -321,7 +328,9 @@ export function Downloads() {
                   <p>{t("downloads.scriptDesc")}</p>
                 </a>
                 <a
-                  href={`${docsBase}/quickstart#${isZh ? "方式五Docker" : "Option-5-Docker"}`}
+                  href={`${docsBase}/quickstart#${
+                    isZh ? "方式五Docker" : "Option-5-Docker"
+                  }`}
                   className="method-card"
                 >
                   <div className="method-icon">🐳</div>
@@ -329,7 +338,11 @@ export function Downloads() {
                   <p>{t("downloads.dockerDesc")}</p>
                 </a>
                 <a
-                  href={`${docsBase}/quickstart#${isZh ? "方式六部署到阿里云-ECS" : "Option-6-Deploy-to-Alibaba-Cloud-ECS"}`}
+                  href={`${docsBase}/quickstart#${
+                    isZh
+                      ? "方式六部署到阿里云-ECS"
+                      : "Option-6-Deploy-to-Alibaba-Cloud-ECS"
+                  }`}
                   className="method-card"
                 >
                   <div className="method-icon">☁️</div>
@@ -347,11 +360,11 @@ export function Downloads() {
               <div className="info-card">
                 <h4>{t("downloads.helpTitle")}</h4>
                 <p>
-                   {t("downloads.helpPrefix")}{" "}
-                      <a href={`${docsBase}/quickstart`}>
-                        {t("downloads.helpLink")}
-                      </a>{" "}
-                      {t("downloads.helpSuffix")}
+                  {t("downloads.helpPrefix")}{" "}
+                  <a href={`${docsBase}/quickstart`}>
+                    {t("downloads.helpLink")}
+                  </a>{" "}
+                  {t("downloads.helpSuffix")}
                 </p>
               </div>
             </section>

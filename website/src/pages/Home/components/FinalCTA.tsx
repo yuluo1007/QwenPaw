@@ -54,7 +54,11 @@ export function CopawFinalCTA() {
             <div className="relative min-h-75 w-full overflow-hidden rounded-xl border border-[#ece5dc] bg-white px-5 pb-5 pt-5 sm:px-7 sm:pb-6 sm:pt-6 md:min-h-107.5 md:px-8 md:pb-7 md:pt-7">
               <div className="relative z-10 h-[48%] w-full">
                 <h2 className="font-newsreader text-[2rem] leading-[1.2] text-(--color-text) sm:text-[2.3rem]  md:text-[3.05rem]">
-                  Get your <em className="font-newsreader font-normal italic">paws up now</em>,
+                  Get your{" "}
+                  <em className="font-newsreader font-normal italic">
+                    paws up now
+                  </em>
+                  ,
                   <br />
                   power your dev life.
                 </h2>

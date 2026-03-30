@@ -1,12 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  Menu,
-  X,
-  BookOpen,
-  Globe,
-  Download,
-} from "lucide-react";
+import { Menu, X, BookOpen, Globe, Download } from "lucide-react";
 import { CopawMascot } from "@/components/CopawMascot";
 import { useTranslation } from "react-i18next";
 import { useSiteLanguage } from "@/i18n/SiteLanguageContext";
@@ -131,10 +125,11 @@ export function Nav() {
             <span>{t("nav.releaseNotes")}</span>
           </Link>
           <Link
-            to='/downloads'
+            to="/downloads"
             className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-neutral-800 no-underline transition-colors cursor-pointer border border-[#F3F1F0] bg-(--color-card-fill) hover:bg-(--color-secondary)"
           >
-            <Download size={18} strokeWidth={navIconStroke} /> {t("nav.download")}
+            <Download size={18} strokeWidth={navIconStroke} />{" "}
+            {t("nav.download")}
           </Link>
         </div>
 
@@ -203,7 +198,7 @@ export function Nav() {
           {t("nav.releaseNotes")}
         </Link>
         <Link
-          to='/downloads'
+          to="/downloads"
           className={navLinkOrangeClass}
           onClick={() => setOpen(false)}
         >

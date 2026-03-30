@@ -22,4 +22,3 @@ void i18n.use(initReactI18next).init({
 export function t(lang: Lang, key: string): string {
   return i18n.getFixedT(lang)(key);
 }
-

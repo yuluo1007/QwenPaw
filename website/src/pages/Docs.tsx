@@ -311,7 +311,8 @@ export function Docs() {
     const idx = flatDocNav.findIndex((d) => d.slug === activeSlug);
     return {
       prevDoc: idx > 0 ? flatDocNav[idx - 1] : null,
-      nextDoc: idx >= 0 && idx < flatDocNav.length - 1 ? flatDocNav[idx + 1] : null,
+      nextDoc:
+        idx >= 0 && idx < flatDocNav.length - 1 ? flatDocNav[idx + 1] : null,
     };
   }, [activeSlug, flatDocNav]);
 
@@ -331,7 +332,8 @@ export function Docs() {
     return Math.max(
       0,
       container.scrollTop +
-        (target.getBoundingClientRect().top - container.getBoundingClientRect().top) -
+        (target.getBoundingClientRect().top -
+          container.getBoundingClientRect().top) -
         16,
     );
   };
@@ -360,7 +362,9 @@ export function Docs() {
         `.docs-toc-nav a[href="#${hash}"]`,
       );
       const idx = byHref
-        ? Array.from(document.querySelectorAll(".docs-toc-nav a")).indexOf(byHref)
+        ? Array.from(document.querySelectorAll(".docs-toc-nav a")).indexOf(
+            byHref,
+          )
         : -1;
       const targets = getTocTargets();
       const target = byId ?? (idx >= 0 ? targets[idx] : null);
@@ -657,7 +661,7 @@ export function Docs() {
                                   ].join(" ")}
                                 />
                               </button>
-                                {opened ? (
+                              {opened ? (
                                 <div className="docs-faq-answer border-t border-border px-4 pb-2 pt-3 *:first:mt-0 *:last:mb-0">
                                   <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
@@ -847,7 +851,9 @@ export function Docs() {
                           behavior: "auto",
                         });
                       } else {
-                        const el = container.querySelector<HTMLElement>(`#${id}`);
+                        const el = container.querySelector<HTMLElement>(
+                          `#${id}`,
+                        );
                         if (!el) return;
                         container.scrollTo({
                           top: getTopInContainer(container, el),

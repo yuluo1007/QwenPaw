@@ -9,7 +9,7 @@ export const DiscordIcon: React.FC<IconProps> = ({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      width={size+4}
+      width={size + 4}
       height={size}
       viewBox="0 0 20 16"
       className={`inline-block shrink-0 text-current transition-[color,transform] duration-300 ${className}`}

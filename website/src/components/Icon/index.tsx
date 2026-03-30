@@ -13,4 +13,3 @@ export { AliyunIcon } from "./AliyunIcon";
 export { XIcon } from "./XIcon";
 export { DiscordIcon } from "./DiscordIcon";
 export { NoteIcon } from "./NoteIcon";
- 

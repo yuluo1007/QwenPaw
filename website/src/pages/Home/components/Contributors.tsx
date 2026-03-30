@@ -61,7 +61,10 @@ export function CopawContributors() {
     };
   }, []);
 
-  const totalPages = Math.max(1, Math.ceil(contributors.length / ITEMS_PER_PAGE));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(contributors.length / ITEMS_PER_PAGE),
+  );
   const currentPage = Math.min(page, totalPages);
 
   useEffect(() => {

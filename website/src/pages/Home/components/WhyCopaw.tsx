@@ -88,12 +88,12 @@ export function CopawWhy() {
     const baseClass = highlighted
       ? "text-[#ffffff]"
       : "text-[rgba(255,255,255,0.45)]";
-    
+
     // Calculate which line the 'from' position is in (0, 1, or 2)
     const textBeforeFrom = secondLine.slice(0, from);
-    const startLineIndex = textBeforeFrom.split('\n').length - 1;
-    
-    const lines = text.split('\n');
+    const startLineIndex = textBeforeFrom.split("\n").length - 1;
+
+    const lines = text.split("\n");
     return (
       <>
         {lines.map((line, idx) => {
@@ -101,7 +101,11 @@ export function CopawWhy() {
           const originalLineIndex = startLineIndex + idx;
           return (
             <span key={idx}>
-              <span className={`${baseClass} ${originalLineIndex === 1 ? 'italic' : ''}`}>
+              <span
+                className={`${baseClass} ${
+                  originalLineIndex === 1 ? "italic" : ""
+                }`}
+              >
                 {line}
               </span>
               {idx < lines.length - 1 && <br />}
@@ -180,7 +184,10 @@ export function CopawWhy() {
           className="font-newsreader mt-6 max-w-4xl text-center text-[20px] leading-[1.38] tracking-[-0.01em] text-[#ffffff] sm:mt-7 sm:text-[24px] md:mt-10 md:text-left md:text-4xl"
           variants={item}
         >
-          <p className="whitespace-pre-line text-[rgba(220,210,201,0.9)]" style={{ lineHeight: '1.6em' }}>
+          <p
+            className="whitespace-pre-line text-[rgba(220,210,201,0.9)]"
+            style={{ lineHeight: "1.6em" }}
+          >
             <span className="text-[#ffffff]">{leftText}</span>
             {isTopPhase ? (
               <span className="mx-0.5 inline-flex h-[1.5em] w-[1.5em] -translate-y-[0.04em] items-center justify-center align-middle">
@@ -200,7 +207,10 @@ export function CopawWhy() {
             ) : null}
             <span className="text-[rgba(255,255,255,0.45)]">{rightText}</span>
           </p>
-          <p className="mt-4 whitespace-pre-line text-[rgba(220,210,201,0.9)] sm:mt-5 md:mt-8" style={{ lineHeight: '1.6em' }}>
+          <p
+            className="mt-4 whitespace-pre-line text-[rgba(220,210,201,0.9)] sm:mt-5 md:mt-8"
+            style={{ lineHeight: "1.6em" }}
+          >
             {renderSecondText(0, secondSplit, true)}
             {!isTopPhase ? (
               <span className="mx-0.5 inline-flex h-[1.5em] w-[1.5em] -translate-y-[0.04em] items-center justify-center align-middle">

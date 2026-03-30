@@ -186,311 +186,320 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
         viewport={{ once: true, margin: "-60px" }}
         id="copaw-quickstart"
       >
-      <div
-        className="pointer-events-none absolute left-1/2 top-0 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-right_1s_linear_infinite]"
-        style={{
-          background:
-            "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
-          backgroundSize: "16px 100%",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute left-1/2 top-full h-px w-screen -translate-x-1/2 -translate-y-px animate-[copaw-dash-move-left_1s_linear_infinite]"
-        style={{
-          background:
-            "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
-          backgroundSize: "16px 100%",
-        }}
-      />
-      <div className="relative mx-auto max-w-4xl">
         <div
-          className="pointer-events-none absolute bottom-0 left-4 top-0 w-px md:left-0 animate-[copaw-dash-move-down_1s_linear_infinite]"
+          className="pointer-events-none absolute left-1/2 top-0 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-right_1s_linear_infinite]"
           style={{
             background:
-              "repeating-linear-gradient(to bottom, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
-            backgroundSize: "100% 16px",
+              "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+            backgroundSize: "16px 100%",
           }}
         />
         <div
-          className="pointer-events-none absolute bottom-0 right-4 top-0 w-px md:right-0 animate-[copaw-dash-move-up_1s_linear_infinite]"
+          className="pointer-events-none absolute left-1/2 top-full h-px w-screen -translate-x-1/2 -translate-y-px animate-[copaw-dash-move-left_1s_linear_infinite]"
           style={{
             background:
-              "repeating-linear-gradient(to bottom, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
-            backgroundSize: "100% 16px",
+              "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+            backgroundSize: "16px 100%",
           }}
         />
-        <div className="px-4 py-10 md:px-0 md:py-19">
-          <motion.div className="text-center" variants={itemVariants}>
-            <motion.h2
-              variants={itemVariants}
-              className={sectionStyles.title}
-            >
-              {t("quickstart.heroTitle")}
-            </motion.h2>
-            <motion.p
-              variants={itemVariants}
-              className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}
-            >
-              {t("quickstart.heroSub")}
-            </motion.p>
-          </motion.div>
-          <div className="relative isolate mx-auto max-w-4xl">
-            <div
-              className="pointer-events-none absolute left-1/2 top-0 z-20 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-left_1s_linear_infinite]"
-              style={{
-                background:
-                  "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
-                backgroundSize: "16px 100%",
-              }}
-            />
-            <div
-              className="relative z-10 mt-6 rounded-2xl p-[2px] shadow-[0px_8px_32px_0px_rgba(212,212,212,0.25)] md:mt-8"
-              style={{
-                background: "linear-gradient(to bottom, var(--color-primary), #F0E6DF)",
-              }}
-            >
-              <motion.div
-                className="overflow-hidden rounded-[16px] bg-white"
+        <div className="relative mx-auto max-w-4xl">
+          <div
+            className="pointer-events-none absolute bottom-0 left-4 top-0 w-px md:left-0 animate-[copaw-dash-move-down_1s_linear_infinite]"
+            style={{
+              background:
+                "repeating-linear-gradient(to bottom, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+              backgroundSize: "100% 16px",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute bottom-0 right-4 top-0 w-px md:right-0 animate-[copaw-dash-move-up_1s_linear_infinite]"
+            style={{
+              background:
+                "repeating-linear-gradient(to bottom, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+              backgroundSize: "100% 16px",
+            }}
+          />
+          <div className="px-4 py-10 md:px-0 md:py-19">
+            <motion.div className="text-center" variants={itemVariants}>
+              <motion.h2
                 variants={itemVariants}
+                className={sectionStyles.title}
               >
-              <div className="grid grid-cols-2 gap-px bg-(--bg) pb-px sm:grid-cols-5">
-                {METHOD_ORDER.map((method) => {
-                  const active = method === selectedMethod;
-                  return (
-                    <button
-                      key={method}
-                      type="button"
-                      onClick={() => setSelectedMethod(method)}
-                      className={`inline-flex h-10 items-center justify-center gap-1 px-2 text-xs font-medium leading-none transition sm:h-12 sm:gap-1.5 sm:text-sm ${
-                        active
-                          ? "bg-(--color-primary)"
-                          : "bg-(--color-secondary) text-[#4a4a4a] hover:bg-(--color-primary)"
-                      }`}
-                    >
-                      <MethodTabIcon method={method} />
-                      <span>{t(`quickstart.method.${method}`)}</span>
-                      {method === "desktop" ? (
-                        <span className="ml-1 h-4 rounded-xs bg-[#FFD8B8] px-1 py-px text-[9px] text-[#F46F02] sm:px-1 sm:text-[12px]">
-                          {t("quickstart.badgeBeta")}
-                        </span>
-                      ) : null}
-                    </button>
-                  );
-                })}
-              </div>
+                {t("quickstart.heroTitle")}
+              </motion.h2>
+              <motion.p
+                variants={itemVariants}
+                className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}
+              >
+                {t("quickstart.heroSub")}
+              </motion.p>
+            </motion.div>
+            <div className="relative isolate mx-auto max-w-4xl">
+              <div
+                className="pointer-events-none absolute left-1/2 top-0 z-20 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-left_1s_linear_infinite]"
+                style={{
+                  background:
+                    "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+                  backgroundSize: "16px 100%",
+                }}
+              />
+              <div
+                className="relative z-10 mt-6 rounded-2xl p-[2px] shadow-[0px_8px_32px_0px_rgba(212,212,212,0.25)] md:mt-8"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, var(--color-primary), #F0E6DF)",
+                }}
+              >
+                <motion.div
+                  className="overflow-hidden rounded-[16px] bg-white"
+                  variants={itemVariants}
+                >
+                  <div className="grid grid-cols-2 gap-px bg-(--bg) pb-px sm:grid-cols-5">
+                    {METHOD_ORDER.map((method) => {
+                      const active = method === selectedMethod;
+                      return (
+                        <button
+                          key={method}
+                          type="button"
+                          onClick={() => setSelectedMethod(method)}
+                          className={`inline-flex h-10 items-center justify-center gap-1 px-2 text-xs font-medium leading-none transition sm:h-12 sm:gap-1.5 sm:text-sm ${
+                            active
+                              ? "bg-(--color-primary)"
+                              : "bg-(--color-secondary) text-[#4a4a4a] hover:bg-(--color-primary)"
+                          }`}
+                        >
+                          <MethodTabIcon method={method} />
+                          <span>{t(`quickstart.method.${method}`)}</span>
+                          {method === "desktop" ? (
+                            <span className="ml-1 h-4 rounded-xs bg-[#FFD8B8] px-1 py-px text-[9px] text-[#F46F02] sm:px-1 sm:text-[12px]">
+                              {t("quickstart.badgeBeta")}
+                            </span>
+                          ) : null}
+                        </button>
+                      );
+                    })}
+                  </div>
 
-              <div className="flex h-90 flex-col p-3 md:h-105 md:p-7">
-                <p className="font-inter mb-4 mt-2 text-sm leading-relaxed text-(--color-text-secondary) md:mb-6 md:mt-4 md:text-base">
-                  {t(`quickstart.desc.${selectedMethod}`)}
-                </p>
+                  <div className="flex h-90 flex-col p-3 md:h-105 md:p-7">
+                    <p className="font-inter mb-4 mt-2 text-sm leading-relaxed text-(--color-text-secondary) md:mb-6 md:mt-4 md:text-base">
+                      {t(`quickstart.desc.${selectedMethod}`)}
+                    </p>
 
-                <div className="min-h-0 flex-1 overflow-y-hidden">
-                  <AnimatePresence mode="wait" initial={false}>
-                    {selectedMethod === "pip" ? (
-                      <motion.div
-                        key="pip"
-                        className="h-full"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <CodeBlock
-                          lines={COMMANDS.pip}
-                          copied={copiedId === "pip"}
-                          onCopy={() => copyLines("pip", COMMANDS.pip)}
-                          t={t}
-                          className="h-full"
-                        />
-                      </motion.div>
-                    ) : null}
+                    <div className="min-h-0 flex-1 overflow-y-hidden">
+                      <AnimatePresence mode="wait" initial={false}>
+                        {selectedMethod === "pip" ? (
+                          <motion.div
+                            key="pip"
+                            className="h-full"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <CodeBlock
+                              lines={COMMANDS.pip}
+                              copied={copiedId === "pip"}
+                              onCopy={() => copyLines("pip", COMMANDS.pip)}
+                              t={t}
+                              className="h-full"
+                            />
+                          </motion.div>
+                        ) : null}
 
-                    {selectedMethod === "script" ? (
-                      <motion.div
-                        key="script"
-                        className="flex h-full min-h-0 flex-col gap-3"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="flex justify-center">
-                          <div className="inline-flex rounded-xl border border-[#ebe5df] bg-(--color-fill-tertiary) p-1">
-                            {(["mac", "windows"] as const).map((platform) => (
-                              <button
-                                key={platform}
-                                type="button"
-                                onClick={() => setScriptPlatform(platform)}
-                                className={`rounded-lg px-4 py-1.5 text-sm font-semibold sm:px-6 sm:py-2 sm:text-[1.05rem] ${
-                                  scriptPlatform === platform
-                                    ? "bg-white text-(--color-text) shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
-                                    : "text-(--color-text-secondary)"
-                                }`}
-                              >
-                                {t(`quickstart.platform.${platform}`)}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <CodeBlock
-                          lines={currentScriptCommands}
-                          copied={
-                            copiedId ===
-                            `script-${scriptPlatform}-${scriptWinVariant}`
-                          }
-                          onCopy={() =>
-                            copyLines(
-                              `script-${scriptPlatform}-${scriptWinVariant}`,
-                              currentScriptCommands,
-                            )
-                          }
-                          t={t}
-                          className="flex-1"
-                          headerLeft={
-                            scriptPlatform === "windows" ? (
-                              <div className="inline-flex rounded-lg border border-[#e8e8e8] bg-(--color-fill-tertiary) p-1">
-                                {(["cmd", "ps"] as const).map((variant) => (
-                                  <button
-                                    key={variant}
-                                    type="button"
-                                    onClick={() => setScriptWinVariant(variant)}
-                                    className={`rounded-md px-2.5 py-1 text-xs font-semibold ${
-                                      scriptWinVariant === variant
-                                        ? "bg-white text-[#535b72] shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
-                                        : "text-[#8a90a3]"
-                                    }`}
-                                  >
-                                    {t(`quickstart.shell.${variant}`)}
-                                  </button>
-                                ))}
+                        {selectedMethod === "script" ? (
+                          <motion.div
+                            key="script"
+                            className="flex h-full min-h-0 flex-col gap-3"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="flex justify-center">
+                              <div className="inline-flex rounded-xl border border-[#ebe5df] bg-(--color-fill-tertiary) p-1">
+                                {(["mac", "windows"] as const).map(
+                                  (platform) => (
+                                    <button
+                                      key={platform}
+                                      type="button"
+                                      onClick={() =>
+                                        setScriptPlatform(platform)
+                                      }
+                                      className={`rounded-lg px-4 py-1.5 text-sm font-semibold sm:px-6 sm:py-2 sm:text-[1.05rem] ${
+                                        scriptPlatform === platform
+                                          ? "bg-white text-(--color-text) shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
+                                          : "text-(--color-text-secondary)"
+                                      }`}
+                                    >
+                                      {t(`quickstart.platform.${platform}`)}
+                                    </button>
+                                  ),
+                                )}
                               </div>
-                            ) : null
-                          }
-                        />
-                      </motion.div>
-                    ) : null}
+                            </div>
 
-                    {selectedMethod === "docker" ? (
-                      <motion.div
-                        key="docker"
-                        className="h-full"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <CodeBlock
-                          lines={COMMANDS.docker}
-                          copied={copiedId === "docker"}
-                          onCopy={() => copyLines("docker", COMMANDS.docker)}
-                          t={t}
-                          className="h-full"
-                        />
-                      </motion.div>
-                    ) : null}
+                            <CodeBlock
+                              lines={currentScriptCommands}
+                              copied={
+                                copiedId ===
+                                `script-${scriptPlatform}-${scriptWinVariant}`
+                              }
+                              onCopy={() =>
+                                copyLines(
+                                  `script-${scriptPlatform}-${scriptWinVariant}`,
+                                  currentScriptCommands,
+                                )
+                              }
+                              t={t}
+                              className="flex-1"
+                              headerLeft={
+                                scriptPlatform === "windows" ? (
+                                  <div className="inline-flex rounded-lg border border-[#e8e8e8] bg-(--color-fill-tertiary) p-1">
+                                    {(["cmd", "ps"] as const).map((variant) => (
+                                      <button
+                                        key={variant}
+                                        type="button"
+                                        onClick={() =>
+                                          setScriptWinVariant(variant)
+                                        }
+                                        className={`rounded-md px-2.5 py-1 text-xs font-semibold ${
+                                          scriptWinVariant === variant
+                                            ? "bg-white text-[#535b72] shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
+                                            : "text-[#8a90a3]"
+                                        }`}
+                                      >
+                                        {t(`quickstart.shell.${variant}`)}
+                                      </button>
+                                    ))}
+                                  </div>
+                                ) : null
+                              }
+                            />
+                          </motion.div>
+                        ) : null}
 
-                    {selectedMethod === "cloud" ? (
-                      <motion.div
-                        key="cloud"
-                        className="space-y-3"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                          <a
-                            href={ALIYUN_ECS_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex w-fit items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm  text-(--color-text)  hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
+                        {selectedMethod === "docker" ? (
+                          <motion.div
+                            key="docker"
+                            className="h-full"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.2 }}
                           >
-                            <AliyunIcon size={20} />
-                            {t("quickstart.cloud.aliyunDeploy")}
-                          </a>
-                          <a
-                            href={ALIYUN_DOC_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-[#d9d9d9] bg-white px-4 py-2 text-sm  text-[#6a6a6a] hover:bg-[#fafafa] md:px-5 md:py-2.5 md:text-[1.08rem]"
-                          >
-                            <FileText size={16} aria-hidden />
-                            {t("quickstart.cloud.aliyunDoc")}
-                          </a>
-                          <div className="basis-full">
-                            <a
-                              href={MODELSCOPE_URL}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex w-fit items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm  text-(--color-text)  hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
-                            >
-                              <ModelIcon size={20} />
-                              {t("quickstart.cloud.modelscopeGo")}
-                            </a>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ) : null}
+                            <CodeBlock
+                              lines={COMMANDS.docker}
+                              copied={copiedId === "docker"}
+                              onCopy={() =>
+                                copyLines("docker", COMMANDS.docker)
+                              }
+                              t={t}
+                              className="h-full"
+                            />
+                          </motion.div>
+                        ) : null}
 
-                    {selectedMethod === "desktop" ? (
-                      <motion.div
-                        key="desktop"
-                        className="space-y-5"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="rounded-2xl border border-[#ececec] bg-[#fafafa] p-4 md:p-6">
-                          <div className="mb-2 font-mono text-sm font-semibold tracking-[0.01em] text-(--color-text) md:mb-3 md:text-[1.02rem]">
-                            {t("quickstart.desktop.platforms")}
-                          </div>
-                          <ul className="space-y-1 font-mono text-sm leading-6 text-(--color-text-secondary) md:space-y-1.5 md:text-[1.02rem] md:leading-8">
-                            <li>Windows 10+</li>
-                            <li>
-                              macOS 14+ (Apple Silicon{" "}
-                              {t("quickstart.desktop.recommended")})
-                            </li>
-                          </ul>
-                        </div>
+                        {selectedMethod === "cloud" ? (
+                          <motion.div
+                            key="cloud"
+                            className="space-y-3"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                              <a
+                                href={ALIYUN_ECS_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex w-fit items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm  text-(--color-text)  hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
+                              >
+                                <AliyunIcon size={20} />
+                                {t("quickstart.cloud.aliyunDeploy")}
+                              </a>
+                              <a
+                                href={ALIYUN_DOC_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-[#d9d9d9] bg-white px-4 py-2 text-sm  text-[#6a6a6a] hover:bg-[#fafafa] md:px-5 md:py-2.5 md:text-[1.08rem]"
+                              >
+                                <FileText size={16} aria-hidden />
+                                {t("quickstart.cloud.aliyunDoc")}
+                              </a>
+                              <div className="basis-full">
+                                <a
+                                  href={MODELSCOPE_URL}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex w-fit items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm  text-(--color-text)  hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
+                                >
+                                  <ModelIcon size={20} />
+                                  {t("quickstart.cloud.modelscopeGo")}
+                                </a>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ) : null}
 
-                        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                          <a
-                            href={DESKTOP_RELEASES_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm text-(--color-text) hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
+                        {selectedMethod === "desktop" ? (
+                          <motion.div
+                            key="desktop"
+                            className="space-y-5"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.2 }}
                           >
-                            <GitHubIcon size={20} />
-                            {t("quickstart.desktop.downloadGithub")}
-                          </a>
-                          <Link
-                            to={`${docsBase}/desktop`}
-                            className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9d9d9] bg-white px-4 py-2 text-sm text-[#6a6a6a] hover:bg-[#fafafa] md:px-5 md:py-2.5 md:text-[1.08rem]"
-                          >
-                            <FileText size={16} aria-hidden />
-                            {t("quickstart.desktop.viewGuide")}
-                          </Link>
-                        </div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
+                            <div className="rounded-2xl border border-[#ececec] bg-[#fafafa] p-4 md:p-6">
+                              <div className="mb-2 font-mono text-sm font-semibold tracking-[0.01em] text-(--color-text) md:mb-3 md:text-[1.02rem]">
+                                {t("quickstart.desktop.platforms")}
+                              </div>
+                              <ul className="space-y-1 font-mono text-sm leading-6 text-(--color-text-secondary) md:space-y-1.5 md:text-[1.02rem] md:leading-8">
+                                <li>Windows 10+</li>
+                                <li>
+                                  macOS 14+ (Apple Silicon{" "}
+                                  {t("quickstart.desktop.recommended")})
+                                </li>
+                              </ul>
+                            </div>
+
+                            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                              <a
+                                href={DESKTOP_RELEASES_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-2 rounded-xl  bg-(--color-secondary) px-4 py-2 text-sm text-(--color-text) hover:brightness-105 md:px-5 md:py-2.5 md:text-[1.08rem]"
+                              >
+                                <GitHubIcon size={20} />
+                                {t("quickstart.desktop.downloadGithub")}
+                              </a>
+                              <Link
+                                to={`${docsBase}/desktop`}
+                                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9d9d9] bg-white px-4 py-2 text-sm text-[#6a6a6a] hover:bg-[#fafafa] md:px-5 md:py-2.5 md:text-[1.08rem]"
+                              >
+                                <FileText size={16} aria-hidden />
+                                {t("quickstart.desktop.viewGuide")}
+                              </Link>
+                            </div>
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
-              </motion.div>
+              <div
+                className="pointer-events-none absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-right_1s_linear_infinite]"
+                style={{
+                  background:
+                    "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
+                  backgroundSize: "16px 100%",
+                }}
+              />
             </div>
-            <div
-              className="pointer-events-none absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2 animate-[copaw-dash-move-right_1s_linear_infinite]"
-              style={{
-                background:
-                  "repeating-linear-gradient(to right, rgba(255,157,77,0.45) 0 8px, transparent 8px 16px)",
-                backgroundSize: "16px 100%",
-              }}
-            />
           </div>
         </div>
-      </div>
       </motion.section>
     </>
   );

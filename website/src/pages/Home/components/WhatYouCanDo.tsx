@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { sectionStyles } from "@/lib/utils";
@@ -12,12 +12,61 @@ type UseCaseKey =
 
 const CATEGORIES: Array<{
   key: UseCaseKey;
+  title: string;
+  description: string;
+  background: string;
+  preview: string;
 }> = [
-  { key: "social" },
-  { key: "creative" },
-  { key: "productivity" },
-  { key: "research" },
-  { key: "assistant" },
+  {
+    key: "social",
+    title: "Social Media",
+    description:
+      "CoPaw helps you stay on top of social content by summarizing trending posts, new videos, and account patterns based on your interests.",
+    background:
+      "https://img.alicdn.com/imgextra/i3/O1CN01LXpygR1HHlRkroefl_!!6000000000733-2-tps-1708-954.png",
+    preview:
+      "https://img.alicdn.com/imgextra/i2/O1CN01EfhcLH1zgoCNkLp8g_!!6000000006744-2-tps-1362-894.png",
+  },
+  {
+    key: "creative",
+    title: "Creative",
+    description:
+      "CoPaw can run overnight on your goals and support the entire content creation process from idea to draft.",
+    background:
+      "https://img.alicdn.com/imgextra/i3/O1CN010T7jhC1LptQKwxNGm_!!6000000001349-2-tps-2114-1180.png",
+    preview:
+      "https://img.alicdn.com/imgextra/i2/O1CN01orpWim1OyXkfeSJ2b_!!6000000001774-2-tps-1362-894.png",
+  },
+  {
+    key: "productivity",
+    title: "Creative & building",
+    description:
+      "CoPaw boosts productivity by summarizing updates, organizing contacts, and analyzing personal logs for useful patterns.",
+    background:
+      "https://img.alicdn.com/imgextra/i3/O1CN01SVXYZd1a2Af7uEY94_!!6000000003271-2-tps-1874-1046.png",
+    preview:
+      "https://img.alicdn.com/imgextra/i2/O1CN01uCK9RI1ciQQtihtsi_!!6000000003634-2-tps-1362-894.png",
+  },
+  {
+    key: "research",
+    title: "Research & learning",
+    description:
+      "CoPaw tracks important company updates and builds your personal knowledge base for easy retrieval and reuse.",
+    background:
+      "https://img.alicdn.com/imgextra/i3/O1CN01oybwPf1vKaWII7bmm_!!6000000006154-2-tps-1962-1096.png",
+    preview:
+      "https://img.alicdn.com/imgextra/i1/O1CN018Vqtpf1PvARqdLsr7_!!6000000001902-2-tps-1362-894.png",
+  },
+  {
+    key: "assistant",
+    title: "Desktop & files",
+    description:
+      "CoPaw helps you organize, search, and summarize local files, and send requested documents directly into your chat.",
+    background:
+      "https://img.alicdn.com/imgextra/i2/O1CN01fMrv5W1zWH5afE9Mo_!!6000000006721-2-tps-1870-1044.png",
+    preview:
+      "https://img.alicdn.com/imgextra/i3/O1CN01JMNght1rPOD1Gp4Ts_!!6000000005623-2-tps-1362-894.png",
+  },
 ];
 
 const container = {
@@ -47,21 +96,64 @@ export function CopawWhatYouCanDo() {
   const { t } = useTranslation();
   const [activeKey, setActiveKey] = useState<UseCaseKey>("social");
 
-  const activeDescription = useMemo(
-    () => t(`usecases.${activeKey}.1`),
-    [activeKey, t],
-  );
-
-  const socialPreview = (
-    <div className="overflow-hidden bg-[#f7a157] px-4 pt-4 sm:px-6 sm:pt-6 md:rounded-none md:px-10 md:pt-10">
-      <img
-        src="/copaw-console.png"
-        alt="CoPaw console preview"
-        className="block h-55 w-full rounded-t-xl object-cover object-top shadow-[0px_6px_56px_0px_rgba(38,33,29,0.24)] sm:h-75 md:h-full md:rounded-t-2xl"
-        loading="lazy"
-      />
-    </div>
-  );
+  const renderPreview = (key: string) => {
+    const active = CATEGORIES.find((cat) => cat.key === key) ?? CATEGORIES[0];
+    return (
+      <motion.div
+        className="relative flex flex-col overflow-hidden"
+        variants={item}
+      >
+        <motion.img
+          key={`${active.key}-bg`}
+          src={active.background}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover object-bottom opacity-90"
+          initial={{ opacity: 0, scale: 1.06, filter: "blur(10px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 1.15, ease: "easeOut" }}
+        />
+        <motion.div
+          key={`${active.key}-frame`}
+          className="relative z-10 -mb-[18px] overflow-hidden p-4 pb-0 md:p-10 md:pb-0"
+          initial={{
+            opacity: 0,
+            y: 56,
+            scale: 0.95,
+            filter: "blur(6px)",
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
+          }}
+          transition={{
+            duration: 1.05,
+            delay: 0.1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          <motion.img
+            key={`${active.key}-preview`}
+            src={active.preview}
+            alt=""
+            aria-hidden
+            className="block w-full object-cover object-top shadow-[0px_6px_56px_0px_rgba(38,33,29,0.24)]"
+            loading="lazy"
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.95,
+              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          />
+        </motion.div>
+      </motion.div>
+    );
+  };
 
   return (
     <motion.section
@@ -74,20 +166,19 @@ export function CopawWhatYouCanDo() {
     >
       <div className="mx-auto max-w-7xl">
         <motion.div className="text-center" variants={item}>
-          <h2
-            id="copaw-usecase-heading"
-            className={sectionStyles.title}
-          >
+          <h2 id="copaw-usecase-heading" className={sectionStyles.title}>
             {t("usecases.title")}
           </h2>
-          <p className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}>
+          <p
+            className={`${sectionStyles.subtitle} mx-auto mt-3 max-w-2xl px-2 sm:px-0 md:mb-16 md:mt-4`}
+          >
             {t("usecases.sub")}
           </p>
         </motion.div>
 
         <div className="mt-7 grid gap-5 md:mt-15 md:grid-cols-[minmax(260px,1fr)_minmax(0,1.6fr)] md:items-start md:gap-6">
           <div className="p-1.5 md:p-3">
-            {CATEGORIES.map(({ key }) => {
+            {CATEGORIES.map(({ key, title, description }) => {
               const active = key === activeKey;
               return (
                 <div key={key}>
@@ -132,28 +223,36 @@ export function CopawWhatYouCanDo() {
                               : "text-(--color-text-tertiary) transition-colors duration-200 group-hover:text-(--color-text)"
                           }`}
                         >
-                          {t(`usecases.category.${key}`)}
+                          {title}
                         </div>
                         <div className="overflow-hidden">
                           <AnimatePresence initial={false} mode="sync">
                             {active && (
                               <motion.p
                                 key={`${key}-desc`}
-                                initial={{ opacity: 1, height: 0, marginTop: 0 }}
+                                initial={{
+                                  opacity: 1,
+                                  height: 0,
+                                  marginTop: 0,
+                                }}
                                 exit={{
                                   opacity: 0,
                                   scale: 0.8,
                                   height: 0,
                                   marginTop: 0,
                                 }}
-                                animate={{ opacity: 1, height: "auto", marginTop: 8 }}
+                                animate={{
+                                  opacity: 1,
+                                  height: "auto",
+                                  marginTop: 8,
+                                }}
                                 transition={{
                                   duration: 0.5,
                                   ease: "easeOut",
                                 }}
-                                className="font-inter origin-top-left pr-1 text-sm leading-[1.55] text-(--color-text-tertiary)"
+                                className="font-inter origin-top-left pr-1 text-sm leading-[1.55] break-words text-(--color-text-tertiary)"
                               >
-                                {activeDescription}
+                                {description}
                               </motion.p>
                             )}
                           </AnimatePresence>
@@ -162,19 +261,17 @@ export function CopawWhatYouCanDo() {
                     </div>
                   </button>
 
-                  {/* Mobile: only show preview under social */}
-                  {key === "social" && active ? (
-                    <div className="mt-3 md:hidden">{socialPreview}</div>
+                  {/* Mobile: show active preview under item */}
+                  {active ? (
+                    <div className="mt-3 md:hidden">{renderPreview(key)}</div>
                   ) : null}
                 </div>
               );
             })}
           </div>
 
-          {/* Desktop: right panel switches with active category (only social has content for now) */}
-          <div className="hidden md:block">
-            {activeKey === "social" ? socialPreview : socialPreview}
-          </div>
+          {/* Desktop: right panel switches with active category */}
+          <div className="hidden md:block">{renderPreview(activeKey)}</div>
         </div>
       </div>
     </motion.section>

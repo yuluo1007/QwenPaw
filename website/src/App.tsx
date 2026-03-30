@@ -7,6 +7,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { Home } from "./pages/Home/indext";
 import { Docs } from "@/pages/Docs";
 import { ReleaseNotes } from "@/pages/ReleaseNotes";
+import { Downloads } from "@/pages/Downloads";
 import "@/index.css";
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
       <Routes>
         <Route element={<SiteLayout showFooter />}>
           <Route path="/" element={<Home />} />
+          <Route path="/downloads" element={<Downloads />} />
         </Route>
         <Route element={<SiteLayout showFooter={false} />}>
           <Route path="/docs" element={<Navigate to="/docs/intro" replace />} />

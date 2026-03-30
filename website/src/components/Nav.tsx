@@ -131,7 +131,7 @@ export function Nav() {
             <span>{t("nav.releaseNotes")}</span>
           </Link>
           <Link
-            to={`${docsBase}/quickstart`}
+            to='/downloads'
             className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-neutral-800 no-underline transition-colors cursor-pointer border border-[#F3F1F0] bg-(--color-card-fill) hover:bg-(--color-secondary)"
           >
             <Download size={18} strokeWidth={navIconStroke} /> {t("nav.download")}
@@ -203,7 +203,7 @@ export function Nav() {
           {t("nav.releaseNotes")}
         </Link>
         <Link
-          to={`${docsBase}/quickstart`}
+          to='/downloads'
           className={navLinkOrangeClass}
           onClick={() => setOpen(false)}
         >

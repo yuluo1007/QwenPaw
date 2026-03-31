@@ -40,16 +40,6 @@ const cards = [
     icon: "/explore-apps.svg",
     href: "",
   },
-  // {
-  //   key: "memory",
-  //   icon: "/works-memory.svg",
-  //   href: "/docs/memory",
-  // },
-  // {
-  //   key: "toolkit",
-  //   icon: "/works-toolkit.svg",
-  //   href: "/docs/skills",
-  // },
 ] as const;
 
 export function CopawWorksForYou() {

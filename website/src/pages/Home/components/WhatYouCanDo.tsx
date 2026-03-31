@@ -72,8 +72,11 @@ export function CopawWhatYouCanDo() {
       CATEGORY_CONFIG.find((cat) => cat.key === key) ?? CATEGORY_CONFIG[0];
     return (
       <motion.div
-        className="relative flex flex-col overflow-hidden"
-        variants={item}
+        key={`preview-${key}`}
+        className="relative flex flex-col overflow-hidden h-[280px] sm:h-[380px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
       >
         <motion.img
           key={`${active.key}-bg`}
@@ -235,7 +238,7 @@ export function CopawWhatYouCanDo() {
 
                   {/* Mobile: show active preview under item */}
                   {active ? (
-                    <div className="mt-3 md:hidden">{renderPreview(key)}</div>
+                    <div key={key} className="mt-3 md:hidden">{renderPreview(key)}</div>
                   ) : null}
                 </div>
               );

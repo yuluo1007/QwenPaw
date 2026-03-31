@@ -13,7 +13,7 @@ const CATEGORY_CONFIG: Array<{
   {
     key: "social",
     background:
-      "https://img.alicdn.com/imgextra/i3/O1CN01LXpygR1HHlRkroefl_!!6000000000733-2-tps-1708-954.png",
+      "https://img.alicdn.com/imgextra/i4/O1CN01tdSfuK1X2DrN462ga_!!6000000002865-2-tps-1578-946.png",
     preview:
       "https://img.alicdn.com/imgextra/i2/O1CN01EfhcLH1zgoCNkLp8g_!!6000000006744-2-tps-1362-894.png",
   },

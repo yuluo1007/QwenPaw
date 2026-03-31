@@ -151,7 +151,7 @@ function CodeBlock({
           {copied ? t("docs.copied") : t("docs.copy")}
         </button>
       </div>
-      <div className="min-h-0 flex-1 overflow-x-auto px-4 py-4 text-center md:px-5 md:py-5">
+      <div className="min-h-0 flex-1 overflow-x-auto px-4 py-4 text-center font-mono md:px-5 md:py-5">
         <SyntaxHighlighter
           language="bash"
           style={{

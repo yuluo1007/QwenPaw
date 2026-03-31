@@ -88,7 +88,7 @@ export function CopawHero() {
       >
         <div className="mx-auto max-w-7xl px-4 pt-10">
           <div className="mx-auto mb-5 inline-flex box-border items-center gap-2 rounded-full border border-(--border) bg-(--surface) px-4 py-1.5 text-sm text-(--color-text-secondary) sm:mb-6">
-            <PathIcon size={16}/>
+            <PathIcon size={16} />
             <ShinyText
               text={t("hero.releaseNote")}
               speed={1.8}

@@ -137,7 +137,7 @@ export function CopawWhy() {
         >
           <div className="relative pt-7 md:pt-10">
             <img
-               src="https://img.alicdn.com/imgextra/i1/O1CN01g2HNmz1NwshO2uhvo_!!6000000001635-2-tps-222-222.png"
+              src="https://img.alicdn.com/imgextra/i1/O1CN01g2HNmz1NwshO2uhvo_!!6000000001635-2-tps-222-222.png"
               alt=""
               aria-hidden
               className="pointer-events-none absolute -top-2 left-0 z-20 h-11 w-11 object-contain md:-top-6 md:h-20 md:w-20"

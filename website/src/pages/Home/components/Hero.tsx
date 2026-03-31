@@ -90,7 +90,7 @@ export function CopawHero() {
           <div className="mx-auto mb-5 inline-flex box-border items-center gap-2 rounded-full border border-(--border) bg-(--surface) px-3 py-1.5 text-sm text-(--color-text-secondary) sm:mb-6">
             <PathIcon />
             <ShinyText
-              text="CoPaw v1.0.0 is released"
+              text={t("hero.releaseNote")}
               speed={1.8}
               delay={0}
               color="#9c9b9a"

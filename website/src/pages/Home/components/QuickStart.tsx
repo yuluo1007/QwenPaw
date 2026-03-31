@@ -488,14 +488,14 @@ export function CopawQuickStart({ docsBase }: CopawQuickStartProps) {
                             transition={{ duration: 0.2 }}
                           >
                             <div className="flex justify-center">
-                              <div className="inline-flex rounded-xl border border-[#ebe5df] bg-(--color-fill-tertiary) p-1">
+                              <div className="inline-flex h-11 items-center rounded-xl border border-[#ebe5df] bg-(--color-fill-tertiary) p-1 sm:h-11">
                                 {(["aliyun", "modelscope"] as const).map(
                                   (platform) => (
                                     <button
                                       key={platform}
                                       type="button"
                                       onClick={() => setCloudPlatform(platform)}
-                                      className={`rounded-lg px-4 py-1.5 text-sm font-semibold sm:px-6 sm:py-2 sm:text-[1.05rem] ${
+                                      className={`inline-flex h-9 items-center justify-center whitespace-nowrap rounded-lg px-4 text-sm font-semibold leading-none sm:h-10 sm:px-6 sm:text-[1.05rem] ${
                                         cloudPlatform === platform
                                           ? "bg-white text-(--color-text) shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
                                           : "text-(--color-text-secondary)"

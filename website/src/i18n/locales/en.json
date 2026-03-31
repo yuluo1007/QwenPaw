@@ -30,6 +30,13 @@
     "titleEverything": "Everything.",
     "sub": "10+ built-in channels, with more coming soon"
   },
+  "finalCta": {
+    "titleBefore": "Get your",
+    "titleEmphasis": "paws up now",
+    "titleAfter": ",",
+    "titleLine2": "power your dev life.",
+    "downloadFromGithub": "Download from GitHub"
+  },
   "whyCopaw": {
     "headingPrefix": "Why",
     "headingEmphasis": "CoPaw?",

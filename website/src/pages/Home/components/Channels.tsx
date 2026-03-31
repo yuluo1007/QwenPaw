@@ -111,7 +111,8 @@ function ChannelPill({ iconSrc, name }: { iconSrc: string; name: string }) {
 }
 
 export function CopawChannels() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isZh = i18n.resolvedLanguage === "zh";
 
   return (
     <motion.section
@@ -132,9 +133,17 @@ export function CopawChannels() {
           <span className="inline-flex items-center whitespace-nowrap">
             <span className="mr-2">{t("channels.titleWe")}</span>
             <img
-              src="https://img.alicdn.com/imgextra/i1/O1CN01achIdX1jY4nMdPgQN_!!6000000004559-55-tps-41-26.svg"
+              src={
+                isZh
+                  ? "https://img.alicdn.com/imgextra/i1/O1CN0187d8Zq1U51Qw6WTtl_!!6000000002465-2-tps-4167-981.png"
+                  : "https://img.alicdn.com/imgextra/i1/O1CN01achIdX1jY4nMdPgQN_!!6000000004559-55-tps-41-26.svg"
+              }
               alt=""
-              className="mb-1.5 block h-5 w-auto shrink-0 pr-0 sm:mb-2 sm:h-6 sm:pr-0.5 md:mb-3 md:h-7 md:translate-y-[1px]"
+              className={`inline-block h-6 w-auto shrink-0 pr-0 sm:h-6 sm:pr-0.5 md:h-7 ${
+                isZh
+                  ? "mb-0 sm:mb-0 md:mb-0 md:translate-y-0"
+                  : "mb-1.5 sm:mb-2 md:mb-3 md:translate-y-[1px]"
+              }`}
               aria-hidden
             />
             <span>{t("channels.titleOperateWith")}</span>

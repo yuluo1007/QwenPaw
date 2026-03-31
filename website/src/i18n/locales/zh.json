@@ -11,8 +11,8 @@
     "agentscopeTeam": "AgentScope"
   },
   "hero": {
-    "titleleft": "你的",
-    "titleright": "AI个人助理，",
+    "titleleft": "欢迎使用你的",
+    "titleright": "专业AI助手",
     "slogan": "懂你所需，伴你左右",
     "sub": "安装极简、本地与云上均可部署；支持多端接入、能力轻松扩展。",
     "cta": "查看文档",
@@ -25,10 +25,17 @@
     "x": "X："
   },
   "channels": {
-    "titleWe": "我们",
-    "titleOperateWith": "operate",
-    "titleEverything": "于一切。",
+    "titleWe": "使用",
+    "titleOperateWith": "",
+    "titleEverything": "全域互联",
     "sub": "内置 10+ 个频道，更多即将上线"
+  },
+  "finalCta": {
+    "titleBefore": "欢迎使用",
+    "titleEmphasis": "Copaw",
+    "titleAfter": "，",
+    "titleLine2": "懂你所需，伴你左右",
+    "downloadFromGithub": "前往 GitHub 下载"
   },
   "whyCopaw": {
     "headingPrefix": "Why",
@@ -68,7 +75,7 @@
     }
   },
   "clientVoices": {
-    "title": "听听社区怎么说",
+    "title": "聆听来自我们社区的用户之声",
     "sub": "来自真实 CoPaw 用户的反馈",
     "items": {
       "t1": {
@@ -125,8 +132,8 @@
     "3": "想完全掌控的团队用着很顺手。"
   },
   "usecases": {
-    "title": "你可以用 CoPaw 做什么",
-    "sub": "记忆与个性化由你掌控。",
+    "title": "CoPaw可以为你做些什么",
+    "sub": "记忆配置与个性化设置，由你掌控。",
     "categories": {
       "social": {
         "title": "社交媒体",

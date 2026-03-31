@@ -74,7 +74,7 @@ export function CopawFinalCTA() {
               </a>
 
               <video
-                src="/copaw-logo2.mp4"
+                src="https://cloud.video.taobao.com/vod/xr9IOUDj4cHliHlhQ0bcd6jfG8_fY7ohNL85pSx-yEs.mp4"
                 autoPlay
                 loop
                 muted

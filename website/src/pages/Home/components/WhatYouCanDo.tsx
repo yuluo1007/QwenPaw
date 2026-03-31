@@ -178,7 +178,7 @@ export function CopawWhatYouCanDo() {
                         {active && (
                           <motion.img
                             layoutId="copaw-usecase-active-logo"
-                            src="/copaw-logo.svg"
+                            src="https://img.alicdn.com/imgextra/i4/O1CN01vcAthP1tSFv3dB8Bd_!!6000000005900-55-tps-29-29.svg"
                             alt=""
                             aria-hidden
                             className="h-6 w-6 object-contain md:h-7 md:w-7"

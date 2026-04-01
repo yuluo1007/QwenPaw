@@ -14,7 +14,8 @@
     "titleleft": "Your Personal",
     "titleright": "AI assistant,",
     "slogan": "Works for you, grows with you",
-    "sub": "CoPaw 1.0: Custom small LLMs, safety architecture, multi-agent collaboration, and memory management — all upgraded, all yours.",
+    "sub": "v1.0.0: CoPaw custom LLMs, safety architecture, multi-agent collaboration,",
+    "sub1": "and memory management — all upgraded, all yours.",
     "releaseNote": "CoPaw v1.0.0 is released",
     "cta": "Read the docs",
     "quickStart": "Quick Start"

@@ -59,7 +59,7 @@ export function CopawWorksForYou() {
           <motion.div variants={item}>
             <h2
               id="copaw-works-heading"
-              className="font-newsreader font-semibold text-[1.8rem] leading-[1.2] text-(--color-text) sm:text-[2rem] md:text-4xl"
+              className="font-newsreader font-semibold text-3xl leading-[1.2] text-(--color-text) sm:text-[2rem] md:text-4xl"
             >
               {t("worksForYou.title")}
             </h2>

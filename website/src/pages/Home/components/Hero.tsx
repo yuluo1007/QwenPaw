@@ -167,7 +167,7 @@ export function CopawHero() {
           </motion.div>
 
           <motion.div
-            className="relative mt-10 h-90 overflow-hidden md:mt-12 md:h-150"
+            className="relative mt-10 h-56 overflow-hidden sm:h-90 md:mt-12 md:h-150"
             variants={item}
           >
             <motion.img
@@ -182,7 +182,7 @@ export function CopawHero() {
               transition={{ duration: 1.15, ease: "easeOut" }}
             />
             <motion.div
-              className="relative z-10 h-full overflow-hidden p-4 pb-0 md:p-16 md:pb-0"
+              className="relative z-10 flex h-full flex-col justify-end overflow-hidden p-4 pb-0 md:p-16 md:pb-0"
               initial={{ opacity: 0, y: 56, scale: 0.95, filter: "blur(6px)" }}
               whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
               viewport={{ once: true, amount: 0.35 }}
@@ -195,7 +195,7 @@ export function CopawHero() {
               <motion.img
                 src="https://img.alicdn.com/imgextra/i1/O1CN01cIH6fF1g0h4zuKzOZ_!!6000000004080-2-tps-2270-1419.png"
                 alt="CoPaw console preview"
-                className="block h-full w-full rounded-t-2xl object-cover object-top shadow-[0px_6px_56px_0px_rgba(38,33,29,0.24)]"
+                className="block h-auto max-h-full w-full rounded-t-lg object-contain object-top shadow-[0px_6px_56px_0px_rgba(38,33,29,0.24)] md:h-full md:object-cover"
                 loading="lazy"
                 initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}

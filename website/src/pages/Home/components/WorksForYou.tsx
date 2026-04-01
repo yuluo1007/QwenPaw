@@ -26,6 +26,11 @@ const item = {
 
 const cards = [
   {
+    key: "apps",
+    icon: "/explore-apps.svg",
+    href: "",
+  },
+  {
     key: "skills",
     icon: "/support-skills.svg",
     href: "/docs/security",
@@ -34,11 +39,6 @@ const cards = [
     key: "control",
     icon: "/under-control.svg",
     href: "/docs/multi-agent",
-  },
-  {
-    key: "apps",
-    icon: "/explore-apps.svg",
-    href: "",
   },
 ] as const;
 

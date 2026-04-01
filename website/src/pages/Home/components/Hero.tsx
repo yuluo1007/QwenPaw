@@ -146,7 +146,7 @@ export function CopawHero() {
             </span>
           </motion.h1>
           <motion.p
-            className="font-inter mx-auto mt-3 max-w-2xl px-2 text-[14px] font-medium leading-[1.55] text-(--color-text-tertiary) sm:mt-4 sm:px-0 sm:text-[15px] md:mt-5 md:text-[16px]"
+            className="font-inter mx-auto mt-3 max-w-3xl px-2 text-[14px] font-medium leading-[1.55] text-(--color-text-tertiary) sm:mt-4 sm:px-0 sm:text-[15px] md:mt-5 md:text-[16px]"
             variants={item}
           >
             {t("hero.sub")}
@@ -195,7 +195,7 @@ export function CopawHero() {
               <motion.img
                 src="https://img.alicdn.com/imgextra/i1/O1CN01cIH6fF1g0h4zuKzOZ_!!6000000004080-2-tps-2270-1419.png"
                 alt="CoPaw console preview"
-                className="block h-auto max-h-full w-full rounded-t-lg object-contain object-top shadow-[0px_6px_56px_0px_rgba(38,33,29,0.24)] md:h-full md:object-cover"
+                className="block h-auto max-h-full w-full rounded-t-[8px] object-contain object-top md:shadow-[0px_6px_56px_0px_rgba(38,33,29,0.24)] md:h-full md:object-cover"
                 loading="lazy"
                 initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}

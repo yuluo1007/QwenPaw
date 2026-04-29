@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Maximize2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export interface DemoVideoItem {
@@ -20,8 +19,11 @@ const EN_DEMO_VIDEO_URLS = [
 ] as const;
 export function FeatureDemoGallery({ videos }: FeatureDemoGalleryProps) {
   const { t, i18n } = useTranslation();
+  const textDocHref = "/docs/functiondemo";
   const localizedDefaultUrls =
-    i18n.resolvedLanguage === "zh" ? DEFAULT_DEMO_VIDEO_URLS : EN_DEMO_VIDEO_URLS;
+    i18n.resolvedLanguage === "zh"
+      ? DEFAULT_DEMO_VIDEO_URLS
+      : EN_DEMO_VIDEO_URLS;
   const videoUrls = videos ?? localizedDefaultUrls;
   const demoVideos = useMemo<DemoVideoItem[]>(
     () =>
@@ -40,11 +42,6 @@ export function FeatureDemoGallery({ videos }: FeatureDemoGalleryProps) {
     () => demoVideos.find((item) => item.id === activeVideoId) ?? demoVideos[0],
     [activeVideoId, demoVideos],
   );
-
-  const handleFullscreen = () => {
-    if (!videoRef.current) return;
-    void videoRef.current.requestFullscreen?.();
-  };
 
   const handleSwitchVideo = (nextVideoId: string) => {
     if (nextVideoId === activeVideoId) return;
@@ -105,14 +102,14 @@ export function FeatureDemoGallery({ videos }: FeatureDemoGalleryProps) {
             <h3 className="m-0 text-base font-semibold md:text-lg">
               {activeVideo.title}
             </h3>
-            <button
-              type="button"
-              onClick={handleFullscreen}
-              className="inline-flex items-center gap-1 rounded-md border border-border px-3 py-1.5 text-sm text-(--color-text) hover:bg-(--bg)"
+            <a
+              href={textDocHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center rounded-md border border-border px-3 py-2 text-sm text-(--color-text) !no-underline hover:bg-(--bg) hover:!no-underline"
             >
-              <Maximize2 size={14} aria-hidden />
-              {t("docs.fullscreen")}
-            </button>
+              {t("docs.textVersion")}
+            </a>
           </div>
           <video
             key={`${i18n.resolvedLanguage}-${activeVideo.id}`}

@@ -624,7 +624,6 @@ export default function Docs() {
                   {activeSlug === "functiondemo" && (
                     <>
                       <h1>{t("docs.demoTitle")}</h1>
-                      <p>{t("docs.demoDesc")}</p>
                       <FeatureDemoGallery />
                     </>
                   )}

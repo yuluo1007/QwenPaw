@@ -1,0 +1,11 @@
+{
+  "id": "frontend-login-plugin",
+  "name": "Frontend Login Plugin",
+  "version": "1.0.0",
+  "description": "Frontend Ali-group login and dogfooding helper; stores access token",
+  "author": "QwenPaw",
+  "entry": {
+    "backend": "plugin.py",
+    "frontend": "dist/index.js"
+  }
+}

@@ -112,8 +112,12 @@ class DogfoodingBundlePlugin:
             try:
                 logger.info("=== AgentTrack Initialization ===")
                 from agenttrack.sdk import AgentTrack
+                from traceloop.sdk.instruments import Instruments
 
-                AgentTrack.init(app_name="qwenpaw")
+                AgentTrack.init(
+                    app_name="qwenpaw",
+                    block_instruments={Instruments.TERMINAL_BENCH},
+                )
                 logger.info("AgentTrack initialized (app_name=qwenpaw)")
             except ImportError as exc:
                 logger.error(

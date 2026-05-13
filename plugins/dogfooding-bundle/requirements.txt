@@ -1,0 +1,3 @@
+--index-url https://artlab.alibaba-inc.com/1/pypi/simple
+agenttrack-sdk[agentscope]==0.9.4
+harbor

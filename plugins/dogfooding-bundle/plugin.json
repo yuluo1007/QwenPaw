@@ -1,0 +1,18 @@
+{
+  "id": "dogfooding-bundle",
+  "name": "Dogfooding Bundle",
+  "version": "1.0.0",
+  "type": "bundle",
+  "description": "Internal org bundle: AgentScope provider, AgentTrack hook, and /feedback command",
+  "author": "QwenPaw Team",
+  "entry": {
+    "backend": "plugin.py"
+  },
+  "dependencies": [],
+  "min_version": "1.1.7",
+  "meta": {
+    "provider_id": "agentscope-dogfooding",
+    "chat_model": "OpenAIChatModel",
+    "require_api_key": true
+  }
+}

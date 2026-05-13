@@ -7,17 +7,30 @@ Internal org bundle that registers three capabilities in one shot:
    - OpenAI-compatible LLM via https://proxy.agentscope.design/v1
 2. AgentTrack startup hook
    - Initialises AgentTrack SDK (app_name="qwenpaw") on startup
+   - Registers a SpanProcessor that stamps emp_id on every span,
+     and overrides agentscope run_id for correct conversation.id
 3. /feedback command
    - Query-rewrite hook that turns /feedback into an agent prompt
 """
 
 import logging
+from contextvars import ContextVar
 
 from qwenpaw.plugins.api import PluginApi
 from qwenpaw.providers.openai_provider import OpenAIProvider
 from qwenpaw.providers.provider import ModelInfo
 
 logger = logging.getLogger(__name__)
+
+# Per-request user identity for EvaPlus "用户ID" field
+_trace_user_id: ContextVar[str] = ContextVar(
+    "bundle_trace_user_id",
+    default="",
+)
+
+# EvaPlus span attribute names
+_EMP_ID_ATTR = "alibaba.base.emp_id"
+_CONV_ID_ATTR = "gen_ai.conversation.id"
 
 # ── AgentScope provider constants ────────────────────────────────────────
 _BASE_URL = "https://proxy.agentscope.design/v1"
@@ -95,7 +108,7 @@ class DogfoodingBundlePlugin:
         """
 
         def startup_hook():
-            """Initialise AgentTrack at application startup."""
+            """Initialise AgentTrack and register span processor."""
             try:
                 logger.info("=== AgentTrack Initialization ===")
                 from agenttrack.sdk import AgentTrack
@@ -108,11 +121,15 @@ class DogfoodingBundlePlugin:
                     "Please ensure agenttrack-sdk is installed.",
                     exc_info=True,
                 )
+                return
             except Exception as exc:
                 logger.error(
                     f"Failed to initialize AgentTrack: {exc}",
                     exc_info=True,
                 )
+                return
+
+            _register_span_processor()
 
         api.register_startup_hook(
             hook_name="agenttrack_init",
@@ -137,7 +154,7 @@ class DogfoodingBundlePlugin:
         logger.info("/feedback query-rewrite hook registered")
 
     def _patch_query_handler(self):
-        """Monkey-patch AgentRunner to rewrite /feedback queries."""
+        """Monkey-patch AgentRunner: inject trace attrs, rewrite /feedback."""
         from qwenpaw.app.runner.runner import AgentRunner
 
         # pylint: disable-next=relative-beyond-top-level
@@ -146,7 +163,34 @@ class DogfoodingBundlePlugin:
         original_query_handler = AgentRunner.query_handler
 
         async def patched_query_handler(self, msgs, request=None, **kwargs):
-            """Patched query handler that rewrites /feedback commands."""
+            """Query handler: stamps trace context, rewrites /feedback."""
+            session_id = getattr(request, "session_id", "") or ""
+            user_id = getattr(request, "user_id", "") or ""
+
+            # Store user_id in ContextVar for the SpanProcessor.
+            _trace_user_id.set(user_id)
+
+            logger.info(
+                f"Trace context: " f"session={session_id!r} user={user_id!r}",
+            )
+
+            # Stamp the root span (created before this handler ran) with
+            # gen_ai.conversation.id and alibaba.base.emp_id.
+            _stamp_current_span(session_id, user_id)
+
+            # Override agentscope run_id so every LLM span's
+            # gen_ai.conversation.id equals the QwenPaw session_id.
+            # _config.run_id is a ContextVar → asyncio-safe per request.
+            if session_id:
+                try:
+                    from agentscope import _config as _as_config
+
+                    _as_config.run_id = session_id
+                except Exception as exc:
+                    logger.debug(
+                        f"Could not override agentscope run_id: {exc}",
+                    )
+
             if msgs:
                 last_msg = msgs[-1]
                 if hasattr(last_msg, "content"):
@@ -183,6 +227,108 @@ class DogfoodingBundlePlugin:
         AgentRunner.query_handler = patched_query_handler
         logger.info(
             "Patched AgentRunner.query_handler for /feedback command",
+        )
+
+
+# ── SpanProcessor ─────────────────────────────────────────────────────────
+# Stamps alibaba.base.emp_id (EvaPlus 用户ID) on every new OTel span
+# created after patched_query_handler sets _trace_user_id.
+
+
+class _BundleSpanProcessor:
+    """SpanProcessor that stamps alibaba.base.emp_id on every span.
+
+    Reads from the module-level _trace_user_id ContextVar which is set
+    at the start of each request.  This covers all spans created inside
+    the request, including agentscope LLM / agent / tool spans.
+    """
+
+    def on_start(
+        self,
+        span,
+        parent_context=None,
+    ):  # pylint: disable=unused-argument
+        """Inject emp_id when a span starts.
+
+        Args:
+            span: The span being started.
+            parent_context: Parent OTel context (unused here).
+        """
+        if not span.is_recording():
+            return
+        uid = _trace_user_id.get()
+        if uid:
+            span.set_attribute(_EMP_ID_ATTR, uid)
+
+    def on_end(self, span):
+        """No-op."""
+
+    def _on_ending(self, span):
+        """No-op (required by OTel SDK >= 0.62)."""
+
+    def shutdown(self):
+        """No-op."""
+
+    def force_flush(
+        self,
+        timeout_millis=30000,
+    ):  # pylint: disable=unused-argument
+        """No-op flush; always succeeds.
+
+        Args:
+            timeout_millis: Ignored.
+
+        Returns:
+            True
+        """
+        return True
+
+
+def _stamp_current_span(session_id: str, user_id: str) -> None:
+    """Stamp gen_ai.conversation.id and alibaba.base.emp_id on the active span.
+
+    The root HTTP / FastAPI span is created before patched_query_handler
+    runs, so the SpanProcessor misses it.  This function patches that
+    span directly after the request context is known.
+
+    Args:
+        session_id: Session identifier from the current request.
+        user_id: User emp_id from the current request.
+    """
+    try:
+        from opentelemetry import trace as _otel_trace
+
+        span = _otel_trace.get_current_span()
+        if not span.is_recording():
+            return
+        if session_id:
+            span.set_attribute(_CONV_ID_ATTR, session_id)
+        if user_id:
+            span.set_attribute(_EMP_ID_ATTR, user_id)
+    except Exception as exc:
+        logger.debug(f"Could not stamp current span: {exc}")
+
+
+def _register_span_processor() -> None:
+    """Add _BundleSpanProcessor to the live TracerProvider.
+
+    Must be called after AgentTrack.init() so the SDK TracerProvider
+    has been installed as the global provider.
+    """
+    from opentelemetry import trace as _otel_trace
+    from opentelemetry.sdk.trace import (
+        TracerProvider as _SDKTracerProvider,
+    )
+
+    provider = _otel_trace.get_tracer_provider()
+    if isinstance(provider, _SDKTracerProvider):
+        provider.add_span_processor(_BundleSpanProcessor())
+        logger.info("Bundle SpanProcessor registered")
+    else:
+        logger.warning(
+            f"TracerProvider is {type(provider).__name__!r}; "
+            "cannot register SpanProcessor — "
+            "emp_id will not be stamped on spans",
         )
 
 

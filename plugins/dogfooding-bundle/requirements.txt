@@ -1,3 +1,6 @@
 --index-url https://artlab.alibaba-inc.com/1/pypi/simple
 agenttrack-sdk[agentscope]==0.9.4
 harbor
+# agenttrack-sdk 0.9.4 calls wrap_function_wrapper(module=...) which
+# requires wrapt<2.0; wrapt 2.x dropped that keyword argument form.
+wrapt<2.0.0

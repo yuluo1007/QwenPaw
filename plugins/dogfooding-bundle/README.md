@@ -43,7 +43,13 @@ Alibaba's internal PyPI:
 --index-url https://artlab.alibaba-inc.com/1/pypi/simple
 agenttrack-sdk[agentscope]==0.9.4
 harbor
+wrapt<2.0.0
 ```
+
+> **Why `wrapt<2.0.0`?**
+> `agenttrack-sdk 0.9.4` calls `wrap_function_wrapper(module=..., name=..., wrapper=...)` using
+> keyword arguments, but `wrapt 2.x` changed that parameter to positional-only, breaking all
+> AgentScope / OpenAI instrumentation. Pinning to `wrapt<2.0.0` (i.e. 1.17.x) restores it.
 
 ## Usage
 

@@ -42,7 +42,13 @@ qwenpaw plugin uninstall dogfooding-bundle
 --index-url https://artlab.alibaba-inc.com/1/pypi/simple
 agenttrack-sdk[agentscope]==0.9.4
 harbor
+wrapt<2.0.0
 ```
+
+> **为什么需要 `wrapt<2.0.0`？**
+> `agenttrack-sdk 0.9.4` 内部调用 `wrap_function_wrapper(module=..., name=..., wrapper=...)` 关键字形式，
+> 而 `wrapt 2.x` 将该参数改为位置参数并移除了关键字支持，导致 AgentScope/OpenAI 埋点全部失效。
+> 固定到 `wrapt<2.0.0`（即 1.17.x）可恢复所有 instrumentation。
 
 ## 使用方法
 

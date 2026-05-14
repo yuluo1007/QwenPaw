@@ -19,7 +19,9 @@ console.info("[frontend-login-plugin] runtime detected");
 function resolveApiUrl(pathOrUrl: string): string {
   if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
   const normalized = pathOrUrl.startsWith("/") ? pathOrUrl : `/${pathOrUrl}`;
-  return typeof getApiUrl === "function" ? getApiUrl(normalized) : `/api${normalized}`;
+  return typeof getApiUrl === "function"
+    ? getApiUrl(normalized)
+    : `/api${normalized}`;
 }
 
 function getSavedEndpoint(key: string, fallbackPath: string): string {
@@ -47,7 +49,6 @@ async function postCredential(
 function FrontendLoginPage() {
   const [loading, setLoading] = React.useState(false);
   const [message, setMessage] = React.useState("");
-  const [token, setToken] = React.useState(localStorage.getItem(TOKEN_KEY) || "");
   const [endpointForm] = Form.useForm();
   const [authForm] = Form.useForm();
 
@@ -57,21 +58,21 @@ function FrontendLoginPage() {
     });
   }, [endpointForm]);
 
-  const saveEndpoints = (values: { loginUrl: string }) => {
-    localStorage.setItem(LOGIN_URL_KEY, values.loginUrl.trim());
-    setMessage("接口地址已保存");
-  };
-
-  const handleAuth = async (values: { username: string; password: string }) => {
-    const endpoint = (endpointForm.getFieldsValue() as { loginUrl: string }).loginUrl;
+  const handleAuth = async (values: { name: string; empId: string }) => {
+    const endpoint = (endpointForm.getFieldsValue() as { loginUrl: string })
+      .loginUrl;
     setLoading(true);
     setMessage("");
     try {
-      const result = await postCredential(endpoint, values.username.trim(), values.password);
-      const nextToken = result.accessToken || result.access_token || result.token || "";
+      const result = await postCredential(
+        endpoint,
+        values.name.trim(),
+        values.empId.trim(),
+      );
+      const nextToken =
+        result.accessToken || result.access_token || result.token || "";
       if (!nextToken) throw new Error("响应中未返回 accessToken/token");
       localStorage.setItem(TOKEN_KEY, nextToken);
-      setToken(nextToken);
       setMessage("登录成功并已保存 accessToken");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "请求失败");
@@ -85,64 +86,77 @@ function FrontendLoginPage() {
       <Card>
         <h3 style={{ marginTop: 0, marginBottom: 12 }}>阿里集团账号登录</h3>
 
-        <Form
-          form={endpointForm}
-          layout="vertical"
-          onFinish={saveEndpoints}
-          style={{ marginBottom: 12 }}
-        >
-          <Form.Item
-            name="loginUrl"
-            label="登录接口"
-            rules={[{ required: true, message: "请输入登录接口地址" }]}
-          >
-            <Input placeholder="/auth/login 或 https://example.com/login" />
-          </Form.Item>
-          <Button htmlType="submit">保存接口地址</Button>
-        </Form>
-
         <Form form={authForm} layout="vertical" onFinish={handleAuth}>
+          <Space>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              登录
+            </Button>
+          </Space>
           <Form.Item
-            name="username"
+            name="name"
             label="用户名"
             rules={[{ required: true, message: "请输入用户名" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="password"
-            label="密码"
-            rules={[{ required: true, message: "请输入密码" }]}
+            name="empId"
+            label="工号"
+            rules={[{ required: true, message: "请输入工号" }]}
           >
             <Input.Password />
           </Form.Item>
-          <Space>
-            <Button type="primary" htmlType="submit" loading={loading}>
-              登录
-            </Button>
-            <Button
-              danger
-              onClick={() => {
-                localStorage.removeItem(TOKEN_KEY);
-                setToken("");
-                setMessage("已清除 accessToken");
-              }}
-            >
-              退出登录
-            </Button>
-          </Space>
         </Form>
 
         <div style={{ marginTop: 12 }}>
-          <AntText strong>Join dogfooding plan / 加入dogfooding计划</AntText>
+          <AntText strong>Join dogfooding plan</AntText>
           <div style={{ marginTop: 8 }}>
             <Button
               onClick={async () => {
+                setMessage("");
                 try {
-                  await navigator.clipboard.writeText(DOGFOODING_INSTALL_COMMAND);
-                  setMessage(`已复制安装命令，请在终端执行: ${DOGFOODING_INSTALL_COMMAND}`);
-                } catch {
-                  setMessage(`请手动在终端执行: ${DOGFOODING_INSTALL_COMMAND}`);
+                  const token =
+                    typeof qwenpaw.host.getApiToken === "function"
+                      ? qwenpaw.host.getApiToken()
+                      : "";
+                  const headers: Record<string, string> = {
+                    "Content-Type": "application/json",
+                  };
+                  if (token) headers.Authorization = `Bearer ${token}`;
+                  const url = resolveApiUrl(
+                    "/plugins/frontend-login-plugin/dogfooding/run",
+                  );
+                  let lastStatus = 0;
+                  let lastText = "";
+                  for (let attempt = 0; attempt < 6; attempt++) {
+                    const res = await fetch(url, { method: "POST", headers });
+                    if (res.ok) {
+                      setMessage(
+                        "已在系统终端中启动安装命令。若未出现终端窗口，请确认已安装 Terminal（macOS）或可用的图形终端（Linux）。",
+                      );
+                      return;
+                    }
+                    lastStatus = res.status;
+                    lastText = await res.text().catch(() => "");
+                    if (res.status === 404 && attempt < 5) {
+                      await new Promise((r) => setTimeout(r, 600));
+                      continue;
+                    }
+                    break;
+                  }
+                  throw new Error(
+                    lastText ||
+                      (lastStatus === 404
+                        ? "接口未就绪（404）：请确认已重启 qwenpaw app，且 frontend-login-plugin 已 npm run build。"
+                        : `HTTP ${lastStatus}`),
+                  );
+                } catch (error) {
+                  setMessage(
+                    error instanceof Error
+                      ? error.message
+                      : "无法通过本机接口启动终端，请手动执行: " +
+                          DOGFOODING_INSTALL_COMMAND,
+                  );
                 }
               }}
             >
@@ -154,17 +168,16 @@ function FrontendLoginPage() {
         {message ? (
           <Alert
             style={{ marginTop: 12 }}
-            type={message.includes("成功") || message.includes("复制") ? "success" : "error"}
+            type={
+              message.includes("成功") ||
+              message.includes("终端") ||
+              message.includes("已保存")
+                ? "success"
+                : "error"
+            }
             message={message}
           />
         ) : null}
-
-        <div style={{ marginTop: 12 }}>
-          <AntText strong>当前 accessToken：</AntText>
-          <Paragraph copyable={{ text: token }} style={{ marginBottom: 0 }}>
-            {token || "(空)"}
-          </Paragraph>
-        </div>
       </Card>
     </div>
   );
@@ -180,10 +193,10 @@ class FrontendLoginPlugin {
     }
     (window as any).QwenPaw.registerRoutes?.(this.id, [
       {
-        path: "/plugin/login",
+        path: "/join-dogfooding",
         component: FrontendLoginPage,
-        label: "登录",
-        icon: <LoginOutlined  size={18} />,
+        label: "Join dogfooding plan",
+        icon: <LoginOutlined size={14} />,
         priority: 1,
       },
     ]);

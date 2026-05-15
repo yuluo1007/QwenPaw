@@ -6,7 +6,8 @@
   "description": "Internal org bundle: AgentScope provider, AgentTrack hook, /feedback command, and dogfooding account API",
   "author": "QwenPaw Team",
   "entry": {
-    "backend": "plugin.py"
+    "backend": "plugin.py",
+    "frontend": "web/index.js"
   },
   "dependencies": [],
   "min_version": "1.1.7",
